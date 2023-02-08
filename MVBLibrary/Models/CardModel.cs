@@ -15,10 +15,9 @@ namespace DataAccessLibrary.Models
 
         [JsonProperty(PropertyName = "name")]
         public string Name { get; set; }
-        public string Edition { get; set; }
 
         [JsonProperty(PropertyName = "uuid")]
-        public string MtgjsonId { get; set; }
+        public string MtgJsonId { get; set; }
         public string ScryfallId { get; set; }
         public string MtgJsonCode { get; set; }
 

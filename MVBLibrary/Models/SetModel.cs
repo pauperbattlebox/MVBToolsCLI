@@ -11,7 +11,7 @@ namespace DataAccessLibrary.Models
         public int Id { get; set; }
         public int CsId { get; set; }
         public string CsName { get; set; }
-        public string MtgjsonCode { get; set; }
+        public string MtgJsonCode { get; set; }
 
     }
 }

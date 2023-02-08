@@ -30,7 +30,7 @@ namespace DataAccessLibrary
 
             SetCardsModel output = new SetCardsModel();
 
-            output.Sets = db.LoadData<SetModel, dynamic>(sql, new { Id = id }, _connectionString).FirstOrDefault();
+            output.Set = db.LoadData<SetModel, dynamic>(sql, new { Id = id }, _connectionString).FirstOrDefault();
 
             sql = @"select c.*
                     from dbo.Cards c
@@ -46,7 +46,7 @@ namespace DataAccessLibrary
         {
             string sql = "insert into dbo.Sets (CsId, CsName, MtgjsonCode, CreatedOn) values (@CsId, @CsName, @MtgjsonCode, @Createdon);";
             db.SaveData(sql,
-                new { set.CsId, set.CsName, set.MtgjsonCode },
+                new { set.CsId, set.CsName, set.MtgJsonCode },
                 _connectionString);
 
             Console.WriteLine($"{set.CsName} added!");

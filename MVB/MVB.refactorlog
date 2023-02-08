@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Operations Version="1.0" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
+  <Operation Name="Rename Refactor" Key="846198e6-2b4d-480c-96ac-90e078dbca60" ChangeDateTime="02/08/2023 03:32:51">
+    <Property Name="ElementName" Value="[dbo].[Set].[Scryfallid]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Set]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="ScryfallId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="3f9764cb-e60a-4277-926d-099c45d7f9c9" ChangeDateTime="02/08/2023 03:34:03">
+    <Property Name="ElementName" Value="[dbo].[Set].[Name]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Set]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="CsName" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="9c2824b4-c3ab-463e-ae9e-7b9ae2b8513a" ChangeDateTime="02/08/2023 03:34:22">
+    <Property Name="ElementName" Value="[dbo].[Set].[Mtg]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Set]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="MtgJsonCode" />
+  </Operation>
+</Operations>
