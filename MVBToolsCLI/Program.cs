@@ -2,6 +2,8 @@
 using System;
 using DataAccessLibrary;
 using DataAccessLibrary.Models;
+using MVBToolsLibrary;
+using Newtonsoft.Json.Linq;
 
 namespace MVBToolsCLI
 {
@@ -11,28 +13,22 @@ namespace MVBToolsCLI
         {
 
             SqlCrud sqlConnection = new SqlCrud(GetConnectionString());
-
-            //ReadAllSets(sqlConnection);
-
-            //ReadSet(sqlConnection, 1);
-
             
-
-            //AddSet(sqlConnection);
+            JsonOperations();
 
             Console.ReadLine();
         }
 
         private static void AddSet(SqlCrud sql)
         {
-            SetModel setsModel = new SetModel()
+            SetModel setModel = new SetModel()
             {
                 CsId = 759,
                 CsName = "7th Edition",
                 MtgjsonCode = "7ED"
             };
 
-            sql.CreateSet(setsModel);
+            sql.CreateSet(setModel);
         }
 
         private static void ReadAllSets(SqlCrud sql)
@@ -50,7 +46,7 @@ namespace MVBToolsCLI
             var set = sql.GetSetsAndCardsInSet(setId);
 
             
-            Console.WriteLine($"{set.Sets.Id} - {set.Sets.CsName}");
+            Console.WriteLine($"{set.Set.Id} - {set.Set.CsName}");
 
             foreach (var card in set.Cards)
             {
@@ -73,6 +69,31 @@ namespace MVBToolsCLI
 
             return output;
         }
-     
+
+        private static void JsonOperations()
+        {
+            JsonObj jsonObj = new JsonObj("yolo");
+            string json = jsonObj.GetJson("https://www.multiversebridge.com/api/v1/cards/search?name=leyline&edition=Gatecrash&collector_number=41&mtgjson_code=GTC");
+
+            Console.WriteLine(json);
+
+            //Console.Write("Card to find: ");
+            //string cardToFind = Console.ReadLine();
+
+            //Console.Write("Set to search: ");
+            //string setToSearch = Console.ReadLine();
+
+            //JsonObj jsonObj = new JsonObj($@"C:\Users\gunho\Desktop\programming\mvb-auto\json\{setToSearch}.json");
+
+            //JToken jToken = jsonObj.ReadJsonFromFile(jsonObj);
+
+            //List<CardModel> modelList = jsonObj.MatchByName(jToken, cardToFind);
+
+            //foreach (CardModel model in modelList)
+            //{
+            //    Console.WriteLine($"{model.Name}, {model.MtgjsonId}");
+            //}
+        }
+
     }
 }

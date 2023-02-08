@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MVBLibrary\DataAccessLibrary.csproj" />
+    <ProjectReference Include="..\MVBToolsLibrary\MVBToolsLibrary.csproj" />
   </ItemGroup>
 
   <ItemGroup>

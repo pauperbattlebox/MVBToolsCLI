@@ -35,3 +35,6 @@ C:\Users\gunho\Desktop\programming\DatabaseUI\MVBToolsCLI\bin\Debug\net6.0\runti
 C:\Users\gunho\Desktop\programming\DatabaseUI\MVBToolsCLI\bin\Debug\net6.0\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
 C:\Users\gunho\Desktop\programming\DatabaseUI\MVBToolsCLI\bin\Debug\net6.0\DataAccessLibrary.dll
 C:\Users\gunho\Desktop\programming\DatabaseUI\MVBToolsCLI\bin\Debug\net6.0\DataAccessLibrary.pdb
+C:\Users\gunho\Desktop\programming\DatabaseUI\MVBToolsCLI\bin\Debug\net6.0\Newtonsoft.Json.dll
+C:\Users\gunho\Desktop\programming\DatabaseUI\MVBToolsCLI\bin\Debug\net6.0\MVBToolsLibrary.dll
+C:\Users\gunho\Desktop\programming\DatabaseUI\MVBToolsCLI\bin\Debug\net6.0\MVBToolsLibrary.pdb

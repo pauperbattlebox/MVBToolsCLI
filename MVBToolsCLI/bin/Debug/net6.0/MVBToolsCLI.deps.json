@@ -9,6 +9,7 @@
       "MVBToolsCLI/1.0.0": {
         "dependencies": {
           "DataAccessLibrary": "1.0.0",
+          "MVBToolsLibrary": "1.0.0",
           "Microsoft.Extensions.Configuration.Json": "7.0.0"
         },
         "runtime": {
@@ -126,6 +127,14 @@
           "System.Security.Principal.Windows": "4.7.0"
         }
       },
+      "Newtonsoft.Json/13.0.2": {
+        "runtime": {
+          "lib/net6.0/Newtonsoft.Json.dll": {
+            "assemblyVersion": "13.0.0.0",
+            "fileVersion": "13.0.2.27524"
+          }
+        }
+      },
       "runtime.native.System.Data.SqlClient.sni/4.7.0": {
         "dependencies": {
           "runtime.win-arm64.runtime.native.System.Data.SqlClient.sni": "4.4.0",
@@ -229,10 +238,20 @@
       "DataAccessLibrary/1.0.0": {
         "dependencies": {
           "Dapper": "2.0.123",
+          "Newtonsoft.Json": "13.0.2",
           "System.Data.SqlClient": "4.8.5"
         },
         "runtime": {
           "DataAccessLibrary.dll": {}
+        }
+      },
+      "MVBToolsLibrary/1.0.0": {
+        "dependencies": {
+          "DataAccessLibrary": "1.0.0",
+          "Newtonsoft.Json": "13.0.2"
+        },
+        "runtime": {
+          "MVBToolsLibrary.dll": {}
         }
       }
     }
@@ -320,6 +339,13 @@
       "path": "microsoft.win32.registry/4.7.0",
       "hashPath": "microsoft.win32.registry.4.7.0.nupkg.sha512"
     },
+    "Newtonsoft.Json/13.0.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-R2pZ3B0UjeyHShm9vG+Tu0EBb2lC8b0dFzV9gVn50ofHXh9Smjk6kTn7A/FdAsC8B5cKib1OnGYOXxRBz5XQDg==",
+      "path": "newtonsoft.json/13.0.2",
+      "hashPath": "newtonsoft.json.13.0.2.nupkg.sha512"
+    },
     "runtime.native.System.Data.SqlClient.sni/4.7.0": {
       "type": "package",
       "serviceable": true,
@@ -391,6 +417,11 @@
       "hashPath": "system.text.json.7.0.0.nupkg.sha512"
     },
     "DataAccessLibrary/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "MVBToolsLibrary/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
