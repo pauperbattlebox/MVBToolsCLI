@@ -8,7 +8,7 @@ namespace DataAccessLibrary.Models
 {
     public class SetCardsModel
     {
-        public SetsModel Sets { get; set; }
-        public List<CardsModel> Cards { get; set; } = new List<CardsModel>();
+        public SetModel Sets { get; set; }
+        public List<CardModel> Cards { get; set; } = new List<CardModel>();
     }
 }

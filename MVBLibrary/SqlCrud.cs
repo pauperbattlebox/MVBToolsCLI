@@ -17,11 +17,11 @@ namespace DataAccessLibrary
             _connectionString = connectionString;
         }
 
-        public List<SetsModel> GetAllSets()
+        public List<SetModel> GetAllSets()
         {
             string sql = "select * from dbo.Sets;";
 
-            return db.LoadData<SetsModel, dynamic>(sql, new  { }, _connectionString);
+            return db.LoadData<SetModel, dynamic>(sql, new  { }, _connectionString);
         }
 
         public SetCardsModel GetSetsAndCardsInSet(int id)
@@ -30,23 +30,23 @@ namespace DataAccessLibrary
 
             SetCardsModel output = new SetCardsModel();
 
-            output.Sets = db.LoadData<SetsModel, dynamic>(sql, new { Id = id }, _connectionString).FirstOrDefault();
+            output.Sets = db.LoadData<SetModel, dynamic>(sql, new { Id = id }, _connectionString).FirstOrDefault();
 
             sql = @"select c.*
                     from dbo.Cards c
                     inner join dbo.CardsSets cs on cs.CardId = c.Id
                     where cs.SetId = @Id;";
 
-            output.Cards = db.LoadData<CardsModel, dynamic>(sql, new { Id = id }, _connectionString);
+            output.Cards = db.LoadData<CardModel, dynamic>(sql, new { Id = id }, _connectionString);
 
             return output;
         }
 
-        public void CreateSet(SetsModel set)
+        public void CreateSet(SetModel set)
         {
             string sql = "insert into dbo.Sets (CsId, CsName, MtgjsonCode, CreatedOn) values (@CsId, @CsName, @MtgjsonCode, @Createdon);";
             db.SaveData(sql,
-                new { set.CsId, set.CsName, set.MtgjsonCode, set.CreatedOn },
+                new { set.CsId, set.CsName, set.MtgjsonCode },
                 _connectionString);
 
             Console.WriteLine($"{set.CsName} added!");

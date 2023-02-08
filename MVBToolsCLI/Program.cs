@@ -18,19 +18,18 @@ namespace MVBToolsCLI
 
             
 
-            AddSet(sqlConnection);
+            //AddSet(sqlConnection);
 
             Console.ReadLine();
         }
 
         private static void AddSet(SqlCrud sql)
         {
-            SetsModel setsModel = new SetsModel()
+            SetModel setsModel = new SetModel()
             {
                 CsId = 759,
                 CsName = "7th Edition",
-                MtgjsonCode = "7ED",
-                CreatedOn = DateTime.Now
+                MtgjsonCode = "7ED"
             };
 
             sql.CreateSet(setsModel);

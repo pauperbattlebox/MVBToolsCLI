@@ -7,13 +7,12 @@ using System.Threading.Tasks;
 
 namespace DataAccessLibrary.Models
 {
-    public class CardsModel
+    public class CardModel
     {
         public int Id { get; set; }
         public int CsId { get; set; }
         public string Name { get; set; }
-        public string Edition { get; set; }
-        public bool IsFoil { get; set; }
+        public string Edition { get; set; }        
         public string MtgjsonId { get; set; }
         public string ScryfallId { get; set; }
         public string MtgJsonCode { get; set; }

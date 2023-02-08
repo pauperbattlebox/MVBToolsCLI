@@ -9,7 +9,9 @@ namespace DataAccessLibrary.Models
     public class PricesModel
     {
         public int Id { get; set; }
-        public float Price { get; set; }
-        public DateTime UpdatedAt { get; set; }
+        public int CsId { get; set; }
+        public float CsPrice { get; set; }
+        public float ScryfallPrice { get; set; }
+        public float CardKingdomPrice { get; set; }        
     }
 }
