@@ -25,7 +25,7 @@ namespace MVBToolsCLI
             {
                 CsId = 759,
                 CsName = "7th Edition",
-                MtgjsonCode = "7ED"
+                MtgJsonCode = "7ED"
             };
 
             sql.CreateSet(setModel);
@@ -37,7 +37,7 @@ namespace MVBToolsCLI
 
             foreach (var row in rows)
             {
-                Console.WriteLine($"{row.CsName} - {row.MtgjsonCode}"); 
+                Console.WriteLine($"{row.CsName} - {row.MtgJsonCode}"); 
             }
         }
 
@@ -50,7 +50,7 @@ namespace MVBToolsCLI
 
             foreach (var card in set.Cards)
             {
-                Console.WriteLine($"{card.Name} - {card.Edition}");
+                Console.WriteLine($"{card.Name}");
             }
 
         }
