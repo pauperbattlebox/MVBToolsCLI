@@ -1,7 +1,0 @@
-﻿CREATE TABLE [dbo].[Set]
-(
-	[Id] INT NOT NULL PRIMARY KEY IDENTITY, 
-    [CsId] INT NOT NULL, 
-    [CsName] VARCHAR(100) NOT NULL, 
-    [MtgJsonCode] VARCHAR(10) NOT NULL 
-)

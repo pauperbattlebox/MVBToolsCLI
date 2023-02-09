@@ -68,6 +68,6 @@
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\Prices.sql" />
-    <Build Include="dbo\Tables\Set.sql" />
+    <Build Include="dbo\Tables\Edition.sql" />
   </ItemGroup>
 </Project>

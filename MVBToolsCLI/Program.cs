@@ -11,29 +11,37 @@ namespace MVBToolsCLI
     {
         static void Main(string[] args)
         {
+            GetEditionFromAPI(965);
 
-            SqlCrud sqlConnection = new SqlCrud(GetConnectionString());
-            
-            JsonOperations();
+            SqlCrud sqlConnection = new SqlCrud(GetConnectionString());            
+
+            Console.WriteLine("That's the end");
 
             Console.ReadLine();
         }
-
-        private static void AddSet(SqlCrud sql)
+        private static void GetEditionFromAPI(int editionId)
         {
-            SetModel setModel = new SetModel()
+            MvbEndpoint endpoint= new MvbEndpoint();
+            
+
+            Console.WriteLine(endpoint.EditionById(editionId));
+        }
+
+        private static void AddEdition(SqlCrud sql)
+        {
+            EditionModel editionModel = new EditionModel()
             {
                 CsId = 759,
                 CsName = "7th Edition",
                 MtgJsonCode = "7ED"
             };
 
-            sql.CreateSet(setModel);
+            sql.CreateSet(editionModel);
         }
 
-        private static void ReadAllSets(SqlCrud sql)
+        private static void ReadAllEditions(SqlCrud sql)
         {
-            var rows = sql.GetAllSets();
+            var rows = sql.GetAllEditions();
 
             foreach (var row in rows)
             {
@@ -41,14 +49,14 @@ namespace MVBToolsCLI
             }
         }
 
-        private static void ReadSet(SqlCrud sql, int setId)
+        private static void ReadSet(SqlCrud sql, int editionId)
         {
-            var set = sql.GetSetsAndCardsInSet(setId);
+            var edition = sql.GetSetsAndCardsInSet(editionId);
 
             
-            Console.WriteLine($"{set.Set.Id} - {set.Set.CsName}");
+            Console.WriteLine($"{edition.Edition.Id} - {edition.Edition.CsName}");
 
-            foreach (var card in set.Cards)
+            foreach (var card in edition.Cards)
             {
                 Console.WriteLine($"{card.Name}");
             }

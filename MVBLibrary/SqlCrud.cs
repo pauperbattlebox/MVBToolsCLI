@@ -17,23 +17,23 @@ namespace DataAccessLibrary
             _connectionString = connectionString;
         }
 
-        public List<SetModel> GetAllSets()
+        public List<EditionModel> GetAllEditions()
         {
-            string sql = "select * from dbo.Sets;";
+            string sql = "select * from dbo.Edition;";
 
-            return db.LoadData<SetModel, dynamic>(sql, new  { }, _connectionString);
+            return db.LoadData<EditionModel, dynamic>(sql, new  { }, _connectionString);
         }
 
-        public SetCardsModel GetSetsAndCardsInSet(int id)
+        public EditionCardsModel GetSetsAndCardsInSet(int id)
         {
-            string sql = "select * from dbo.Sets where Id = @Id;";
+            string sql = "select * from dbo.Edition where Id = @Id;";
 
-            SetCardsModel output = new SetCardsModel();
+            EditionCardsModel output = new EditionCardsModel();
 
-            output.Set = db.LoadData<SetModel, dynamic>(sql, new { Id = id }, _connectionString).FirstOrDefault();
+            output.Edition = db.LoadData<EditionModel, dynamic>(sql, new { Id = id }, _connectionString).FirstOrDefault();
 
             sql = @"select c.*
-                    from dbo.Cards c
+                    from dbo.Card c
                     inner join dbo.CardsSets cs on cs.CardId = c.Id
                     where cs.SetId = @Id;";
 
@@ -42,14 +42,14 @@ namespace DataAccessLibrary
             return output;
         }
 
-        public void CreateSet(SetModel set)
+        public void CreateSet(EditionModel edition)
         {
-            string sql = "insert into dbo.Sets (CsId, CsName, MtgjsonCode, CreatedOn) values (@CsId, @CsName, @MtgjsonCode, @Createdon);";
+            string sql = "insert into dbo.Edition (CsId, CsName, MtgJsonCode) values (@CsId, @CsName, @MtgJsonCode);";
             db.SaveData(sql,
-                new { set.CsId, set.CsName, set.MtgJsonCode },
+                new { edition.CsId, edition.CsName, edition.MtgJsonCode },
                 _connectionString);
 
-            Console.WriteLine($"{set.CsName} added!");
+            Console.WriteLine($"{edition.CsName} added!");
         }
     }
 }
