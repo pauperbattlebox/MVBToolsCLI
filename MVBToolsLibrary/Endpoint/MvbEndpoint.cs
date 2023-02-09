@@ -5,7 +5,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MVBToolsLibrary
+namespace MVBToolsLibrary.Endpoint
 {
     public class MvbEndpoint : Endpoint
     {
@@ -13,7 +13,7 @@ namespace MVBToolsLibrary
 
         public string EditionById(int editionId)
         {
-            return $"{_baseUrl}/sets/{editionId}";
+            return $"{_baseUrl}/sets/cs/{editionId}";
         }
 
         public string AllEditions()

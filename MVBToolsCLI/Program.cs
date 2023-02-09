@@ -2,8 +2,9 @@
 using System;
 using DataAccessLibrary;
 using DataAccessLibrary.Models;
-using MVBToolsLibrary;
 using Newtonsoft.Json.Linq;
+using MVBToolsLibrary.Endpoint;
+using MVBToolsLibrary.Json;
 
 namespace MVBToolsCLI
 {
@@ -11,7 +12,6 @@ namespace MVBToolsCLI
     {
         static void Main(string[] args)
         {
-            GetEditionFromAPI(965);
 
             SqlCrud sqlConnection = new SqlCrud(GetConnectionString());            
 
@@ -19,12 +19,12 @@ namespace MVBToolsCLI
 
             Console.ReadLine();
         }
-        private static void GetEditionFromAPI(int editionId)
+        private static string GetEditionFromAPI(int editionId)
         {
             MvbEndpoint endpoint= new MvbEndpoint();
             
 
-            Console.WriteLine(endpoint.EditionById(editionId));
+            return endpoint.EditionById(editionId);
         }
 
         private static void AddEdition(SqlCrud sql)
@@ -78,10 +78,10 @@ namespace MVBToolsCLI
             return output;
         }
 
-        private static void JsonOperations()
+        private static void JsonOperations(string endpoint)
         {
             JsonObj jsonObj = new JsonObj("yolo");
-            string json = jsonObj.GetJson("https://www.multiversebridge.com/api/v1/cards/search?name=leyline&edition=Gatecrash&collector_number=41&mtgjson_code=GTC");
+            string json = jsonObj.GetJson(endpoint);
 
             Console.WriteLine(json);
 
