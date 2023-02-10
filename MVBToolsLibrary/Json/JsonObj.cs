@@ -27,9 +27,9 @@ namespace MVBToolsLibrary.Json
 
         //methods       
 
-        public EditionModel Deserialize(string json)
+        public IModel Deserialize(string json)
         {
-            var output = JsonConvert.DeserializeObject<EditionModel>(json);            
+            var output = JsonConvert.DeserializeObject<IModel>(json);            
             Console.WriteLine(output);
 
             return output;

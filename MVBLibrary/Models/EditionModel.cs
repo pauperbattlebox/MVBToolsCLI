@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DataAccessLibrary.Models
 {
-    public class EditionModel
+    public class EditionModel : IModel
     {
         public int Id { get; set; }
 

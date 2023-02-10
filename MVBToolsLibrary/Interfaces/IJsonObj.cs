@@ -10,6 +10,6 @@ namespace MVBToolsCLI.Interfaces
 {
     public interface IJsonObj
     {
-        public EditionModel Deserialize(string json);
+        public IModel Deserialize(string json);
     }
 }
