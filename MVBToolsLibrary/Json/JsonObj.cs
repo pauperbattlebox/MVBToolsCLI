@@ -17,27 +17,21 @@ namespace MVBToolsLibrary.Json
         public string Filename { get; set; }
 
         //constructors
+        public JsonObj() { }
+
         public JsonObj(string filename)
         {
             Filename = filename;
         }
+        
 
-        //methods
-        public string GetJson(string url)
-        {
-            using (var client = new HttpClient())
-            {
-                var response = client.GetAsync(url).Result;
-                var json = response.Content.ReadAsStringAsync().Result;
-
-                return json;
-            }
-        }
+        //methods       
 
         public EditionModel Deserialize(string json)
         {
-            var output = JsonConvert.DeserializeObject<EditionModel>(json);
+            var output = JsonConvert.DeserializeObject<EditionModel>(json);            
             Console.WriteLine(output);
+
             return output;
         }
         public JToken ReadJsonFromFile(JsonObj jsonObj)

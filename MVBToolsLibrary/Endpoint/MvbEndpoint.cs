@@ -31,7 +31,7 @@ namespace MVBToolsLibrary.Endpoint
             return $"{_baseUrl}/cards";
         }
 
-        public string CardByCsId(int csId)
+        public string CardById(int csId)
         {
             return $"{_baseUrl}/cards/cs/{csId}";
         }
