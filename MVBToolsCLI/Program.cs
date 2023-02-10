@@ -5,6 +5,7 @@ using DataAccessLibrary.Models;
 using Newtonsoft.Json.Linq;
 using MVBToolsLibrary.Endpoint;
 using MVBToolsLibrary.Json;
+using System.Data.SqlClient;
 
 namespace MVBToolsCLI
 {
@@ -13,7 +14,12 @@ namespace MVBToolsCLI
         static void Main(string[] args)
         {
 
-            SqlCrud sqlConnection = new SqlCrud(GetConnectionString());            
+            SqlCrud sqlConnection = new SqlCrud(GetConnectionString());
+
+
+            string endpoint = GetEditionFromAPI(965);
+
+            JsonOperations(endpoint);
 
             Console.WriteLine("That's the end");
 
@@ -27,14 +33,14 @@ namespace MVBToolsCLI
             return endpoint.EditionById(editionId);
         }
 
-        private static void AddEdition(SqlCrud sql)
+        private static void AddEdition(SqlCrud sql, EditionModel editionModel)
         {
-            EditionModel editionModel = new EditionModel()
-            {
-                CsId = 759,
-                CsName = "7th Edition",
-                MtgJsonCode = "7ED"
-            };
+            //EditionModel editionModel = new EditionModel()
+            //{
+            //    CsId = 759,
+            //    CsName = "7th Edition",
+            //    MtgJsonCode = "7ED"
+            //};
 
             sql.CreateSet(editionModel);
         }
@@ -83,7 +89,13 @@ namespace MVBToolsCLI
             JsonObj jsonObj = new JsonObj("yolo");
             string json = jsonObj.GetJson(endpoint);
 
-            Console.WriteLine(json);
+            //Console.WriteLine(json);
+
+            var model = jsonObj.Deserialize(json);
+
+            SqlCrud sqlConnection = new SqlCrud(GetConnectionString());
+
+            AddEdition(sqlConnection, model);
 
             //Console.Write("Card to find: ");
             //string cardToFind = Console.ReadLine();

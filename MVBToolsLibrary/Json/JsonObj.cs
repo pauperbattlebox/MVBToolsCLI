@@ -4,6 +4,7 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -31,6 +32,13 @@ namespace MVBToolsLibrary.Json
 
                 return json;
             }
+        }
+
+        public EditionModel Deserialize(string json)
+        {
+            var output = JsonConvert.DeserializeObject<EditionModel>(json);
+            Console.WriteLine(output);
+            return output;
         }
         public JToken ReadJsonFromFile(JsonObj jsonObj)
         {
