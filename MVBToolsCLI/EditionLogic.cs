@@ -40,7 +40,7 @@ namespace MVBToolsCLI
 
         private static void ReadEditionFromJsonFile(SqlCrud sql, int editionId)
         {
-            var edition = sql.GetSetsAndCardsInSet(editionId);
+            var edition = sql.GetCardsByEdition(editionId);
 
 
             Console.WriteLine($"{edition.Edition.Id} - {edition.Edition.CsName}");
@@ -81,7 +81,7 @@ namespace MVBToolsCLI
             //    Console.WriteLine($"{model.Name}, {model.MtgjsonId}");
             //}
         //}
-        private static string GetEditionFromAPI(int editionId)
+        public static string GetEditionFromAPI(int editionId)
         {
             MvbEndpoint endpoint = new MvbEndpoint();
 

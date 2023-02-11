@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DataAccessLibrary.Models
 {
-    public class EditionCardsModel
+    public class EditionCardsModel : IModel
     {
         public EditionModel Edition { get; set; }
         public List<CardModel> Cards { get; set; } = new List<CardModel>();

@@ -22,8 +22,7 @@ namespace MVBToolsLibrary.Json
         public JsonObj(string filename)
         {
             Filename = filename;
-        }
-        
+        }        
 
         //methods       
 

@@ -24,7 +24,7 @@ namespace DataAccessLibrary
             return db.LoadData<EditionModel, dynamic>(sql, new  { }, _connectionString);
         }
 
-        public EditionCardsModel GetSetsAndCardsInSet(int id)
+        public EditionCardsModel GetCardsByEdition(int id)
         {
             string sql = "select * from dbo.Edition where Id = @Id;";
 
@@ -50,6 +50,16 @@ namespace DataAccessLibrary
                 _connectionString);
 
             Console.WriteLine($"{edition.CsName} added!");
+        }
+
+        public void AddCardByEdition(CardModel card)
+        {
+            string sql = "insert into dbo.Card (CsId, Name, MtgjsonId, ScryfallId, MtgJsonCode) values (@CsId, @Name, @MtgJsonId, @ScryfallId, @MtgJsonCode);";
+            db.SaveData(sql,
+                new { card.CsId, card.Name, card.MtgJsonId, card.ScryfallId, card.MtgJsonCode },
+                _connectionString);
+
+            Console.WriteLine($"{card.Name} added!");
         }
     }
 }
