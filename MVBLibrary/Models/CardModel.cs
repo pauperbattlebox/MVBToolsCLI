@@ -30,5 +30,8 @@ namespace DataAccessLibrary.Models
         [JsonProperty(PropertyName = "is_foil")]
         public bool IsFoil { get; set; }
 
+        [JsonProperty(PropertyName = "prices")]
+        public PricesModel Prices { get; set; }
+
     }
 }

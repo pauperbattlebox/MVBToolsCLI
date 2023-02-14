@@ -28,7 +28,9 @@ namespace MVBToolsLibrary.Json
 
         public IModel Deserialize<T>(string json, T model)
         {
-            dynamic output = JsonConvert.DeserializeObject<T>(json);            
+            dynamic output = JsonConvert.DeserializeObject<T>(json);
+
+
             Console.WriteLine(output);
 
             return output;
