@@ -14,14 +14,14 @@ namespace MVBToolsCLI
     {
         static void Main(string[] args)
         {
-            //SqlCrud sqlConnection = new SqlCrud(Utils.GetConnectionString());
+            SqlCrud sqlConnection = new SqlCrud(Utils.GetConnectionString());
             //Console.WriteLine("What set would you like to add: ");
 
             //string editionId = Console.ReadLine();
 
             //EditionLogic.AddNewEditionToDb(Int32.Parse(editionId), sqlConnection);
 
-            //CardLogic.AddMultipleCardsToDb(Int32.Parse(editionId), sqlConnection);
+            //CardLogic.AddMultipleCardsToDb(Int32.Parse(editionId), sqlConnection);            
 
             Console.WriteLine("That's the end");
 

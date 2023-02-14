@@ -61,5 +61,15 @@ namespace DataAccessLibrary
 
             Console.WriteLine($"{card.Name} added!");
         }
+
+        public void CreatePrice(PricesModel price)
+        {
+            string sql = "insert into dbo.Prices (CsId, CsPrice, ScryfallPrice, CardKingdomPrice) values (@CsId, @CsPrice, @ScryfallPrice, @CardKingdomPrice);";
+            db.SaveData(sql,
+                new {price.CsId, price.CsPrice, price.ScryfallPrice, price.CardKingdomPrice },
+                _connectionString);
+
+            Console.WriteLine($"Prices added to db: CS - {price.CsPrice}, Scryfall - {price.ScryfallPrice}, CK - {price.CardKingdomPrice}");
+        }
     }
 }
