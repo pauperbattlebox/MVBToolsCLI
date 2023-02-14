@@ -11,15 +11,15 @@ using System.Xml.Linq;
 
 namespace MVBToolsLibrary.Json
 {
-    public class JsonObj
+    public class JsonHandler
     {
         //props
         public string Filename { get; set; }
 
         //constructors
-        public JsonObj() { }
+        public JsonHandler() { }
 
-        public JsonObj(string filename)
+        public JsonHandler(string filename)
         {
             Filename = filename;
         }        
@@ -33,7 +33,7 @@ namespace MVBToolsLibrary.Json
 
             return output;
         }
-        public JToken ReadJsonFromFile(JsonObj jsonObj)
+        public JToken ReadJsonFromFile(JsonHandler jsonObj)
         {
             using (StreamReader reader = File.OpenText(jsonObj.Filename))
             {

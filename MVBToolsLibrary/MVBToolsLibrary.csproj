@@ -14,4 +14,8 @@
     <ProjectReference Include="..\MVBLibrary\DataAccessLibrary.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Interfaces\" />
+  </ItemGroup>
+
 </Project>

@@ -12,18 +12,18 @@ namespace MVBToolsCLI
 {
     public class CardLogic
     {
-        private static void AddNewCardToDb(SqlCrud sql, CardModel cardModel)
+        private static void AddCardToDb(SqlCrud sql, CardModel cardModel)
         {
             sql.AddCardByEdition(cardModel);
         }
 
         public static EditionCardsModel GetCardsFromJson(int editionId)
         {
-            string endpointUrl = EditionLogic.GetEditionFromAPI(editionId);
+            string endpointUrl = EditionLogic.GetEditionEndpoint(editionId);
 
             string response = Utils.CallEndpoint(endpointUrl);
 
-            JsonObj jsonObj = new JsonObj();
+            JsonHandler jsonObj = new JsonHandler();
 
             EditionCardsModel model = new EditionCardsModel();
                 
@@ -42,11 +42,9 @@ namespace MVBToolsCLI
 
             foreach (var card in filteredCards)
             {
-                Console.WriteLine(card.Name);
-                AddNewCardToDb(sqlConnection, card);
+                Console.WriteLine($"{card.Name} added to db!");
+                AddCardToDb(sqlConnection, card);
             }
         }
-
-
     }
 }

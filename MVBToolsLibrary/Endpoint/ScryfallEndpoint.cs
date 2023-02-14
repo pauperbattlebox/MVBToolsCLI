@@ -10,7 +10,7 @@ namespace MVBToolsLibrary.Endpoint
     {
         public override string _baseUrl { get; } = "https://api.scryfall.com";
 
-        public string CardById(int id)
+        public string CardById(string id)
         {
             return $"{_baseUrl}/cards/{id}";
         }

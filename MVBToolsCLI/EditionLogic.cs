@@ -17,20 +17,20 @@ namespace MVBToolsCLI
     {
         public static void AddNewEditionToDb(int editionId, SqlCrud sqlConnection)
         {
-            string endpoint = EditionLogic.GetEditionFromAPI(editionId);
+            string endpoint = EditionLogic.GetEditionEndpoint(editionId);
 
             string response = Utils.CallEndpoint(endpoint);
 
-            JsonObj jsonObj = new JsonObj();
+            JsonHandler jsonObj = new JsonHandler();
 
             EditionModel model = new EditionModel();
                 
             EditionModel jsonResponse = (EditionModel)jsonObj.Deserialize(response, model);
 
-            EditionLogic.AddEdition(sqlConnection, jsonResponse);
+            EditionLogic.AddEditionToDb(sqlConnection, jsonResponse);
         }        
         
-        public static void ReadAllEditions(SqlCrud sql)
+        public static void ReadAllEditionsFromDb(SqlCrud sql)
         {
             var rows = sql.GetAllEditions();
 
@@ -83,14 +83,14 @@ namespace MVBToolsCLI
             //    Console.WriteLine($"{model.Name}, {model.MtgjsonId}");
             //}
         //}
-        public static string GetEditionFromAPI(int editionId)
+        public static string GetEditionEndpoint(int editionId)
         {
             MvbEndpoint endpoint = new MvbEndpoint();
 
             return endpoint.EditionById(editionId);
         }
 
-        private static void AddEdition(SqlCrud sql, EditionModel editionModel)
+        private static void AddEditionToDb(SqlCrud sql, EditionModel editionModel)
         {
             sql.CreateSet(editionModel);
         }

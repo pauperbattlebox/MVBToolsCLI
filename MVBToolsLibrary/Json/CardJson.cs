@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MVBToolsLibrary.Json
 {
-    internal class CardJson : JsonObj
+    internal class CardJson : JsonHandler
     {
         
     }
