@@ -10,12 +10,6 @@ namespace MVBToolsLibrary.Json
 {
     public class EditionCardsJson
     {
-        public EditionCardsModel Deserialize(string json)
-        {
-            var output = JsonConvert.DeserializeObject<EditionCardsModel>(json);
-            Console.WriteLine(output);
-
-            return output;
-        }
+        
     }
 }

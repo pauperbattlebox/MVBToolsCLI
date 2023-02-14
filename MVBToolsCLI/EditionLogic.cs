@@ -21,11 +21,13 @@ namespace MVBToolsCLI
 
             string response = Utils.CallEndpoint(endpoint);
 
-            EditionJsonObj jsonObj = new EditionJsonObj();
+            JsonObj jsonObj = new JsonObj();
 
-            EditionModel model = jsonObj.Deserialize(response);
+            EditionModel model = new EditionModel();
+                
+            EditionModel jsonResponse = (EditionModel)jsonObj.Deserialize(response, model);
 
-            EditionLogic.AddEdition(sqlConnection, model);
+            EditionLogic.AddEdition(sqlConnection, jsonResponse);
         }        
         
         public static void ReadAllEditions(SqlCrud sql)

@@ -23,11 +23,13 @@ namespace MVBToolsCLI
 
             string response = Utils.CallEndpoint(endpointUrl);
 
-            EditionCardsJson jsonObj = new EditionCardsJson();            
+            JsonObj jsonObj = new JsonObj();
 
-            EditionCardsModel model = jsonObj.Deserialize(response);
+            EditionCardsModel model = new EditionCardsModel();
+                
+            EditionCardsModel jsonResponse = (EditionCardsModel)jsonObj.Deserialize(response, model);
 
-            return model;          
+            return jsonResponse;
         }
 
         public static void AddMultipleCardsToDb(int editionId, SqlCrud sqlConnection)
