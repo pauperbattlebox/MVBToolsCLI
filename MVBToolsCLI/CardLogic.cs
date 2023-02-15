@@ -1,5 +1,6 @@
 ﻿using DataAccessLibrary;
 using DataAccessLibrary.Models;
+using MVBToolsLibrary.Endpoint;
 using MVBToolsLibrary.Json;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace MVBToolsCLI
 {
     public class CardLogic
     {
-        private static void AddCardToDb(SqlCrud sql, CardModel cardModel)
+        private static void AddCardToDb(SqlCrud sql, MVBCardModel cardModel)
         {
             sql.AddCardByEdition(cardModel);
         }
@@ -31,7 +32,7 @@ namespace MVBToolsCLI
 
             return jsonResponse;
         }
-
+                
         public static void AddMultipleCardsToDb(int editionId, SqlCrud sqlConnection)
         {
             EditionCardsModel model = GetCardsFromJson(editionId);

@@ -10,6 +10,6 @@ namespace DataAccessLibrary.Models
     public class EditionCardsModel : IModel
     {        
         public EditionModel Edition { get; set; }
-        public List<CardModel> Cards { get; set; } = new List<CardModel>();
+        public List<MVBCardModel> Cards { get; set; } = new List<MVBCardModel>();
     }
 }

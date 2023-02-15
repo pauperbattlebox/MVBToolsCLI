@@ -37,7 +37,7 @@ namespace DataAccessLibrary
                     inner join dbo.CardsSets cs on cs.CardId = c.Id
                     where cs.SetId = @Id;";
 
-            output.Cards = db.LoadData<CardModel, dynamic>(sql, new { Id = id }, _connectionString);
+            output.Cards = db.LoadData<MVBCardModel, dynamic>(sql, new { Id = id }, _connectionString);
 
             return output;
         }
@@ -52,7 +52,7 @@ namespace DataAccessLibrary
             Console.WriteLine($"{edition.CsName} added!");
         }
 
-        public void AddCardByEdition(CardModel card)
+        public void AddCardByEdition(MVBCardModel card)
         {
             string sql = "insert into dbo.Card (CsId, Name, MtgjsonId, ScryfallId, MtgJsonCode) values (@CsId, @Name, @MtgJsonId, @ScryfallId, @MtgJsonCode);";
             db.SaveData(sql,
@@ -62,7 +62,7 @@ namespace DataAccessLibrary
             Console.WriteLine($"{card.Name} added!");
         }
 
-        public void CreatePrice(PricesModel price)
+        public void CreatePrice(MVBPricesModel price)
         {
             string sql = "insert into dbo.Prices (CsId, CsPrice, ScryfallPrice, CardKingdomPrice) values (@CsId, @CsPrice, @ScryfallPrice, @CardKingdomPrice);";
             db.SaveData(sql,

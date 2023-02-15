@@ -44,17 +44,17 @@ namespace MVBToolsLibrary.Json
                 return (JArray)obj["data"]["cards"];
             }
         }
-        public List<CardModel> MatchByName(JToken jToken, string nameToMatch)
+        public List<MVBCardModel> MatchByName(JToken jToken, string nameToMatch)
         {
             var newCard = from card in jToken
                           where card["name"].ToString() == nameToMatch
                           select card;
 
-            List<CardModel> output = new List<CardModel>();
+            List<MVBCardModel> output = new List<MVBCardModel>();
 
             foreach (var card in newCard)
             {
-                CardModel cardModel = card.ToObject<CardModel>();
+                MVBCardModel cardModel = card.ToObject<MVBCardModel>();
 
                 output.Add(cardModel);
             }
