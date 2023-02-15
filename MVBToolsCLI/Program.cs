@@ -23,9 +23,7 @@ namespace MVBToolsCLI
 
             //CardLogic.AddMultipleCardsToDb(Int32.Parse(editionId), sqlConnection);
 
-            float price = PriceLogic.GetScryfallPriceFromAPI("f295b713-1d6a-43fd-910d-fb35414bf58a");
-
-            Console.WriteLine( price);
+            PriceLogic.UpdateScryfallPriceInDb(sqlConnection, "a742e23c-1991-4dce-b670-dea92a1cf4ec");
 
             Console.WriteLine("That's the end");
 

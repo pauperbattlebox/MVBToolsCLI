@@ -71,5 +71,22 @@ namespace DataAccessLibrary
 
             Console.WriteLine($"Prices added to db: CS - {price.CsPrice}, Scryfall - {price.ScryfallPrice}, CK - {price.CardKingdomPrice}");
         }
+
+        public void UpdateScryfallPrice(string scryfallid, decimal price)
+        {
+            string sqlGetCsId = "select CsId from dbo.Card where ScryfallId = @ScryfallId;";
+
+            MVBCardModel output = new MVBCardModel();
+
+            output = db.LoadData<MVBCardModel, dynamic>(sqlGetCsId, new { ScryfallId = scryfallid }, _connectionString).FirstOrDefault();
+
+            //string sql = "update dbo.Prices set ScryfallPrice = @ScryfallPrice where CsId = @CsId;";
+
+            string sql = "IF NOT EXISTS (SELECT CsId FROM dbo.Prices WHERE CsId = @CsId) BEGIN INSERT INTO dbo.Prices (CsId, ScryfallPrice) values (@CsId, @ScryfallPrice) END ELSE BEGIN UPDATE dbo.Prices SET ScryfallPrice = @ScryfallPrice WHERE CsId = @CsId END;";
+
+            db.SaveData(sql,
+                new { ScryfallPrice = price, CsId = output.CsId },
+                _connectionString);
+        }
     }
 }

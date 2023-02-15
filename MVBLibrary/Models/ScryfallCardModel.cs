@@ -19,9 +19,5 @@ namespace DataAccessLibrary.Models
         [JsonProperty(PropertyName = "prices")]
         public Dictionary<string, string> Prices { get; set; } = new Dictionary<string, string>();
 
-        //public ScryfallPricesModel USD { get; set; }
-
-        //public ScryfallPricesModel Prices { get; set; }
-
     }
 }

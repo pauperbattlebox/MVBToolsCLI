@@ -9,7 +9,6 @@ namespace DataAccessLibrary.Models
 {
     public class ScryfallPricesModel
     {
-        //[JsonProperty(PropertyName = "prices")]
-        //public Dictionary<string, string> Prices { get; set; } = new Dictionary<string, string>();
+        
     }
 }

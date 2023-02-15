@@ -17,7 +17,7 @@ namespace MVBToolsCLI
             sql.CreatePrice(pricesModel);
         }
 
-        public static float GetScryfallPriceFromAPI(string scryfallId)
+        public static decimal GetScryfallPriceFromAPI(string scryfallId)
         {
             ScryfallEndpoint scryfallEndpoint = new ScryfallEndpoint();
 
@@ -31,7 +31,16 @@ namespace MVBToolsCLI
 
             ScryfallCardModel jsonResponse = (ScryfallCardModel)jsonObj.Deserialize(response, model);
 
-            return float.Parse(jsonResponse.Prices["usd"]);
+            return decimal.Parse(jsonResponse.Prices["usd"]);
         }
+
+        public static void UpdateScryfallPriceInDb(SqlCrud sql, string scryfallId)
+        {
+            decimal price = GetScryfallPriceFromAPI(scryfallId);
+
+            sql.UpdateScryfallPrice(scryfallId, price);
+
+        }
+
     }
 }
