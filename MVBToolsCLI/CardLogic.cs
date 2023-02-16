@@ -1,5 +1,6 @@
 ﻿using DataAccessLibrary;
 using DataAccessLibrary.Models;
+using MVBToolsCLI.Interfaces;
 using MVBToolsLibrary.Endpoint;
 using MVBToolsLibrary.Json;
 using System;
@@ -8,19 +9,21 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 
 namespace MVBToolsCLI
 {
     public class CardLogic
     {
+        
         private static void AddCardToDb(SqlCrud sql, MVBCardModel cardModel)
         {
             sql.AddCardByEdition(cardModel);
         }
 
-        public static EditionCardsModel GetCardsFromJson(int editionId)
+        public static EditionCardsModel GetCardsFromMVBAPI(int editionId)
         {
-            string endpointUrl = EditionLogic.GetEditionEndpoint(editionId);
+            string endpointUrl = EditionLogic.GetMVBEditionEndpoint(editionId);
 
             string response = Utils.CallEndpoint(endpointUrl);
 
@@ -35,7 +38,7 @@ namespace MVBToolsCLI
                 
         public static void AddMultipleCardsToDb(int editionId, SqlCrud sqlConnection)
         {
-            EditionCardsModel model = GetCardsFromJson(editionId);
+            EditionCardsModel model = GetCardsFromMVBAPI(editionId);
 
             var filteredCards = from card in model.Cards
                                 where card.IsFoil == false && card.MtgJsonId != null
@@ -47,5 +50,21 @@ namespace MVBToolsCLI
                 AddCardToDb(sqlConnection, card);
             }
         }
+        public string GetBulkDataURLFromScryfall()
+        {
+            ScryfallEndpoint endpoint = new ScryfallEndpoint();
+
+            string response = Utils.CallEndpoint(endpoint.AllCards());
+
+            JsonHandler jsonHandler = new JsonHandler();
+
+            ScryfallBulkDataModel model = new ScryfallBulkDataModel();
+
+            ScryfallBulkDataModel url = (ScryfallBulkDataModel)jsonHandler.Deserialize(response, model);
+
+            string output = url.BulkDataUrl;
+            
+            return output;
+        }        
     }
 }

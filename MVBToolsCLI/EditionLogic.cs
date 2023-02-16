@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using DataAccessLibrary.Models;
 using System.Net;
 using System.Data.SqlClient;
+using MVBToolsCLI.Interfaces;
 
 namespace MVBToolsCLI
 {
@@ -17,7 +18,7 @@ namespace MVBToolsCLI
     {
         public static void AddNewEditionToDb(int editionId, SqlCrud sqlConnection)
         {
-            string endpoint = EditionLogic.GetEditionEndpoint(editionId);
+            string endpoint = EditionLogic.GetMVBEditionEndpoint(editionId);
 
             string response = Utils.CallEndpoint(endpoint);
 
@@ -83,7 +84,7 @@ namespace MVBToolsCLI
             //    Console.WriteLine($"{model.Name}, {model.MtgjsonId}");
             //}
         //}
-        public static string GetEditionEndpoint(int editionId)
+        public static string GetMVBEditionEndpoint(int editionId)
         {
             MvbEndpoint endpoint = new MvbEndpoint();
 
