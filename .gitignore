@@ -1,6 +1,10 @@
+bin/
+obj/
 *\bin
 *\obj
 *\.vs
 *.vsidx
+**/bin
+**/obj
 /packages
 .vscode

@@ -49,5 +49,10 @@ namespace MVBToolsCLI
             PriceLogic.UpdateMVBPriceInDb(csId, sqlConnection);
         }
 
+        public static void GetEditionsFromDb(SqlCrud sqlConnection)
+        {
+            EditionLogic.ReadAllEditionsFromDb(sqlConnection);
+        }
+
     }
 }

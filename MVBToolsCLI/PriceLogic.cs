@@ -12,11 +12,7 @@ namespace MVBToolsCLI
 {
     public class PriceLogic
     {
-        //public static void AddPriceToDb(SqlCrud sql, MVBPricesModel pricesModel)
-        //{
-        //    sql.CreatePrice(pricesModel);
-        //}
-
+        
         public static decimal GetScryfallPriceFromAPI(string scryfallId)
         {
             ScryfallEndpoint scryfallEndpoint = (ScryfallEndpoint)Factory.CreateScryfallEndpoint();
