@@ -1,42 +1,29 @@
 # MVBToolsCLI
 
-MTG Price Database Requirements
+CLI tool to manage Magic: The Gathering items from in a local database.
 
 User can...
 
-Add cards to db by set, including their IDs from MVBAPI
++ Add an edition to the database.
++ View currents edition in db.
++ Add cards to db by edition.
++ Add/refresh prices from different API sources.
 
-Add prices for a set, sourced by mtgjson all_prices file
+# Project/solution structure
 
-# User Interface: CLI
+## MVB - Local database schemas.
 
-## Ask user to choose their command:
-+ Add cards by setcode
-+ Add prices by setcode
+## MVBLibrary - Houses the SQL statements and models which interact with the database.
 
-# Logic
+** Question - Does this fulfill the Repository Pattern?
 
-## Add cards by setcode
-1. Ask user for setcode
-2. Access mvb-api /sets/mtgjson/{code} endpoint
-3. Use Newtonsoft to deserialize json to models
-4. Add data to database
+## MTVToolsLibrary - Console Library for UI/CLI to interact with. Houses API endpoints and JSON helper functions.
 
-## Add prices by setcode
-1. Ask user for setcode
-2. For each card in db that matches that setcode, extract pricing data from all_prices.json
-3. If this is too cumbersome, utilize scryfall api and mvb-api to get price data one card at a time
-4. Save card data to database
+## MVBToolsCLI - Main program.
 
++ Program.cs provides takes in CLI options
++ Commands.cs executes commands that string methods together
 
+# Questions
 
-# Data
-+ Card Model
-+ Set Model
-+ Prices Model
-
-
-## Data sources
-+ Get card IDs by set from /set/mtgjson/{code} endpoint
-+ Prices sourced from MTGJSON all_prices.json
-+ Prices sourced from scryfall API
+** Does the dependency injection using the factroy patter make sense? Or rather, is it a viable solution?
