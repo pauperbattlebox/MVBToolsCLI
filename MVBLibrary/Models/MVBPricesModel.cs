@@ -14,8 +14,9 @@ namespace DataAccessLibrary.Models
         [JsonProperty(PropertyName = "cs_id")]
         public int CsId { get; set; }
 
-        [JsonProperty(PropertyName = "price")]
-        public float CsPrice { get; set; }
+        [JsonProperty(PropertyName = "prices")]
+        //public decimal CsPrice { get; set; }
+        public Dictionary<string, string> Prices { get; set; } = new Dictionary<string, string>();
 
         public float ScryfallPrice { get; set; }
         public float CardKingdomPrice { get; set; }        

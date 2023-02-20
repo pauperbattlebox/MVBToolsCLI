@@ -6,6 +6,7 @@ using Newtonsoft.Json.Linq;
 using MVBToolsLibrary.Endpoint;
 using MVBToolsLibrary.Json;
 using System.Data.SqlClient;
+using MVBToolsCLI;
 
 
 namespace MVBToolsCLI
@@ -27,7 +28,13 @@ namespace MVBToolsCLI
 
             //cardLogic.GetBulkDataURLFromScryfall();
 
-            //PriceLogic.UpdateScryfallPriceInDb(sqlConnection, "a742e23c-1991-4dce-b670-dea92a1cf4ec");            
+            //Commands.AddNewEditionToDb(881, sqlConnection);
+
+            //Commands.AddCardsToDbByEdition(881, sqlConnection);
+
+            //Commands.RefreshScryfallPriceInDb("a742e23c-1991-4dce-b670-dea92a1cf4ec", sqlConnection);
+
+            Commands.RefreshMVBPriceInDb(30590, sqlConnection);
 
             Console.WriteLine("That's the end");
 

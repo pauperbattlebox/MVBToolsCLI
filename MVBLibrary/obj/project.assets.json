@@ -546,25 +546,26 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\gunho\\.nuget\\packages\\": {}
+    "C:\\Users\\gunhoe86\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\gunho\\Desktop\\programming\\DatabaseUI\\MVBLibrary\\DataAccessLibrary.csproj",
+      "projectUniqueName": "E:\\programming\\MVBToolsCLI\\MVBLibrary\\DataAccessLibrary.csproj",
       "projectName": "DataAccessLibrary",
-      "projectPath": "C:\\Users\\gunho\\Desktop\\programming\\DatabaseUI\\MVBLibrary\\DataAccessLibrary.csproj",
-      "packagesPath": "C:\\Users\\gunho\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\gunho\\Desktop\\programming\\DatabaseUI\\MVBLibrary\\obj\\",
+      "projectPath": "E:\\programming\\MVBToolsCLI\\MVBLibrary\\DataAccessLibrary.csproj",
+      "packagesPath": "C:\\Users\\gunhoe86\\.nuget\\packages\\",
+      "outputPath": "E:\\programming\\MVBToolsCLI\\MVBLibrary\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\gunho\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\gunhoe86\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -612,7 +613,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.103\\RuntimeIdentifierGraph.json"
       }
     }
   }

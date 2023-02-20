@@ -16,21 +16,7 @@ namespace MVBToolsCLI
 {
     public class EditionLogic
     {
-        public static void AddNewEditionToDb(int editionId, SqlCrud sqlConnection)
-        {
-            string endpoint = EditionLogic.GetMVBEditionEndpoint(editionId);
-
-            string response = Utils.CallEndpoint(endpoint);
-
-            JsonHandler jsonObj = new JsonHandler();
-
-            EditionModel model = new EditionModel();
                 
-            EditionModel jsonResponse = (EditionModel)jsonObj.Deserialize(response, model);
-
-            EditionLogic.AddEditionToDb(sqlConnection, jsonResponse);
-        }        
-        
         public static void ReadAllEditionsFromDb(SqlCrud sql)
         {
             var rows = sql.GetAllEditions();
@@ -45,7 +31,6 @@ namespace MVBToolsCLI
         {
             var edition = sql.GetCardsByEdition(editionId);
 
-
             Console.WriteLine($"{edition.Edition.Id} - {edition.Edition.CsName}");
 
             foreach (var card in edition.Cards)
@@ -54,7 +39,18 @@ namespace MVBToolsCLI
             }
 
         }
-        
+        public static string GetMVBEditionEndpoint(int editionId)
+        {
+            var endpoint = Factory.CreateMvbEndpoint();
+
+            return endpoint.EditionById(editionId);
+        }
+
+        public static void AddEditionToDb(SqlCrud sql, EditionModel editionModel)
+        {
+            sql.CreateSet(editionModel);
+        }
+
         //public static void JsonOperations(JsonObj jsonObj, string endpoint)
         //{            
         //    string json = jsonObj.GetApiUrl(endpoint);
@@ -67,33 +63,23 @@ namespace MVBToolsCLI
 
         //    AddEdition(sqlConnection, model);
 
-            //Console.Write("Card to find: ");
-            //string cardToFind = Console.ReadLine();
+        //Console.Write("Card to find: ");
+        //string cardToFind = Console.ReadLine();
 
-            //Console.Write("Set to search: ");
-            //string setToSearch = Console.ReadLine();
+        //Console.Write("Set to search: ");
+        //string setToSearch = Console.ReadLine();
 
-            //JsonObj jsonObj = new JsonObj($@"C:\Users\gunho\Desktop\programming\mvb-auto\json\{setToSearch}.json");
+        //JsonObj jsonObj = new JsonObj($@"C:\Users\gunho\Desktop\programming\mvb-auto\json\{setToSearch}.json");
 
-            //JToken jToken = jsonObj.ReadJsonFromFile(jsonObj);
+        //JToken jToken = jsonObj.ReadJsonFromFile(jsonObj);
 
-            //List<CardModel> modelList = jsonObj.MatchByName(jToken, cardToFind);
+        //List<CardModel> modelList = jsonObj.MatchByName(jToken, cardToFind);
 
-            //foreach (CardModel model in modelList)
-            //{
-            //    Console.WriteLine($"{model.Name}, {model.MtgjsonId}");
-            //}
+        //foreach (CardModel model in modelList)
+        //{
+        //    Console.WriteLine($"{model.Name}, {model.MtgjsonId}");
         //}
-        public static string GetMVBEditionEndpoint(int editionId)
-        {
-            MvbEndpoint endpoint = new MvbEndpoint();
+        //}
 
-            return endpoint.EditionById(editionId);
-        }
-
-        private static void AddEditionToDb(SqlCrud sql, EditionModel editionModel)
-        {
-            sql.CreateSet(editionModel);
-        }
     }
 }

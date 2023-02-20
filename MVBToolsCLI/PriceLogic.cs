@@ -12,35 +12,57 @@ namespace MVBToolsCLI
 {
     public class PriceLogic
     {
-        public static void AddPriceToDb(SqlCrud sql, MVBPricesModel pricesModel)
-        {
-            sql.CreatePrice(pricesModel);
-        }
+        //public static void AddPriceToDb(SqlCrud sql, MVBPricesModel pricesModel)
+        //{
+        //    sql.CreatePrice(pricesModel);
+        //}
 
         public static decimal GetScryfallPriceFromAPI(string scryfallId)
         {
-            ScryfallEndpoint scryfallEndpoint = new ScryfallEndpoint();
+            ScryfallEndpoint scryfallEndpoint = (ScryfallEndpoint)Factory.CreateScryfallEndpoint();
 
             string endpointUrl = scryfallEndpoint.CardById(scryfallId);
 
             string response = Utils.CallEndpoint(endpointUrl);
 
-            JsonHandler jsonObj = new JsonHandler();
+            var jsonObj = Factory.CreateJsonHandler();
 
-            ScryfallCardModel model = new ScryfallCardModel();
+            ScryfallCardModel model = (ScryfallCardModel)Factory.CreateScryfallCardModel();
 
             ScryfallCardModel jsonResponse = (ScryfallCardModel)jsonObj.Deserialize(response, model);
 
             return decimal.Parse(jsonResponse.Prices["usd"]);
         }
+        public static decimal GetMVBPriceFromAPI(int csId)
+        {
+            MvbEndpoint mvbEndpoint = (MvbEndpoint)Factory.CreateMvbEndpoint();
 
-        public static void UpdateScryfallPriceInDb(SqlCrud sql, string scryfallId)
+            string endpointUrl = mvbEndpoint.CardById(csId);
+
+            string response = Utils.CallEndpoint(endpointUrl);
+
+            var jsonObj = Factory.CreateJsonHandler();
+
+            MVBPricesModel model = (MVBPricesModel)Factory.CreateMVBPricesModel();
+
+            MVBPricesModel jsonResponse = (MVBPricesModel)jsonObj.Deserialize(response, model);
+
+            return decimal.Parse(jsonResponse.Prices["price"]);
+        }
+
+        public static void UpdateScryfallPriceInDb(string scryfallId, SqlCrud sql)
         {
             decimal price = GetScryfallPriceFromAPI(scryfallId);
 
             sql.UpdateScryfallPrice(scryfallId, price);
 
         }
+        public static void UpdateMVBPriceInDb(int csId, SqlCrud sql)
+        {
+            decimal price = GetMVBPriceFromAPI(csId);
 
+            sql.UpdateMvbPrice(csId, price);
+
+        }
     }
 }

@@ -1,4 +1,7 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using DataAccessLibrary.Models;
+using Microsoft.Extensions.Configuration;
+using MVBToolsLibrary.Endpoint;
+using MVBToolsLibrary.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,6 +35,23 @@ namespace MVBToolsCLI
                 return json;
             }
         }
-        
+
+        public string GetBulkDataURLFromScryfall()
+        {
+            ScryfallEndpoint endpoint = (ScryfallEndpoint)Factory.CreateScryfallEndpoint();
+
+            string response = Utils.CallEndpoint(endpoint.AllCards());
+
+            var jsonHandler = Factory.CreateJsonHandler();
+
+            ScryfallBulkDataModel model = (ScryfallBulkDataModel)Factory.CreateScryfallBulkDataModel();
+
+            ScryfallBulkDataModel url = (ScryfallBulkDataModel)jsonHandler.Deserialize(response, model);
+
+            string output = url.BulkDataUrl;
+
+            return output;
+        }
+
     }
 }

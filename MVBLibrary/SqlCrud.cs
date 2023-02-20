@@ -62,14 +62,13 @@ namespace DataAccessLibrary
             Console.WriteLine($"{card.Name} added!");
         }
 
-        public void CreatePrice(MVBPricesModel price)
-        {
-            string sql = "insert into dbo.Prices (CsId, CsPrice, ScryfallPrice, CardKingdomPrice) values (@CsId, @CsPrice, @ScryfallPrice, @CardKingdomPrice);";
-            db.SaveData(sql,
-                new {price.CsId, price.CsPrice, price.ScryfallPrice, price.CardKingdomPrice },
-                _connectionString);
+        public void UpdateMvbPrice(int csId, decimal price)
+        {            
+            string sql = "IF NOT EXISTS (SELECT CsId FROM dbo.Prices WHERE CsId = @CsId) BEGIN INSERT INTO dbo.Prices (CsId, CsPrice) values (@CsId, @CsPrice) END ELSE BEGIN UPDATE dbo.Prices SET CsPrice = @CsPrice WHERE CsId = @CsId END;";
 
-            Console.WriteLine($"Prices added to db: CS - {price.CsPrice}, Scryfall - {price.ScryfallPrice}, CK - {price.CardKingdomPrice}");
+            db.SaveData(sql,
+                new { CsPrice = price, CsId = csId },
+                _connectionString);
         }
 
         public void UpdateScryfallPrice(string scryfallid, decimal price)

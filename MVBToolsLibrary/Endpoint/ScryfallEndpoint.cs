@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MVBToolsLibrary.Endpoint
 {
-    public class ScryfallEndpoint : Endpoint
+    public class ScryfallEndpoint : Endpoint, IScryfallEndpoint
     {
         public override string _baseUrl { get; } = "https://api.scryfall.com";
 

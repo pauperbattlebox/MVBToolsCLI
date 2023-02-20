@@ -16,7 +16,7 @@ namespace MVBToolsCLI
     public class CardLogic
     {
         
-        private static void AddCardToDb(SqlCrud sql, MVBCardModel cardModel)
+        public static void AddCardToDb(SqlCrud sql, MVBCardModel cardModel)
         {
             sql.AddCardByEdition(cardModel);
         }
@@ -27,44 +27,14 @@ namespace MVBToolsCLI
 
             string response = Utils.CallEndpoint(endpointUrl);
 
-            JsonHandler jsonObj = new JsonHandler();
+            var jsonObj = Factory.CreateJsonHandler();
 
-            EditionCardsModel model = new EditionCardsModel();
-                
+            EditionCardsModel model = (EditionCardsModel)Factory.CreateEditionCardsModel();
+
             EditionCardsModel jsonResponse = (EditionCardsModel)jsonObj.Deserialize(response, model);
 
             return jsonResponse;
-        }
+        }                
                 
-        public static void AddMultipleCardsToDb(int editionId, SqlCrud sqlConnection)
-        {
-            EditionCardsModel model = GetCardsFromMVBAPI(editionId);
-
-            var filteredCards = from card in model.Cards
-                                where card.IsFoil == false && card.MtgJsonId != null
-                                select card;
-
-            foreach (var card in filteredCards)
-            {
-                Console.WriteLine($"{card.Name} added to db!");
-                AddCardToDb(sqlConnection, card);
-            }
-        }
-        public string GetBulkDataURLFromScryfall()
-        {
-            ScryfallEndpoint endpoint = new ScryfallEndpoint();
-
-            string response = Utils.CallEndpoint(endpoint.AllCards());
-
-            JsonHandler jsonHandler = new JsonHandler();
-
-            ScryfallBulkDataModel model = new ScryfallBulkDataModel();
-
-            ScryfallBulkDataModel url = (ScryfallBulkDataModel)jsonHandler.Deserialize(response, model);
-
-            string output = url.BulkDataUrl;
-            
-            return output;
-        }        
     }
 }

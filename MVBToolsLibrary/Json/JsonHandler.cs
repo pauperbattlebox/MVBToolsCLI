@@ -11,7 +11,7 @@ using System.Xml.Linq;
 
 namespace MVBToolsLibrary.Json
 {
-    public class JsonHandler
+    public class JsonHandler : IJsonHandler
     {
         //props
         public string Filename { get; set; }
@@ -22,7 +22,7 @@ namespace MVBToolsLibrary.Json
         public JsonHandler(string filename)
         {
             Filename = filename;
-        }        
+        }
 
         //methods       
 
