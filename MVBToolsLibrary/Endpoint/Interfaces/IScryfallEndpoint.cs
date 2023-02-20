@@ -1,4 +1,4 @@
-﻿namespace MVBToolsLibrary.Endpoint
+﻿namespace MVBToolsLibrary.Endpoint.Interfaces
 {
     public interface IScryfallEndpoint
     {
