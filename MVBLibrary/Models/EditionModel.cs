@@ -20,5 +20,6 @@ namespace DataAccessLibrary.Models
         [JsonProperty(PropertyName = "mtgjson_code")]
         public string MtgJsonCode { get; set; }
 
+
     }
 }
