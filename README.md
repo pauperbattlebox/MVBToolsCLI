@@ -1,11 +1,11 @@
 # MVBToolsCLI
 
-CLI tool to manage Magic: The Gathering items from in a local database.
+CLI tool to manage Magic: The Gathering items in a local database.
 
 User can...
 
 + Add an edition to the database.
-+ View currents edition in db.
++ View current editions in db.
 + Add cards to db by edition.
 + Add/refresh prices from different API sources.
 
