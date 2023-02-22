@@ -8,6 +8,6 @@ namespace MVBToolsCLI.Interfaces
 {
     public interface ILogic
     {
-        string GetMVBEditionEndpoint(int editionId);
+        
     }
 }

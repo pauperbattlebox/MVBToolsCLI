@@ -27,7 +27,7 @@ namespace MVBToolsCLI
 
             string response = Utils.CallEndpoint(endpointUrl);
 
-            var jsonObj = Factory.CreateJsonHandler();
+            IJsonHandler jsonObj = Factory.CreateJsonHandler();
 
             EditionCardsModel model = (EditionCardsModel)Factory.CreateEditionCardsModel();
 

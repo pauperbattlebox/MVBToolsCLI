@@ -1,6 +1,7 @@
 ﻿using DataAccessLibrary;
 using DataAccessLibrary.Models;
 using MVBToolsLibrary.Endpoint;
+using MVBToolsLibrary.Endpoint.Interfaces;
 using MVBToolsLibrary.Json;
 using System;
 using System.Collections.Generic;
@@ -21,7 +22,7 @@ namespace MVBToolsCLI
 
             string response = Utils.CallEndpoint(endpointUrl);
 
-            var jsonObj = Factory.CreateJsonHandler();
+            IJsonHandler jsonObj = Factory.CreateJsonHandler();
 
             ScryfallCardModel model = (ScryfallCardModel)Factory.CreateScryfallCardModel();
 
@@ -31,13 +32,13 @@ namespace MVBToolsCLI
         }
         public static decimal GetMVBPriceFromAPI(int csId)
         {
-            MvbEndpoint mvbEndpoint = (MvbEndpoint)Factory.CreateMvbEndpoint();
+            IMvbEndpoint mvbEndpoint = Factory.CreateMvbEndpoint();
 
             string endpointUrl = mvbEndpoint.CardById(csId);
 
             string response = Utils.CallEndpoint(endpointUrl);
 
-            var jsonObj = Factory.CreateJsonHandler();
+            IJsonHandler jsonObj = Factory.CreateJsonHandler();
 
             MVBPricesModel model = (MVBPricesModel)Factory.CreateMVBPricesModel();
 
