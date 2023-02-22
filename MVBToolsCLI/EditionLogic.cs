@@ -11,6 +11,7 @@ using DataAccessLibrary.Models;
 using System.Net;
 using System.Data.SqlClient;
 using MVBToolsCLI.Interfaces;
+using DataAccessLibrary.Models.Interfaces;
 
 namespace MVBToolsCLI
 {
@@ -49,7 +50,7 @@ namespace MVBToolsCLI
         public static void AddEditionToDb(SqlCrud sql, EditionModel editionModel)
         {
             sql.CreateSet(editionModel);
-        }
+        }        
 
         //public static void JsonOperations(JsonObj jsonObj, string endpoint)
         //{            

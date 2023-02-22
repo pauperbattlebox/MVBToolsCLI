@@ -7,7 +7,7 @@ namespace MVBToolsLibrary.Json
     {
         string Filename { get; set; }
 
-        IModel Deserialize<T>(string json, T model);
+        dynamic Deserialize<T>(string json, T model);
         List<MVBCardModel> MatchByName(JToken jToken, string nameToMatch);
         JToken ReadMtgJsonFile(JsonHandler jsonObj);
     }

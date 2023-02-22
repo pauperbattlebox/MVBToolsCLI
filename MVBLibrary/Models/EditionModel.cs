@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using DataAccessLibrary.Models.Interfaces;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DataAccessLibrary.Models
 {
-    public class EditionModel : IModel
+    public class EditionModel : IEditionModel, IModel
     {
         public int Id { get; set; }
 
@@ -19,7 +20,5 @@ namespace DataAccessLibrary.Models
 
         [JsonProperty(PropertyName = "mtgjson_code")]
         public string MtgJsonCode { get; set; }
-
-
     }
 }

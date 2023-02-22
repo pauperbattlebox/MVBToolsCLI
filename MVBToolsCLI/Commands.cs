@@ -1,27 +1,31 @@
 ﻿using DataAccessLibrary;
 using DataAccessLibrary.Models;
+using DataAccessLibrary.Models.Interfaces;
 using MVBToolsLibrary.Json;
+using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace MVBToolsCLI
 {
     public class Commands
     {
-        public static void AddNewEditionToDb(int editionId, SqlCrud sqlConnection)
+        IJsonHandler _jsonHandler;
+        IEditionModel _editionModel;
+        public Commands(IJsonHandler jsonHandler, IEditionModel editionModel)
+        {
+            _jsonHandler = jsonHandler;
+            _editionModel = editionModel;
+        }        
+
+        public void AddNewEditionToDb(int editionId, SqlCrud sqlConnection)
         {
             string endpoint = EditionLogic.GetMVBEditionEndpoint(editionId);
 
             string response = Utils.CallEndpoint(endpoint);
 
-            IJsonHandler jsonObj = Factory.CreateJsonHandler();
-
-            EditionModel model = (EditionModel)Factory.CreateEditionModel();
-
-            EditionModel jsonResponse = (EditionModel)jsonObj.Deserialize(response, model);
+            EditionModel jsonResponse = (EditionModel)_jsonHandler.Deserialize(response, _editionModel);
 
             EditionLogic.AddEditionToDb(sqlConnection, jsonResponse);
         }
@@ -44,6 +48,7 @@ namespace MVBToolsCLI
         {
             PriceLogic.UpdateScryfallPriceInDb(scryfallId, sqlConnection);
         }
+
         public static void RefreshMVBPriceInDb(int csId, SqlCrud sqlConnection)
         {
             PriceLogic.UpdateMVBPriceInDb(csId, sqlConnection);

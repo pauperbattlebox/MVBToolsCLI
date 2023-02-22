@@ -1,4 +1,5 @@
 ﻿using DataAccessLibrary.Models;
+using DataAccessLibrary.Models.Interfaces;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -26,7 +27,7 @@ namespace MVBToolsLibrary.Json
 
         //methods       
 
-        public IModel Deserialize<T>(string json, T model)
+        public dynamic Deserialize<T>(string json, T model)
         {
             dynamic output = JsonConvert.DeserializeObject<T>(json);
 

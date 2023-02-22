@@ -17,6 +17,8 @@ namespace MVBToolsCLI
         {
             SqlCrud sqlConnection = new SqlCrud(Utils.GetConnectionString());
 
+            Commands commands = Factory.CreateNewCommands();
+
             bool continueProgram = true;
 
             //commands: add edition to db, add cards to db by edition, add/update mvb price per card, add/update scryfall price per card, get all editions from db, 
@@ -33,7 +35,7 @@ namespace MVBToolsCLI
 
                     string setId = Console.ReadLine();
 
-                    Commands.AddNewEditionToDb(Int32.Parse(setId), sqlConnection);
+                    commands.AddNewEditionToDb(Int32.Parse(setId), sqlConnection);
                 }
 
                 if (option == "viewsets")

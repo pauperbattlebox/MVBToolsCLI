@@ -1,4 +1,5 @@
 ﻿using DataAccessLibrary.Models;
+using DataAccessLibrary.Models.Interfaces;
 using MVBToolsCLI.Interfaces;
 using MVBToolsLibrary.Endpoint;
 using MVBToolsLibrary.Endpoint.Interfaces;
@@ -13,6 +14,10 @@ namespace MVBToolsCLI
 {
     public static class Factory
     {
+        public static Commands CreateNewCommands()
+        {
+            return new Commands(CreateJsonHandler(), CreateEditionModel());
+        }
         public static IMvbEndpoint CreateMvbEndpoint()
         {
             return new MvbEndpoint();
@@ -21,7 +26,7 @@ namespace MVBToolsCLI
         {
             return new ScryfallEndpoint();
         }
-        public static IModel CreateEditionModel()
+        public static IEditionModel CreateEditionModel()
         {
             return new EditionModel();
         }
@@ -29,7 +34,7 @@ namespace MVBToolsCLI
         {
             return new ScryfallCardModel();
         }
-        public static IModel CreateEditionCardsModel()
+        public static IEditionCardsModel CreateEditionCardsModel()
         {
             return new EditionCardsModel();
         }
