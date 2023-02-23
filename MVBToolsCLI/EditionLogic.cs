@@ -1,17 +1,5 @@
 ﻿using DataAccessLibrary;
-using Microsoft.Extensions.Configuration;
-using MVBToolsLibrary.Json;
-using MVBToolsLibrary.Endpoint;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using DataAccessLibrary.Models;
-using System.Net;
-using System.Data.SqlClient;
-using MVBToolsCLI.Interfaces;
-using DataAccessLibrary.Models.Interfaces;
 
 namespace MVBToolsCLI
 {

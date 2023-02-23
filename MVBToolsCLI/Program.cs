@@ -1,12 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-using System;
-using DataAccessLibrary;
-using DataAccessLibrary.Models;
-using Newtonsoft.Json.Linq;
-using MVBToolsLibrary.Endpoint;
-using MVBToolsLibrary.Json;
-using System.Data.SqlClient;
-using MVBToolsCLI;
+﻿using DataAccessLibrary;
 
 
 namespace MVBToolsCLI
@@ -19,9 +11,7 @@ namespace MVBToolsCLI
 
             Commands commands = Factory.CreateNewCommands();
 
-            bool continueProgram = true;
-
-            //commands: add edition to db, add cards to db by edition, add/update mvb price per card, add/update scryfall price per card, get all editions from db, 
+            bool continueProgram = true;            
 
             while (continueProgram == true)
             {

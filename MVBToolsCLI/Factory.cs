@@ -1,14 +1,8 @@
 ﻿using DataAccessLibrary.Models;
 using DataAccessLibrary.Models.Interfaces;
-using MVBToolsCLI.Interfaces;
 using MVBToolsLibrary.Endpoint;
 using MVBToolsLibrary.Endpoint.Interfaces;
 using MVBToolsLibrary.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MVBToolsCLI
 {
@@ -46,7 +40,6 @@ namespace MVBToolsCLI
         {
             return new ScryfallBulkDataModel();
         }
-
         public static IJsonHandler CreateJsonHandler()
         {
             return new JsonHandler();

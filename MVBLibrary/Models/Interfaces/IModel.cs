@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MVBToolsCLI.Interfaces
+namespace DataAccessLibrary.Models.Interfaces
 {
-    public interface ILogic
+    public interface IModel
     {
-        
     }
 }

@@ -1,16 +1,7 @@
 ﻿using DataAccessLibrary;
 using DataAccessLibrary.Models;
-using MVBToolsCLI.Interfaces;
-using MVBToolsLibrary.Endpoint;
 using MVBToolsLibrary.Json;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml;
 
 namespace MVBToolsCLI
 {

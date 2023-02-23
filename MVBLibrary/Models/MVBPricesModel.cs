@@ -1,9 +1,5 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using DataAccessLibrary.Models.Interfaces;
+using Newtonsoft.Json;
 
 namespace DataAccessLibrary.Models
 {
@@ -14,11 +10,7 @@ namespace DataAccessLibrary.Models
         [JsonProperty(PropertyName = "cs_id")]
         public int CsId { get; set; }
 
-        [JsonProperty(PropertyName = "prices")]
-        //public decimal CsPrice { get; set; }
+        [JsonProperty(PropertyName = "prices")]        
         public Dictionary<string, string> Prices { get; set; } = new Dictionary<string, string>();
-
-        public float ScryfallPrice { get; set; }
-        public float CardKingdomPrice { get; set; }        
     }
 }
