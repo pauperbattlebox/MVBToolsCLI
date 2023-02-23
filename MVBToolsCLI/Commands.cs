@@ -25,9 +25,11 @@ namespace MVBToolsCLI
 
             string response = Utils.CallEndpoint(endpoint);
 
-            EditionModel jsonResponse = (EditionModel)_jsonHandler.Deserialize(response, _editionModel);
+            //EditionModel jsonResponse = (EditionModel)_jsonHandler.Deserialize(response, _editionModel);
 
-            EditionLogic.AddEditionToDb(sqlConnection, jsonResponse);
+            EditionModel output = JsonConvert.DeserializeObject<EditionModel>(response);
+
+            EditionLogic.AddEditionToDb(sqlConnection, (EditionModel)output);
         }
 
         public static void AddCardsToDbByEdition(int editionId, SqlCrud sqlConnection)

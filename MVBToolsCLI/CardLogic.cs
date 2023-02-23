@@ -3,6 +3,7 @@ using DataAccessLibrary.Models;
 using MVBToolsCLI.Interfaces;
 using MVBToolsLibrary.Endpoint;
 using MVBToolsLibrary.Json;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -29,11 +30,13 @@ namespace MVBToolsCLI
 
             IJsonHandler jsonObj = Factory.CreateJsonHandler();
 
-            EditionCardsModel model = (EditionCardsModel)Factory.CreateEditionCardsModel();
+            //EditionCardsModel model = (EditionCardsModel)Factory.CreateEditionCardsModel();
 
-            EditionCardsModel jsonResponse = (EditionCardsModel)jsonObj.Deserialize(response, model);
+            //EditionCardsModel jsonResponse = (EditionCardsModel)jsonObj.Deserialize(response, model);
 
-            return jsonResponse;
+            EditionCardsModel output = JsonConvert.DeserializeObject<EditionCardsModel>(response);
+
+            return output;
         }                
                 
     }

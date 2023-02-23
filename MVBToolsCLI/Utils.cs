@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using MVBToolsLibrary.Endpoint;
 using MVBToolsLibrary.Json;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,9 +45,11 @@ namespace MVBToolsCLI
 
             var jsonHandler = Factory.CreateJsonHandler();
 
-            ScryfallBulkDataModel model = (ScryfallBulkDataModel)Factory.CreateScryfallBulkDataModel();
+            //ScryfallBulkDataModel model = (ScryfallBulkDataModel)Factory.CreateScryfallBulkDataModel();
 
-            ScryfallBulkDataModel url = (ScryfallBulkDataModel)jsonHandler.Deserialize(response, model);
+            //ScryfallBulkDataModel url = (ScryfallBulkDataModel)jsonHandler.Deserialize(response, model);
+
+            ScryfallBulkDataModel url = JsonConvert.DeserializeObject<ScryfallBulkDataModel>(response);
 
             string output = url.BulkDataUrl;
 

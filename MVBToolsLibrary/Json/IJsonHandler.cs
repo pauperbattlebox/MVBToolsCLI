@@ -1,4 +1,5 @@
 ﻿using DataAccessLibrary.Models;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace MVBToolsLibrary.Json
@@ -7,7 +8,7 @@ namespace MVBToolsLibrary.Json
     {
         string Filename { get; set; }
 
-        dynamic Deserialize<T>(string json, T model);
+        dynamic Deserialize<T>(string json, T model);                
         List<MVBCardModel> MatchByName(JToken jToken, string nameToMatch);
         JToken ReadMtgJsonFile(JsonHandler jsonObj);
     }

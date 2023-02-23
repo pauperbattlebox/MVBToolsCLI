@@ -10,6 +10,11 @@ namespace DataAccessLibrary.Models
 {
     public class EditionModel : IEditionModel, IModel
     {
+        public EditionModel()
+        {
+
+        }
+
         public int Id { get; set; }
 
         [JsonProperty(PropertyName = "cs_id")]

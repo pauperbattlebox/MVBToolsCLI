@@ -50,37 +50,6 @@ namespace MVBToolsCLI
         public static void AddEditionToDb(SqlCrud sql, EditionModel editionModel)
         {
             sql.CreateSet(editionModel);
-        }        
-
-        //public static void JsonOperations(JsonObj jsonObj, string endpoint)
-        //{            
-        //    string json = jsonObj.GetApiUrl(endpoint);
-
-        //    //Console.WriteLine(json);
-
-        //    var model = jsonObj.Deserialize(json);
-
-        //    SqlCrud sqlConnection = new SqlCrud(GetConnectionString());
-
-        //    AddEdition(sqlConnection, model);
-
-        //Console.Write("Card to find: ");
-        //string cardToFind = Console.ReadLine();
-
-        //Console.Write("Set to search: ");
-        //string setToSearch = Console.ReadLine();
-
-        //JsonObj jsonObj = new JsonObj($@"C:\Users\gunho\Desktop\programming\mvb-auto\json\{setToSearch}.json");
-
-        //JToken jToken = jsonObj.ReadJsonFromFile(jsonObj);
-
-        //List<CardModel> modelList = jsonObj.MatchByName(jToken, cardToFind);
-
-        //foreach (CardModel model in modelList)
-        //{
-        //    Console.WriteLine($"{model.Name}, {model.MtgjsonId}");
-        //}
-        //}
-
+        }
     }
 }

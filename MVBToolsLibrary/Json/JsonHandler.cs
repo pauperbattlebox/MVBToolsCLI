@@ -31,10 +31,8 @@ namespace MVBToolsLibrary.Json
         {
             dynamic output = JsonConvert.DeserializeObject<T>(json);
 
-            Console.WriteLine(output);
-
             return output;
-        }
+        }        
         public JToken ReadMtgJsonFile(JsonHandler jsonObj)
         {
             using (StreamReader reader = File.OpenText(jsonObj.Filename))
