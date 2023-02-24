@@ -2,7 +2,7 @@
 using DataAccessLibrary.Models;
 using DataAccessLibrary.Models.Interfaces;
 using MVBToolsLibrary.Json;
-using Newtonsoft.Json;
+using System.Text.Json;
 
 namespace MVBToolsCLI
 {
@@ -24,7 +24,7 @@ namespace MVBToolsCLI
 
             //EditionModel jsonResponse = (EditionModel)_jsonHandler.Deserialize(response, _editionModel);
 
-            EditionModel output = JsonConvert.DeserializeObject<EditionModel>(response);
+            EditionModel output = JsonSerializer.Deserialize<EditionModel>(response);
 
             EditionLogic.AddEditionToDb(sqlConnection, (EditionModel)output);
         }

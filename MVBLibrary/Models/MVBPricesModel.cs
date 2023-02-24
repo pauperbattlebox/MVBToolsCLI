@@ -1,16 +1,18 @@
 ﻿using DataAccessLibrary.Models.Interfaces;
 using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace DataAccessLibrary.Models
 {
-    public class MVBPricesModel : IModel
+    public class MVBPricesModel
     {
-        public int Id { get; set; }
+        //[JsonPropertyName("price")]
+        //public Dictionary<string, decimal> Price { get; set; } = new Dictionary<string, decimal>();
 
-        [JsonProperty(PropertyName = "cs_id")]
-        public int CsId { get; set; }
+        [JsonProperty("price")]
+        public decimal Price { get; set; }
 
-        [JsonProperty(PropertyName = "prices")]        
-        public Dictionary<string, string> Prices { get; set; } = new Dictionary<string, string>();
+        [JsonProperty("updated")]
+        public DateTime Updated { get; set; }
     }
 }

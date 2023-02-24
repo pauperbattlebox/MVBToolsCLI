@@ -1,7 +1,8 @@
 ﻿using DataAccessLibrary;
 using DataAccessLibrary.Models;
 using MVBToolsLibrary.Json;
-using Newtonsoft.Json;
+using System.Text.Json;
+//using Newtonsoft.Json;
 
 namespace MVBToolsCLI
 {
@@ -19,13 +20,11 @@ namespace MVBToolsCLI
 
             string response = Utils.CallEndpoint(endpointUrl);
 
-            IJsonHandler jsonObj = Factory.CreateJsonHandler();
+            IJsonHandler jsonObj = Factory.CreateJsonHandler();            
 
-            //EditionCardsModel model = (EditionCardsModel)Factory.CreateEditionCardsModel();
+            //EditionCardsModel output = JsonConvert.DeserializeObject<EditionCardsModel>(response);
 
-            //EditionCardsModel jsonResponse = (EditionCardsModel)jsonObj.Deserialize(response, model);
-
-            EditionCardsModel output = JsonConvert.DeserializeObject<EditionCardsModel>(response);
+            EditionCardsModel output = JsonSerializer.Deserialize<EditionCardsModel>(response);
 
             return output;
         }                

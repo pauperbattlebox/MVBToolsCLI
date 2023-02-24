@@ -3,8 +3,7 @@
     public interface IEditionModel
     {
         int CsId { get; set; }
-        string CsName { get; set; }
-        int Id { get; set; }
+        string CsName { get; set; }        
         string MtgJsonCode { get; set; }
     }
 }

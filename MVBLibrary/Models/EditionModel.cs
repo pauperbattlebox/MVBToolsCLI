@@ -1,24 +1,16 @@
 ﻿using DataAccessLibrary.Models.Interfaces;
-using Newtonsoft.Json;
-
+using System.Text.Json.Serialization;
 namespace DataAccessLibrary.Models
 {
-    public class EditionModel : IEditionModel, IModel
+    public class EditionModel : IEditionModel
     {
-        public EditionModel()
-        {
-
-        }
-
-        public int Id { get; set; }
-
-        [JsonProperty(PropertyName = "cs_id")]
+        [JsonPropertyName("cs_id")]
         public int CsId { get; set; }
 
-        [JsonProperty(PropertyName = "cs_name")]
+        [JsonPropertyName("cs_name")]
         public string CsName { get; set; }
 
-        [JsonProperty(PropertyName = "mtgjson_code")]
+        [JsonPropertyName("mtgjson_code")]
         public string MtgJsonCode { get; set; }
     }
 }

@@ -20,7 +20,7 @@ namespace MVBToolsCLI
         {
             var edition = sql.GetCardsByEdition(editionId);
 
-            Console.WriteLine($"{edition.Edition.Id} - {edition.Edition.CsName}");
+            Console.WriteLine($"{edition.Edition.CsId} - {edition.Edition.CsName}");
 
             foreach (var card in edition.Cards)
             {

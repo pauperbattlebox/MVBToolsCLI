@@ -39,10 +39,6 @@ namespace MVBToolsCLI
 
             var jsonHandler = Factory.CreateJsonHandler();
 
-            //ScryfallBulkDataModel model = (ScryfallBulkDataModel)Factory.CreateScryfallBulkDataModel();
-
-            //ScryfallBulkDataModel url = (ScryfallBulkDataModel)jsonHandler.Deserialize(response, model);
-
             ScryfallBulkDataModel url = JsonConvert.DeserializeObject<ScryfallBulkDataModel>(response);
 
             string output = url.BulkDataUrl;

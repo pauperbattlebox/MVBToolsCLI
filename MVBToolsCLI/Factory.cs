@@ -31,11 +31,7 @@ namespace MVBToolsCLI
         public static IEditionCardsModel CreateEditionCardsModel()
         {
             return new EditionCardsModel();
-        }
-        public static IModel CreateMVBPricesModel()
-        {
-            return new MVBPricesModel();
-        }
+        }        
         public static IModel CreateScryfallBulkDataModel()
         {
             return new ScryfallBulkDataModel();

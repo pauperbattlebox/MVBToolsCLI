@@ -1,31 +1,31 @@
 ﻿using DataAccessLibrary.Models.Interfaces;
 using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace DataAccessLibrary.Models
 {
-    public class MVBCardModel : IModel
-    {
-        public int Id { get; set; }
-
-        [JsonProperty(PropertyName = "cs_id")]
+    public class MVBCardModel
+    {   
+        [JsonPropertyName("cs_id")]
         public int CsId { get; set; }
 
-        [JsonProperty(PropertyName = "name")]
+        [JsonPropertyName("name")]
         public string Name { get; set; }
 
-        [JsonProperty(PropertyName = "mtgjson_id")]        
+        [JsonPropertyName("mtgjson_id")]        
         public string MtgJsonId { get; set; }
 
-        [JsonProperty(PropertyName = "scryfall_id")]
+        [JsonPropertyName("scryfall_id")]
         public string ScryfallId { get; set; }
 
-        [JsonProperty(PropertyName = "mtgjson_code")]
+        [JsonPropertyName("mtgjson_code")]
         public string MtgJsonCode { get; set; }
 
-        [JsonProperty(PropertyName = "is_foil")]
+        [JsonPropertyName("is_foil")]
         public bool IsFoil { get; set; }
 
-        [JsonProperty(PropertyName = "prices")]
+        [JsonPropertyName("prices")]
+        //public Dictionary<string, dynamic> Prices { get; set; } = new Dictionary<string, dynamic>();
         public MVBPricesModel Prices { get; set; }
 
     }
