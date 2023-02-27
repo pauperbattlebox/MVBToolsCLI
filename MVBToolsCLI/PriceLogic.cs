@@ -4,7 +4,7 @@ using MVBToolsLibrary;
 using MVBToolsLibrary.Endpoint;
 using MVBToolsLibrary.Endpoint.Interfaces;
 using MVBToolsLibrary.Json;
-using Newtonsoft.Json;
+using System.Text.Json;
 
 namespace MVBToolsCLI
 {
@@ -21,9 +21,11 @@ namespace MVBToolsCLI
 
             IJsonHandler jsonObj = Factory.CreateJsonHandler();
 
-            ScryfallCardModel output = JsonConvert.DeserializeObject<ScryfallCardModel>(response);
+            ScryfallCardModel output = JsonSerializer.Deserialize<ScryfallCardModel>(response);
 
-            return decimal.Parse(output.Prices["usd"]);
+            //return decimal.Parse(output.Prices["usd"]);
+
+            return Decimal.Parse(output.Prices.Price);
         }
         public static decimal GetMVBPriceFromAPI(int csId)
         {
@@ -35,9 +37,10 @@ namespace MVBToolsCLI
 
             IJsonHandler jsonObj = Factory.CreateJsonHandler();
 
-            MVBPricesModel output = JsonConvert.DeserializeObject<MVBPricesModel>(response);
+            MVBCardModel output = JsonSerializer.Deserialize<MVBCardModel>(response);
 
-            return output.Price;
+            //return Decimal.Parse(output.Price["price"]);
+            return output.Prices.Price;
         }
 
         public static void UpdateScryfallPriceInDb(string scryfallId, SqlCrud sql)

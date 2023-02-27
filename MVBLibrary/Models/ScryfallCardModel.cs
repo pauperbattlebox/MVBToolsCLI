@@ -1,20 +1,20 @@
 ﻿using DataAccessLibrary.Models.Interfaces;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace DataAccessLibrary.Models
 {
-    public class ScryfallCardModel : IModel
+    public class ScryfallCardModel
     {
-        [JsonProperty(PropertyName = "id")]
+        [JsonPropertyName("id")]
         public string ScryfallId { get; set; }
 
-        [JsonProperty(PropertyName = "name")]
+        [JsonPropertyName("name")]
         public string Name { get; set; }
-        
-        [JsonProperty(PropertyName = "prices")]
-        public Dictionary<string, string> Prices { get; set; } = new Dictionary<string, string>();
 
-        [JsonProperty(PropertyName = "set")]
+        [JsonPropertyName("prices")]
+        public ScryfallPricesModel Prices {  get; set; }
+
+        [JsonPropertyName("set")]
         public string ScryfallCode { get; set; }
 
     }
