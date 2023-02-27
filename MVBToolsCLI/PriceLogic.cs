@@ -1,5 +1,6 @@
 ﻿using DataAccessLibrary;
 using DataAccessLibrary.Models;
+using MVBToolsLibrary;
 using MVBToolsLibrary.Endpoint;
 using MVBToolsLibrary.Endpoint.Interfaces;
 using MVBToolsLibrary.Json;
@@ -16,7 +17,7 @@ namespace MVBToolsCLI
 
             string endpointUrl = scryfallEndpoint.CardById(scryfallId);
 
-            string response = Utils.CallEndpoint(endpointUrl);
+            string response = Utilities.CallEndpoint(endpointUrl);
 
             IJsonHandler jsonObj = Factory.CreateJsonHandler();
 
@@ -30,7 +31,7 @@ namespace MVBToolsCLI
 
             string endpointUrl = mvbEndpoint.CardById(csId);
 
-            string response = Utils.CallEndpoint(endpointUrl);
+            string response = Utilities.CallEndpoint(endpointUrl);
 
             IJsonHandler jsonObj = Factory.CreateJsonHandler();
 

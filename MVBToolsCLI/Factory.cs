@@ -10,7 +10,7 @@ namespace MVBToolsCLI
     {
         public static Commands CreateNewCommands()
         {
-            return new Commands(CreateJsonHandler(), CreateEditionModel());
+            return new Commands(CreateJsonHandler());
         }
         public static IMvbEndpoint CreateMvbEndpoint()
         {
@@ -19,24 +19,8 @@ namespace MVBToolsCLI
         public static IScryfallEndpoint CreateScryfallEndpoint()
         {
             return new ScryfallEndpoint();
-        }
-        public static IEditionModel CreateEditionModel()
-        {
-            return new EditionModel();
-        }
-        public static IModel CreateScryfallCardModel()
-        {
-            return new ScryfallCardModel();
-        }
-        public static IEditionCardsModel CreateEditionCardsModel()
-        {
-            return new EditionCardsModel();
         }        
-        public static IModel CreateScryfallBulkDataModel()
-        {
-            return new ScryfallBulkDataModel();
-        }
-        public static IJsonHandler CreateJsonHandler()
+        public static JsonHandler CreateJsonHandler()
         {
             return new JsonHandler();
         }

@@ -1,5 +1,6 @@
 ﻿using DataAccessLibrary.Models;
 using Microsoft.Extensions.Configuration;
+using MVBToolsLibrary;
 using MVBToolsLibrary.Endpoint;
 using Newtonsoft.Json;
 
@@ -31,20 +32,20 @@ namespace MVBToolsCLI
             }
         }
 
-        public string GetBulkDataURLFromScryfall()
-        {
-            ScryfallEndpoint endpoint = (ScryfallEndpoint)Factory.CreateScryfallEndpoint();
+        //public string GetBulkDataURLFromScryfall()
+        //{
+        //    ScryfallEndpoint endpoint = (ScryfallEndpoint)Factory.CreateScryfallEndpoint();
 
-            string response = Utils.CallEndpoint(endpoint.AllCards());
+        //    string response = Utilities.CallEndpoint(endpoint.AllCards());
 
-            var jsonHandler = Factory.CreateJsonHandler();
+        //    var jsonHandler = Factory.CreateJsonHandler();
 
-            ScryfallBulkDataModel url = JsonConvert.DeserializeObject<ScryfallBulkDataModel>(response);
+        //    ScryfallBulkDataModel url = JsonConvert.DeserializeObject<ScryfallBulkDataModel>(response);
 
-            string output = url.BulkDataUrl;
+        //    string output = url.BulkDataUrl;
 
-            return output;
-        }
+        //    return output;
+        //}
 
     }
 }

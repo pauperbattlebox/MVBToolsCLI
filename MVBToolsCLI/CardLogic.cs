@@ -1,5 +1,6 @@
 ﻿using DataAccessLibrary;
 using DataAccessLibrary.Models;
+using MVBToolsLibrary;
 using MVBToolsLibrary.Json;
 using System.Text.Json;
 //using Newtonsoft.Json;
@@ -18,11 +19,9 @@ namespace MVBToolsCLI
         {
             string endpointUrl = EditionLogic.GetMVBEditionEndpoint(editionId);
 
-            string response = Utils.CallEndpoint(endpointUrl);
+            string response = Utilities.CallEndpoint(endpointUrl);
 
-            IJsonHandler jsonObj = Factory.CreateJsonHandler();            
-
-            //EditionCardsModel output = JsonConvert.DeserializeObject<EditionCardsModel>(response);
+            JsonHandler jsonObj = Factory.CreateJsonHandler();
 
             EditionCardsModel output = JsonSerializer.Deserialize<EditionCardsModel>(response);
 

@@ -1,6 +1,7 @@
 ﻿using DataAccessLibrary;
 using DataAccessLibrary.Models;
 using DataAccessLibrary.Models.Interfaces;
+using MVBToolsLibrary;
 using MVBToolsLibrary.Json;
 using System.Text.Json;
 
@@ -9,20 +10,16 @@ namespace MVBToolsCLI
     public class Commands
     {
         IJsonHandler _jsonHandler;
-        IEditionModel _editionModel;
-        public Commands(IJsonHandler jsonHandler, IEditionModel editionModel)
+        public Commands(IJsonHandler jsonHandler)
         {
             _jsonHandler = jsonHandler;
-            _editionModel = editionModel;
         }        
 
         public void AddNewEditionToDb(int editionId, SqlCrud sqlConnection)
         {
             string endpoint = EditionLogic.GetMVBEditionEndpoint(editionId);
 
-            string response = Utils.CallEndpoint(endpoint);
-
-            //EditionModel jsonResponse = (EditionModel)_jsonHandler.Deserialize(response, _editionModel);
+            string response = Utilities.CallEndpoint(endpoint);
 
             EditionModel output = JsonSerializer.Deserialize<EditionModel>(response);
 
