@@ -1,15 +1,11 @@
-﻿using DataAccessLibrary;
-using DataAccessLibrary.Models;
-using MVBToolsLibrary;
-using MVBToolsLibrary.Json;
+﻿using DataAccessLibrary.Models;
+using DataAccessLibrary;
 using System.Text.Json;
-//using Newtonsoft.Json;
 
-namespace MVBToolsCLI
+namespace MVBToolsLibrary
 {
-    public class CardLogic
+    public class Card
     {
-        
         public static void AddCardToDb(SqlCrud sql, MVBCardModel cardModel)
         {
             sql.AddCardByEdition(cardModel);
@@ -17,16 +13,15 @@ namespace MVBToolsCLI
 
         public static EditionCardsModel GetCardsFromMVBAPI(int editionId)
         {
-            string endpointUrl = EditionLogic.GetMVBEditionEndpoint(editionId);
+            string endpointUrl = Edition.GetMVBEditionEndpoint(editionId);
 
             string response = Utilities.CallEndpoint(endpointUrl);
 
-            JsonHandler jsonObj = Factory.CreateJsonHandler();
+            //JsonHandler jsonObj = Factory.CreateJsonHandler();
 
             EditionCardsModel output = JsonSerializer.Deserialize<EditionCardsModel>(response);
 
             return output;
-        }                
-                
+        }
     }
 }

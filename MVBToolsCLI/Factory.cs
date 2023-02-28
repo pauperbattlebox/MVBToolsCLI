@@ -10,16 +10,8 @@ namespace MVBToolsCLI
     {
         public static Commands CreateNewCommands()
         {
-            return new Commands(CreateJsonHandler());
-        }
-        public static IMvbEndpoint CreateMvbEndpoint()
-        {
-            return new MvbEndpoint();
-        }
-        public static IScryfallEndpoint CreateScryfallEndpoint()
-        {
-            return new ScryfallEndpoint();
-        }        
+            return new Commands();
+        }                
         public static JsonHandler CreateJsonHandler()
         {
             return new JsonHandler();

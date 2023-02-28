@@ -1,11 +1,11 @@
-﻿using DataAccessLibrary;
-using DataAccessLibrary.Models;
+﻿using DataAccessLibrary.Models;
+using DataAccessLibrary;
+using MVBToolsLibrary.Endpoint;
 
-namespace MVBToolsCLI
+namespace MVBToolsLibrary
 {
-    public class EditionLogic
+    public class Edition
     {
-                
         public static void ReadAllEditionsFromDb(SqlCrud sql)
         {
             var rows = sql.GetAllEditions();
@@ -30,7 +30,7 @@ namespace MVBToolsCLI
         }
         public static string GetMVBEditionEndpoint(int editionId)
         {
-            var endpoint = Factory.CreateMvbEndpoint();
+            var endpoint = new MvbEndpoint();
 
             return endpoint.EditionById(editionId);
         }

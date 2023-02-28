@@ -9,7 +9,7 @@ namespace MVBToolsCLI
         {
             SqlCrud sqlConnection = new SqlCrud(Utils.GetConnectionString());
 
-            Commands commands = Factory.CreateNewCommands();
+            Commands commands = new Commands();
 
             bool continueProgram = true;            
 

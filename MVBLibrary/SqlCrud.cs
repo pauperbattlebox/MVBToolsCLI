@@ -74,8 +74,6 @@ namespace DataAccessLibrary
 
             output = db.LoadData<MVBCardModel, dynamic>(sqlGetCsId, new { ScryfallId = scryfallid }, _connectionString).FirstOrDefault();
 
-            //string sql = "update dbo.Prices set ScryfallPrice = @ScryfallPrice where CsId = @CsId;";
-
             string sql = "IF NOT EXISTS (SELECT CsId FROM dbo.Prices WHERE CsId = @CsId) BEGIN INSERT INTO dbo.Prices (CsId, ScryfallPrice) values (@CsId, @ScryfallPrice) END ELSE BEGIN UPDATE dbo.Prices SET ScryfallPrice = @ScryfallPrice WHERE CsId = @CsId END;";
 
             db.SaveData(sql,

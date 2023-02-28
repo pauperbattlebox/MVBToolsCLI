@@ -1,45 +1,41 @@
-﻿using DataAccessLibrary;
-using DataAccessLibrary.Models;
-using MVBToolsLibrary;
-using MVBToolsLibrary.Endpoint;
+﻿using DataAccessLibrary.Models;
+using DataAccessLibrary;
 using MVBToolsLibrary.Endpoint.Interfaces;
+using MVBToolsLibrary.Endpoint;
 using MVBToolsLibrary.Json;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Text.Json;
 
-namespace MVBToolsCLI
+namespace MVBToolsLibrary
 {
-    public class PriceLogic
+    public class Price
     {
-        
         public static decimal GetScryfallPriceFromAPI(string scryfallId)
         {
-            ScryfallEndpoint scryfallEndpoint = (ScryfallEndpoint)Factory.CreateScryfallEndpoint();
+            ScryfallEndpoint scryfallEndpoint = new ScryfallEndpoint();
 
             string endpointUrl = scryfallEndpoint.CardById(scryfallId);
 
-            string response = Utilities.CallEndpoint(endpointUrl);
-
-            IJsonHandler jsonObj = Factory.CreateJsonHandler();
+            string response = Utilities.CallEndpoint(endpointUrl);            
 
             ScryfallCardModel output = JsonSerializer.Deserialize<ScryfallCardModel>(response);
-
-            //return decimal.Parse(output.Prices["usd"]);
-
+            
             return Decimal.Parse(output.Prices.Price);
         }
         public static decimal GetMVBPriceFromAPI(int csId)
         {
-            IMvbEndpoint mvbEndpoint = Factory.CreateMvbEndpoint();
+            MvbEndpoint mvbEndpoint = new MvbEndpoint();
 
             string endpointUrl = mvbEndpoint.CardById(csId);
 
-            string response = Utilities.CallEndpoint(endpointUrl);
-
-            IJsonHandler jsonObj = Factory.CreateJsonHandler();
+            string response = Utilities.CallEndpoint(endpointUrl);            
 
             MVBCardModel output = JsonSerializer.Deserialize<MVBCardModel>(response);
-
-            //return Decimal.Parse(output.Price["price"]);
+                        
             return output.Prices.Price;
         }
 
