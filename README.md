@@ -21,3 +21,7 @@ User can...
 
 + Program.cs provides takes in CLI options
 + Commands.cs executes commands that string methods together
+
+## ToDo:
++ HttpClientFacory
++ JsonHandler to read json files
