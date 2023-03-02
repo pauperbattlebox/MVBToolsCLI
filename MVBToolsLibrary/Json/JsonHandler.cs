@@ -1,14 +1,6 @@
 ﻿using DataAccessLibrary.Models;
-using DataAccessLibrary.Models.Interfaces;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 
 namespace MVBToolsLibrary.Json
 {
@@ -26,13 +18,7 @@ namespace MVBToolsLibrary.Json
         }
 
         //methods       
-
-        public dynamic Deserialize<T>(string json, T model)
-        {
-            dynamic output = JsonConvert.DeserializeObject<T>(json);
-
-            return output;
-        }        
+                
         public JToken ReadMtgJsonFile(JsonHandler jsonObj)
         {
             using (StreamReader reader = File.OpenText(jsonObj.Filename))

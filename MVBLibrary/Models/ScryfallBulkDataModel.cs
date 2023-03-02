@@ -1,12 +1,13 @@
-﻿using DataAccessLibrary.Models.Interfaces;
+﻿
 using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace DataAccessLibrary.Models
 {
-    public class ScryfallBulkDataModel : IModel
+    public class ScryfallBulkDataModel
     {
 
-        [JsonProperty(PropertyName = "download_uri")]
+        [JsonPropertyName("download_uri")]
         public string BulkDataUrl { get; set; }
     }
 }

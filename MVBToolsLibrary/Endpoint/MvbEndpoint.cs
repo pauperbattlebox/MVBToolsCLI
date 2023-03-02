@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
-using MVBToolsLibrary.Endpoint.Interfaces;
+﻿
 
 namespace MVBToolsLibrary.Endpoint
 {
-    public class MvbEndpoint : Endpoint, IMvbEndpoint
+    public class MvbEndpoint : Endpoint
     {
         public override string _baseUrl { get; } = "https://www.multiversebridge.com/api/v1";
 

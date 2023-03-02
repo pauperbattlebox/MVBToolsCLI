@@ -1,4 +1,4 @@
-﻿using DataAccessLibrary.Models.Interfaces;
+﻿
 using System.Text.Json.Serialization;
 namespace DataAccessLibrary.Models
 {

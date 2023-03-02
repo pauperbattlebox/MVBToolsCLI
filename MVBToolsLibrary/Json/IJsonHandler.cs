@@ -7,8 +7,7 @@ namespace MVBToolsLibrary.Json
     public interface IJsonHandler
     {
         string Filename { get; set; }
-
-        dynamic Deserialize<T>(string json, T model);                
+                
         List<MVBCardModel> MatchByName(JToken jToken, string nameToMatch);
         JToken ReadMtgJsonFile(JsonHandler jsonObj);
     }

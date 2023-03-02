@@ -1,6 +1,7 @@
 ﻿using DataAccessLibrary.Models;
 using DataAccessLibrary;
 using MVBToolsLibrary.Endpoint;
+using System.Text.Json;
 
 namespace MVBToolsLibrary
 {
@@ -38,6 +39,17 @@ namespace MVBToolsLibrary
         public static void AddEditionToDb(SqlCrud sql, EditionModel editionModel)
         {
             sql.CreateSet(editionModel);
+        }
+
+        public static EditionModel GetEditionFromMvb(int editionId)
+        {
+            string endpoint = GetMVBEditionEndpoint(editionId);
+
+            string response = HttpClientFactory.CallEndpoint(endpoint);
+
+            EditionModel output = JsonSerializer.Deserialize<EditionModel>(response);
+
+            return output;
         }
     }
 }

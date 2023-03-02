@@ -7,21 +7,8 @@ using System.Threading.Tasks;
 
 namespace MVBToolsLibrary
 {
-    public class Utilities
+    public class HttpClientFactory
     {
-        public static string GetConnectionString(string connectionStringName = "Default")
-        {
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json");
-
-            var config = builder.Build();
-
-            string output = config.GetConnectionString(connectionStringName);
-
-            return output;
-        }
-
         public static string CallEndpoint(string url)
         {
             using (var client = new HttpClient())

@@ -1,43 +1,24 @@
 ﻿using DataAccessLibrary;
 using DataAccessLibrary.Models;
-using DataAccessLibrary.Models.Interfaces;
 using MVBToolsLibrary;
-using MVBToolsLibrary.Json;
 using System.Text.Json;
 
 namespace MVBToolsCLI
 {
     public class Commands
     {
-        //IJsonHandler _jsonHandler;
-        //public Commands(IJsonHandler jsonHandler)
-        //{
-        //    _jsonHandler = jsonHandler;
-        //}        
-
-        public void AddNewEditionToDb(int editionId, SqlCrud sqlConnection)
+        public static void AddNewEditionToDb(int editionId, SqlCrud sqlConnection)
         {
-            string endpoint = Edition.GetMVBEditionEndpoint(editionId);
+            EditionModel editionToAdd = Edition.GetEditionFromMvb(editionId);
 
-            string response = Utilities.CallEndpoint(endpoint);
-
-            EditionModel output = JsonSerializer.Deserialize<EditionModel>(response);
-
-            Edition.AddEditionToDb(sqlConnection, output);
+            Edition.AddEditionToDb(sqlConnection, editionToAdd);
         }
 
         public static void AddCardsToDbByEdition(int editionId, SqlCrud sqlConnection)
         {
             EditionCardsModel model = Card.GetCardsFromMVBAPI(editionId);
 
-            var filteredCards = from card in model.Cards
-                                where card.IsFoil == false && card.MtgJsonId != null
-                                select card;
-
-            foreach (var card in filteredCards)
-            {                
-                Card.AddCardToDb(sqlConnection, card);
-            }
+            Card.AddFilteredCardsToDb(sqlConnection, model);
         }
 
         public static void RefreshScryfallPriceInDb(string scryfallId, SqlCrud sqlConnection)

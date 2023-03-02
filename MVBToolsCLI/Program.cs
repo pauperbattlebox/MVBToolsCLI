@@ -1,5 +1,6 @@
 ﻿using DataAccessLibrary;
-
+using Microsoft.Extensions.Configuration;
+using System.Security.Cryptography.X509Certificates;
 
 namespace MVBToolsCLI
 {
@@ -7,11 +8,9 @@ namespace MVBToolsCLI
     {
         static void Main(string[] args)
         {
-            SqlCrud sqlConnection = new SqlCrud(Utils.GetConnectionString());
+            SqlCrud sqlConnection = new SqlCrud(GetConnectionString());
 
-            Commands commands = new Commands();
-
-            bool continueProgram = true;            
+            bool continueProgram = true;
 
             while (continueProgram == true)
             {
@@ -25,7 +24,7 @@ namespace MVBToolsCLI
 
                     string setId = Console.ReadLine();
 
-                    commands.AddNewEditionToDb(Int32.Parse(setId), sqlConnection);
+                    Commands.AddNewEditionToDb(Int32.Parse(setId), sqlConnection);
                 }
 
                 if (option == "viewsets")
@@ -71,13 +70,25 @@ namespace MVBToolsCLI
                 {
                     continueProgram = false;
                 }
-
             }
 
             Console.WriteLine("That's the end");
 
             Console.ReadLine();
-            
+
+            static string GetConnectionString(string connectionStringName = "Default")
+            {
+                var builder = new ConfigurationBuilder()
+                    .SetBasePath(Directory.GetCurrentDirectory())
+                    .AddJsonFile("appsettings.json");
+
+                var config = builder.Build();
+
+                string output = config.GetConnectionString(connectionStringName);
+
+                return output;
+            }
+
         }        
     }
 }

@@ -22,8 +22,7 @@ namespace DataAccessLibrary.Models
         [JsonPropertyName("is_foil")]
         public bool IsFoil { get; set; }
 
-        [JsonPropertyName("prices")]
-        //public Dictionary<string, dynamic> Prices { get; set; } = new Dictionary<string, dynamic>();
+        [JsonPropertyName("prices")]        
         public MVBPricesModel Prices { get; set; }
 
     }

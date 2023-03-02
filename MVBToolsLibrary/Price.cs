@@ -1,6 +1,5 @@
 ﻿using DataAccessLibrary.Models;
 using DataAccessLibrary;
-using MVBToolsLibrary.Endpoint.Interfaces;
 using MVBToolsLibrary.Endpoint;
 using MVBToolsLibrary.Json;
 using System;
@@ -20,7 +19,7 @@ namespace MVBToolsLibrary
 
             string endpointUrl = scryfallEndpoint.CardById(scryfallId);
 
-            string response = Utilities.CallEndpoint(endpointUrl);            
+            string response = HttpClientFactory.CallEndpoint(endpointUrl);            
 
             ScryfallCardModel output = JsonSerializer.Deserialize<ScryfallCardModel>(response);
             
@@ -32,7 +31,7 @@ namespace MVBToolsLibrary
 
             string endpointUrl = mvbEndpoint.CardById(csId);
 
-            string response = Utilities.CallEndpoint(endpointUrl);            
+            string response = HttpClientFactory.CallEndpoint(endpointUrl);
 
             MVBCardModel output = JsonSerializer.Deserialize<MVBCardModel>(response);
                         

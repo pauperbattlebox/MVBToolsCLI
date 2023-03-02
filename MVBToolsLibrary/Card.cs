@@ -15,13 +15,38 @@ namespace MVBToolsLibrary
         {
             string endpointUrl = Edition.GetMVBEditionEndpoint(editionId);
 
-            string response = Utilities.CallEndpoint(endpointUrl);
-
-            //JsonHandler jsonObj = Factory.CreateJsonHandler();
+            string response = HttpClientFactory.CallEndpoint(endpointUrl);
 
             EditionCardsModel output = JsonSerializer.Deserialize<EditionCardsModel>(response);
 
             return output;
         }
+
+        public static void AddFilteredCardsToDb(SqlCrud sqlConnection, EditionCardsModel model)
+        {
+            var filteredCards = from card in model.Cards
+                                where card.IsFoil == false && card.MtgJsonId != null
+                                select card;
+
+            foreach (var card in filteredCards)
+            {
+                AddCardToDb(sqlConnection, card);
+            }
+        }
+
+        //public string GetBulkDataURLFromScryfall()
+        //{
+        //    ScryfallEndpoint endpoint = (ScryfallEndpoint)Factory.CreateScryfallEndpoint();
+
+        //    string response = Utilities.CallEndpoint(endpoint.AllCards());
+
+        //    var jsonHandler = Factory.CreateJsonHandler();
+
+        //    ScryfallBulkDataModel url = JsonConvert.DeserializeObject<ScryfallBulkDataModel>(response);
+
+        //    string output = url.BulkDataUrl;
+
+        //    return output;
+        //}
     }
 }
