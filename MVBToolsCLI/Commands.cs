@@ -36,5 +36,15 @@ namespace MVBToolsCLI
             Edition.ReadAllEditionsFromDb(sqlConnection);
         }
 
+        public static void GetCardFromDb(SqlCrud sqlConnection, int csId)
+        {
+            Card.ReadCardFromDb(sqlConnection, csId);
+        }
+
+        public static void GetCardPriceFromDb(SqlCrud sqlConnection, int csId)
+        {
+            Card.ReadCardPriceFromDb(sqlConnection, csId);
+        }
+
     }
 }

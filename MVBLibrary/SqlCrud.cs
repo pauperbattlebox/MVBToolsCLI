@@ -19,6 +19,21 @@ namespace DataAccessLibrary
             return db.LoadData<EditionModel, dynamic>(sql, new  { }, _connectionString);
         }
 
+        public MVBCardModel GetCard(int csId)
+        {
+            string sql = "SELECT CsId, Name FROM dbo.Card WHERE CsId = @CsId;";
+
+            return db.LoadData<MVBCardModel, dynamic>(sql, new { CsId = csId }, _connectionString).FirstOrDefault();
+
+        }
+
+        public MVBCardModel GetCardPrice(int csId)
+        {
+            string sql = "SELECT c.CsId, c.Name, p.CsPrice, p.ScryfallPrice FROM dbo.Card as c LEFT JOIN dbo.Prices AS p ON c.CsId = p.CsId WHERE c.CsId = @CsId;";
+
+            return db.LoadData<MVBCardModel, dynamic>(sql, new { CsId = csId }, _connectionString).FirstOrDefault();
+        }
+
         public EditionCardsModel GetCardsByEdition(int id)
         {
             string sql = "select * from dbo.Edition where Id = @Id;";

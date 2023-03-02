@@ -14,7 +14,7 @@ namespace MVBToolsCLI
 
             while (continueProgram == true)
             {
-                Console.Write("Enter a command (addset, viewsets, addcards, addprice, exit): ");
+                Console.Write("Enter a command (viewsets, addset, viewcard, viewcardprice, addcard, addcards, addprices, exit): ");
 
                 string option = Console.ReadLine();
 
@@ -30,6 +30,24 @@ namespace MVBToolsCLI
                 if (option == "viewsets")
                 {
                     Commands.GetEditionsFromDb(sqlConnection);
+                }
+
+                if (option == "viewcard")
+                {
+                    Console.WriteLine("What card ID would you like to view: ");
+
+                    string csId = Console.ReadLine();
+
+                    Commands.GetCardFromDb(sqlConnection, Int32.Parse(csId));
+                }
+
+                if (option == "viewcardprice")
+                {
+                    Console.WriteLine( "What card ID would you like to view a price for: ");
+
+                    string csId = Console.ReadLine();
+
+                    Commands.GetCardPriceFromDb(sqlConnection, Int32.Parse(csId));
                 }
 
                 if (option == "addcards")

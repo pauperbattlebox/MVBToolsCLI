@@ -34,6 +34,21 @@ namespace MVBToolsLibrary
             }
         }
 
+        public static void ReadCardFromDb(SqlCrud sqlConnection, int csId)
+        {
+            var card = sqlConnection.GetCard(csId);
+
+            Console.WriteLine(card.Name);
+
+        }
+
+        public static void ReadCardPriceFromDb(SqlCrud sqlConnection, int csId)
+        {
+            var card = sqlConnection.GetCardPrice(csId);
+
+            Console.WriteLine( $"{card.Name} = {card.Prices}" );
+        }
+
         //public string GetBulkDataURLFromScryfall()
         //{
         //    ScryfallEndpoint endpoint = (ScryfallEndpoint)Factory.CreateScryfallEndpoint();
