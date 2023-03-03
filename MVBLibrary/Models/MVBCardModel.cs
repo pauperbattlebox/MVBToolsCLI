@@ -3,7 +3,8 @@
 namespace DataAccessLibrary.Models
 {
     public class MVBCardModel
-    {   
+    {
+        
         [JsonPropertyName("cs_id")]
         public int CsId { get; set; }
 
@@ -22,8 +23,9 @@ namespace DataAccessLibrary.Models
         [JsonPropertyName("is_foil")]
         public bool IsFoil { get; set; }
 
-        [JsonPropertyName("prices")]        
+        [JsonPropertyName("prices")]
         public MVBPricesModel Prices { get; set; }
 
+        public PricesModel AllPrices { get; set; }
     }
 }
