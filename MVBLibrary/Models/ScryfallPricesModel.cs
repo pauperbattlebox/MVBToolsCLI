@@ -6,5 +6,6 @@ namespace DataAccessLibrary.Models
     {
         [JsonPropertyName("usd")]
         public string Price { get; set; }
+                
     }
 }

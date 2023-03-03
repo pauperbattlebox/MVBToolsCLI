@@ -24,8 +24,6 @@ namespace DataAccessLibrary.Models
         public bool IsFoil { get; set; }
 
         [JsonPropertyName("prices")]
-        public MVBPricesModel Prices { get; set; }
-
-        public PricesModel AllPrices { get; set; }
+        public MVBPricesModel Prices { get; set; }        
     }
 }

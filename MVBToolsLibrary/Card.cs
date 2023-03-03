@@ -46,7 +46,7 @@ namespace MVBToolsLibrary
         {
             var card = sqlConnection.GetCardPrice(csId);
 
-            Console.WriteLine( $"{card.Name} = {card.Prices}" );
+            Console.WriteLine($"{card.Name}: Cardsphere Price - {card.CsPrice}, Scryfall Price - {card.ScryfallPrice}");
         }
 
         //public string GetBulkDataURLFromScryfall()

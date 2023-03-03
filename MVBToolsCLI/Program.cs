@@ -43,7 +43,7 @@ namespace MVBToolsCLI
 
                 if (option == "viewcardprice")
                 {
-                    Console.WriteLine( "What card ID would you like to view a price for: ");
+                    Console.WriteLine("What card ID would you like to view a price for: ");
 
                     string csId = Console.ReadLine();
 

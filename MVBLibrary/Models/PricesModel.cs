@@ -7,6 +7,6 @@ namespace DataAccessLibrary.Models
         
         public MVBPricesModel CsPrice { get; set; }
 
-        public ScryfallPricesModel ScryfallPrice { get; set; }
+        public ScryfallPricesModel DbPrice { get; set; }
     }
 }

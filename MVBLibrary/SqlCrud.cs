@@ -27,11 +27,11 @@ namespace DataAccessLibrary
 
         }
 
-        public MVBCardModel GetCardPrice(int csId)
+        public DbCardModel GetCardPrice(int csId)
         {
-            string sql = "SELECT c.CsId, c.Name, p.CsPrice, p.ScryfallPrice FROM dbo.Card as c LEFT JOIN dbo.Prices AS p ON c.CsId = p.CsId WHERE c.CsId = @CsId;";
+            string sql = "SELECT c.CsId, c.Name, 0 as splitter, p.CsPrice, p.ScryfallPrice FROM dbo.Card as c LEFT JOIN dbo.Prices AS p ON c.CsId = p.CsId WHERE c.CsId = @CsId;";
 
-            return db.LoadData<MVBCardModel, dynamic>(sql, new { CsId = csId }, _connectionString).FirstOrDefault();
+            return db.LoadCardPriceData<DbCardModel, dynamic>(sql, new { CsId = csId }, _connectionString).FirstOrDefault();
         }
 
         public EditionCardsModel GetCardsByEdition(int id)
