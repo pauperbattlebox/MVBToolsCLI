@@ -16,7 +16,7 @@ namespace MVBToolsCLI
 
             while (continueProgram == true)
             {
-                Console.Write("Enter a command (viewsets, addset, viewcard, viewcardprice, addcard, addcards, addprices, exit): ");
+                Console.Write("Enter a command (viewsets, addset, viewcard, viewcardprice, addcards, addprice, exit): ");
 
                 string option = Console.ReadLine();
 
