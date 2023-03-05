@@ -6,12 +6,12 @@ using System.Text.Json;
 namespace MVBToolsCLI
 {
     public class Commands
-    {
-        public static void AddNewEditionToDb(int editionId, SqlCrud sqlConnection)
+    {        
+        public static void AddNewEditionToDb(int editionId, SqlCrud sqlConnection, IConsoleWriter consoleWriter)
         {
             EditionModel editionToAdd = Edition.GetEditionFromMvb(editionId);
 
-            Edition.AddEditionToDb(sqlConnection, editionToAdd);
+            Edition.AddEditionToDb(sqlConnection, editionToAdd, consoleWriter);
         }
 
         public static void AddCardsToDbByEdition(int editionId, SqlCrud sqlConnection)

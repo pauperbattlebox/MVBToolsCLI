@@ -1,6 +1,6 @@
 ﻿using DataAccessLibrary;
 using Microsoft.Extensions.Configuration;
-using System.Security.Cryptography.X509Certificates;
+using MVBToolsLibrary;
 
 namespace MVBToolsCLI
 {
@@ -9,6 +9,8 @@ namespace MVBToolsCLI
         static void Main(string[] args)
         {
             SqlCrud sqlConnection = new SqlCrud(GetConnectionString());
+
+            IConsoleWriter consoleWriter = new ConsoleWriter();
 
             bool continueProgram = true;
 
@@ -24,7 +26,7 @@ namespace MVBToolsCLI
 
                     string setId = Console.ReadLine();
 
-                    Commands.AddNewEditionToDb(Int32.Parse(setId), sqlConnection);
+                    Commands.AddNewEditionToDb(Int32.Parse(setId), sqlConnection, consoleWriter);
                 }
 
                 if (option == "viewsets")

@@ -36,9 +36,13 @@ namespace MVBToolsLibrary
             return endpoint.EditionById(editionId);
         }
 
-        public static void AddEditionToDb(SqlCrud sql, EditionModel editionModel)
+        public static void AddEditionToDb(SqlCrud sql, EditionModel editionModel, IConsoleWriter consoleWriter)
         {
-            sql.CreateSet(editionModel);
+            EditionModel output = sql.CreateSet(editionModel);
+
+            consoleWriter.WriteLineToConsole($"{output.CsName} added to ye olde database");
+
+
         }
 
         public static EditionModel GetEditionFromMvb(int editionId)

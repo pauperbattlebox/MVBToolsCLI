@@ -52,14 +52,14 @@ namespace DataAccessLibrary
             return output;
         }
 
-        public void CreateSet(EditionModel edition)
+        public EditionModel CreateSet(EditionModel edition)
         {
             string sql = "insert into dbo.Edition (CsId, CsName, MtgJsonCode) values (@CsId, @CsName, @MtgJsonCode);";
             db.SaveData(sql,
                 new { edition.CsId, edition.CsName, edition.MtgJsonCode },
                 _connectionString);
 
-            Console.WriteLine($"{edition.CsName} added!");
+            return edition;
         }
 
         public void AddCardByEdition(MVBCardModel card)
