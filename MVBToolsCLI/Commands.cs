@@ -14,36 +14,36 @@ namespace MVBToolsCLI
             Edition.AddEditionToDb(sqlConnection, editionToAdd, consoleWriter);
         }
 
-        public static void AddCardsToDbByEdition(int editionId, SqlCrud sqlConnection)
+        public static void AddCardsToDbByEdition(int editionId, SqlCrud sqlConnection, IConsoleWriter consoleWriter)
         {
             EditionCardsModel model = Card.GetCardsFromMVBAPI(editionId);
 
-            Card.AddFilteredCardsToDb(sqlConnection, model);
+            Card.AddFilteredCardsToDb(sqlConnection, model, consoleWriter);
         }
 
-        public static void RefreshScryfallPriceInDb(string scryfallId, SqlCrud sqlConnection)
+        public static void RefreshScryfallPriceInDb(string scryfallId, SqlCrud sqlConnection, IConsoleWriter consoleWriter)
         {
-            Price.UpdateScryfallPriceInDb(scryfallId, sqlConnection);
+            Price.UpdateScryfallPriceInDb(scryfallId, sqlConnection, consoleWriter);
         }
 
-        public static void RefreshMVBPriceInDb(int csId, SqlCrud sqlConnection)
+        public static void RefreshMVBPriceInDb(int csId, SqlCrud sqlConnection, IConsoleWriter consoleWriter)
         {
-            Price.UpdateMVBPriceInDb(csId, sqlConnection);
+            Price.UpdateMVBPriceInDb(csId, sqlConnection, consoleWriter);
         }
 
-        public static void GetEditionsFromDb(SqlCrud sqlConnection)
+        public static void GetEditionsFromDb(SqlCrud sqlConnection, IConsoleWriter consoleWriter)
         {
-            Edition.ReadAllEditionsFromDb(sqlConnection);
+            Edition.ReadAllEditionsFromDb(sqlConnection, consoleWriter);
         }
 
-        public static void GetCardFromDb(SqlCrud sqlConnection, int csId)
+        public static void GetCardFromDb(SqlCrud sqlConnection, int csId, IConsoleWriter consoleWriter)
         {
-            Card.ReadCardFromDb(sqlConnection, csId);
+            Card.ReadCardFromDb(sqlConnection, csId, consoleWriter);
         }
 
-        public static void GetCardPriceFromDb(SqlCrud sqlConnection, int csId)
+        public static void GetCardPriceFromDb(SqlCrud sqlConnection, int csId, IConsoleWriter consoleWriter)
         {
-            Card.ReadCardPriceFromDb(sqlConnection, csId);
+            Card.ReadCardPriceFromDb(sqlConnection, csId, consoleWriter);
         }
 
     }

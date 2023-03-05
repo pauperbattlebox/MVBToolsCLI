@@ -6,9 +6,11 @@ namespace MVBToolsLibrary
 {
     public class Card
     {
-        public static void AddCardToDb(SqlCrud sql, MVBCardModel cardModel)
+        public static void AddCardToDb(SqlCrud sql, MVBCardModel cardModel, IConsoleWriter consoleWriter)
         {
             sql.AddCardByEdition(cardModel);
+
+            consoleWriter.WriteLineToConsole($"{cardModel.Name} was added to the db!");
         }
 
         public static EditionCardsModel GetCardsFromMVBAPI(int editionId)
@@ -22,7 +24,7 @@ namespace MVBToolsLibrary
             return output;
         }
 
-        public static void AddFilteredCardsToDb(SqlCrud sqlConnection, EditionCardsModel model)
+        public static void AddFilteredCardsToDb(SqlCrud sqlConnection, EditionCardsModel model, IConsoleWriter consoleWriter)
         {
             var filteredCards = from card in model.Cards
                                 where card.IsFoil == false && card.MtgJsonId != null
@@ -30,23 +32,23 @@ namespace MVBToolsLibrary
 
             foreach (var card in filteredCards)
             {
-                AddCardToDb(sqlConnection, card);
+                AddCardToDb(sqlConnection, card, consoleWriter);
             }
         }
 
-        public static void ReadCardFromDb(SqlCrud sqlConnection, int csId)
+        public static void ReadCardFromDb(SqlCrud sqlConnection, int csId, IConsoleWriter consoleWriter)
         {
             var card = sqlConnection.GetCard(csId);
 
-            Console.WriteLine(card.Name);
+            consoleWriter.WriteLineToConsole(card.Name);
 
         }
 
-        public static void ReadCardPriceFromDb(SqlCrud sqlConnection, int csId)
+        public static void ReadCardPriceFromDb(SqlCrud sqlConnection, int csId, IConsoleWriter consoleWriter)
         {
             var card = sqlConnection.GetCardPrice(csId);
 
-            Console.WriteLine($"{card.Name}: Cardsphere Price - {card.CsPrice}, Scryfall Price - {card.ScryfallPrice}");
+            consoleWriter.WriteLineToConsole($"{card.Name}: Cardsphere Price - {card.CsPrice}, Scryfall Price - {card.ScryfallPrice}");
         }
 
         //public string GetBulkDataURLFromScryfall()

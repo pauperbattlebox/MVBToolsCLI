@@ -7,13 +7,13 @@ namespace MVBToolsLibrary
 {
     public class Edition
     {
-        public static void ReadAllEditionsFromDb(SqlCrud sql)
+        public static void ReadAllEditionsFromDb(SqlCrud sql, IConsoleWriter consoleWriter)
         {
             var rows = sql.GetAllEditions();
 
             foreach (var row in rows)
             {
-                Console.WriteLine($"{row.CsName} - {row.MtgJsonCode}");
+                consoleWriter.WriteLineToConsole($"{row.CsName} - {row.MtgJsonCode}");
             }
         }
 
@@ -38,9 +38,9 @@ namespace MVBToolsLibrary
 
         public static void AddEditionToDb(SqlCrud sql, EditionModel editionModel, IConsoleWriter consoleWriter)
         {
-            EditionModel output = sql.CreateSet(editionModel);
+            sql.CreateSet(editionModel);
 
-            consoleWriter.WriteLineToConsole($"{output.CsName} added to ye olde database");
+            consoleWriter.WriteLineToConsole($"{editionModel.CsName} added to ye olde database");
 
 
         }

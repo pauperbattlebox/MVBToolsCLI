@@ -52,14 +52,12 @@ namespace DataAccessLibrary
             return output;
         }
 
-        public EditionModel CreateSet(EditionModel edition)
+        public void CreateSet(EditionModel edition)
         {
             string sql = "insert into dbo.Edition (CsId, CsName, MtgJsonCode) values (@CsId, @CsName, @MtgJsonCode);";
             db.SaveData(sql,
                 new { edition.CsId, edition.CsName, edition.MtgJsonCode },
                 _connectionString);
-
-            return edition;
         }
 
         public void AddCardByEdition(MVBCardModel card)
@@ -68,8 +66,6 @@ namespace DataAccessLibrary
             db.SaveData(sql,
                 new { card.CsId, card.Name, card.MtgJsonId, card.ScryfallId, card.MtgJsonCode },
                 _connectionString);
-
-            Console.WriteLine($"{card.Name} added!");
         }
 
         public void UpdateMvbPrice(int csId, decimal price)

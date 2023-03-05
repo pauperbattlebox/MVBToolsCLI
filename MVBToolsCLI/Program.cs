@@ -31,7 +31,7 @@ namespace MVBToolsCLI
 
                 if (option == "viewsets")
                 {
-                    Commands.GetEditionsFromDb(sqlConnection);
+                    Commands.GetEditionsFromDb(sqlConnection, consoleWriter);
                 }
 
                 if (option == "viewcard")
@@ -40,7 +40,7 @@ namespace MVBToolsCLI
 
                     string csId = Console.ReadLine();
 
-                    Commands.GetCardFromDb(sqlConnection, Int32.Parse(csId));
+                    Commands.GetCardFromDb(sqlConnection, Int32.Parse(csId), consoleWriter);
                 }
 
                 if (option == "viewcardprice")
@@ -49,7 +49,7 @@ namespace MVBToolsCLI
 
                     string csId = Console.ReadLine();
 
-                    Commands.GetCardPriceFromDb(sqlConnection, Int32.Parse(csId));
+                    Commands.GetCardPriceFromDb(sqlConnection, Int32.Parse(csId), consoleWriter);
                 }
 
                 if (option == "addcards")
@@ -58,7 +58,7 @@ namespace MVBToolsCLI
 
                     string setId = Console.ReadLine();
 
-                    Commands.AddCardsToDbByEdition(Int32.Parse(setId), sqlConnection);
+                    Commands.AddCardsToDbByEdition(Int32.Parse(setId), sqlConnection, consoleWriter);
                 }
 
                 if (option == "addprice")
@@ -73,7 +73,7 @@ namespace MVBToolsCLI
 
                         string csId = Console.ReadLine();
 
-                        Commands.RefreshMVBPriceInDb(Int32.Parse(csId), sqlConnection);
+                        Commands.RefreshMVBPriceInDb(Int32.Parse(csId), sqlConnection, consoleWriter);
                     }
 
                     if (api == "scryfall")
@@ -82,7 +82,7 @@ namespace MVBToolsCLI
 
                         string scryfallId = Console.ReadLine();
 
-                        Commands.RefreshScryfallPriceInDb(scryfallId, sqlConnection);
+                        Commands.RefreshScryfallPriceInDb(scryfallId, sqlConnection, consoleWriter);
                     }
                 }
 

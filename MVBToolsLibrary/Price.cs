@@ -38,18 +38,22 @@ namespace MVBToolsLibrary
             return output.Prices.Price;
         }
 
-        public static void UpdateScryfallPriceInDb(string scryfallId, SqlCrud sql)
+        public static void UpdateScryfallPriceInDb(string scryfallId, SqlCrud sql, IConsoleWriter consoleWriter)
         {
             decimal price = GetScryfallPriceFromAPI(scryfallId);
 
             sql.UpdateScryfallPrice(scryfallId, price);
 
+            consoleWriter.WriteLineToConsole($"Price for card ID {scryfallId} updated.");
+
         }
-        public static void UpdateMVBPriceInDb(int csId, SqlCrud sql)
+        public static void UpdateMVBPriceInDb(int csId, SqlCrud sql, IConsoleWriter consoleWriter)
         {
             decimal price = GetMVBPriceFromAPI(csId);
 
             sql.UpdateMvbPrice(csId, price);
+
+            consoleWriter.WriteLineToConsole($"Price for card ID {csId} updated.");
 
         }
     }
