@@ -9,16 +9,32 @@ namespace MVBToolsLibrary
 {
     public class Card
     {
-        public static void AddCardToDb(SqlCrud sql, MVBCardModel cardModel, IConsoleWriter consoleWriter)
-        {
-            sql.AddCard(cardModel);
 
-            consoleWriter.WriteLineToConsole($"{cardModel.Name} was added to the db!");
+        IConsoleWriter _consoleWriter;
+        IJsonHandler _jsonHandler;
+
+        public Card(IConsoleWriter consoleWriter)
+        {
+            _consoleWriter = consoleWriter;
         }
 
-        public static EditionCardsModel GetCardsFromMVBAPI(int editionId)
+        public Card(IConsoleWriter consoleWriter, IJsonHandler jsonHandler)
         {
-            string endpointUrl = Edition.GetMVBEditionEndpoint(editionId);
+            _consoleWriter = consoleWriter;
+            _jsonHandler = jsonHandler;
+        }
+        public void AddCardToDb(SqlCrud sql, MVBCardModel cardModel)
+        {
+            sql.CreateCard(cardModel);
+
+            _consoleWriter.WriteLineToConsole($"{cardModel.Name} was added to the db!");
+        }
+
+        public EditionCardsModel GetCardsFromMVBAPI(int editionId, IConsoleWriter consoleWriter)
+        {
+            Edition edition = new Edition(consoleWriter);
+            
+            string endpointUrl = edition.GetMVBEditionEndpoint(editionId);
 
             string response = HttpClientFactory.CallEndpoint(endpointUrl);
 
@@ -27,16 +43,16 @@ namespace MVBToolsLibrary
             return output;
         }
 
-        public static IEnumerable<MVBCardModel> ReadCardsFromMvbJsonFile(string fileName, IJsonHandler jsonHandler)
+        public IEnumerable<MVBCardModel> ReadCardsFromMvbJsonFile(string fileName)
         {
-            var json = jsonHandler.ReadFileFromJson(fileName);
+            var json = _jsonHandler.ReadFileFromJson(fileName);
 
             var output = JsonSerializer.Deserialize<IEnumerable<MVBCardModel>>(json);
 
             return output;
         }
 
-        public static void AddFilteredCardsToDb(SqlCrud sqlConnection, EditionCardsModel model, IConsoleWriter consoleWriter)
+        public void AddFilteredCardsToDb(SqlCrud sqlConnection, EditionCardsModel model)
         {
             var filteredCards = from card in model.Cards
                                 where card.IsFoil == false && card.MtgJsonId != null
@@ -44,23 +60,23 @@ namespace MVBToolsLibrary
 
             foreach (var card in filteredCards)
             {
-                AddCardToDb(sqlConnection, card, consoleWriter);
+                AddCardToDb(sqlConnection, card);
             }
         }
 
-        public static void ReadCardFromDb(SqlCrud sqlConnection, int csId, IConsoleWriter consoleWriter)
+        public void ReadCardFromDb(SqlCrud sqlConnection, int csId)
         {
             var card = sqlConnection.GetCard(csId);
 
-            consoleWriter.WriteLineToConsole(card.Name);
+            _consoleWriter.WriteLineToConsole(card.Name);
 
         }
 
-        public static void ReadCardPriceFromDb(SqlCrud sqlConnection, int csId, IConsoleWriter consoleWriter)
+        public void ReadCardPriceFromDb(SqlCrud sqlConnection, int csId)
         {
             var card = sqlConnection.GetCardPrice(csId);
 
-            consoleWriter.WriteLineToConsole($"{card.Name}: Cardsphere Price - {card.CsPrice}, Scryfall Price - {card.ScryfallPrice}");
+            _consoleWriter.WriteLineToConsole($"{card.Name}: Cardsphere Price - {card.CsPrice}, Scryfall Price - {card.ScryfallPrice}");
         }        
     }
 }

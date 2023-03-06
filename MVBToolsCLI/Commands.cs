@@ -3,8 +3,6 @@ using DataAccessLibrary.Models;
 using MVBToolsLibrary;
 using MVBToolsLibrary.Interfaces;
 using MVBToolsLibrary.Json;
-using System.Data.SqlClient;
-using System.Text.Json;
 
 namespace MVBToolsCLI
 {
@@ -12,50 +10,69 @@ namespace MVBToolsCLI
     {        
         public static void AddNewEditionToDb(int editionId, SqlCrud sqlConnection, IConsoleWriter consoleWriter)
         {
-            EditionModel editionToAdd = Edition.GetEditionFromMvb(editionId);
+            Edition edition = new Edition(consoleWriter);
 
-            Edition.AddEditionToDb(sqlConnection, editionToAdd, consoleWriter);
+            EditionModel editionToAdd = edition.GetEditionFromMvb(editionId);
+
+            edition.AddEditionToDb(sqlConnection, editionToAdd, consoleWriter);
         }
 
         public static void AddCardsToDbByEdition(int editionId, SqlCrud sqlConnection, IConsoleWriter consoleWriter)
         {
-            EditionCardsModel model = Card.GetCardsFromMVBAPI(editionId);
+            Card card = new Card(consoleWriter);
 
-            Card.AddFilteredCardsToDb(sqlConnection, model, consoleWriter);
+            EditionCardsModel model = card.GetCardsFromMVBAPI(editionId, consoleWriter);
+
+            card.AddFilteredCardsToDb(sqlConnection, model);
         }
 
         public static void RefreshScryfallPriceInDb(string scryfallId, SqlCrud sqlConnection, IConsoleWriter consoleWriter)
         {
-            Price.UpdateScryfallPriceInDb(scryfallId, sqlConnection, consoleWriter);
+            Price price = new Price(consoleWriter);
+
+            price.UpdateScryfallPriceInDb(scryfallId, sqlConnection);
         }
 
         public static void RefreshMVBPriceInDb(int csId, SqlCrud sqlConnection, IConsoleWriter consoleWriter)
         {
-            Price.UpdateMVBPriceInDb(csId, sqlConnection, consoleWriter);
+            Price price = new Price(consoleWriter);
+
+            price.UpdateMVBPriceInDb(csId, sqlConnection);
         }
 
         public static void GetEditionsFromDb(SqlCrud sqlConnection, IConsoleWriter consoleWriter)
         {
-            Edition.ReadAllEditionsFromDb(sqlConnection, consoleWriter);
+            Edition edition = new Edition(consoleWriter);
+
+            edition.ReadAllEditionsFromDb(sqlConnection);
         }
 
         public static void GetCardFromDb(SqlCrud sqlConnection, int csId, IConsoleWriter consoleWriter)
         {
-            Card.ReadCardFromDb(sqlConnection, csId, consoleWriter);
+            Card card = new Card(consoleWriter);
+
+            card.ReadCardFromDb(sqlConnection, csId);
         }
 
         public static void GetCardPriceFromDb(SqlCrud sqlConnection, int csId, IConsoleWriter consoleWriter)
         {
-            Card.ReadCardPriceFromDb(sqlConnection, csId, consoleWriter);
+            Card card = new Card(consoleWriter);
+
+            card.ReadCardPriceFromDb(sqlConnection, csId);
         }
 
         public static void AddCardsToDbFromJsonFile(SqlCrud sqlConnection, string fileName, IConsoleWriter consoleWriter, IJsonHandler jsonHandler)
         {
-            var json = Card.ReadCardsFromMvbJsonFile(fileName, jsonHandler);            
 
-            foreach (MVBCardModel card in json)
+            Card card = new Card(consoleWriter, jsonHandler);
+
+            var json = card.ReadCardsFromMvbJsonFile(fileName);
+
+            foreach (MVBCardModel cardModel in json)
             {
-                Card.AddCardToDb(sqlConnection, card, consoleWriter);                
+                Card newCard = new Card(consoleWriter);
+
+                newCard.AddCardToDb(sqlConnection, cardModel);
             }
         }
     }

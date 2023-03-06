@@ -8,6 +8,13 @@ namespace MVBToolsLibrary
 {
     public class Price
     {
+
+        IConsoleWriter _consoleWriter;
+
+        public Price(IConsoleWriter consoleWriter)
+        {
+            _consoleWriter = consoleWriter;
+        }
         public static decimal GetScryfallPriceFromAPI(string scryfallId)
         {
             ScryfallEndpoint scryfallEndpoint = new ScryfallEndpoint();
@@ -33,22 +40,22 @@ namespace MVBToolsLibrary
             return output.Prices.Price;
         }
 
-        public static void UpdateScryfallPriceInDb(string scryfallId, SqlCrud sql, IConsoleWriter consoleWriter)
+        public void UpdateScryfallPriceInDb(string scryfallId, SqlCrud sql)
         {
             decimal price = GetScryfallPriceFromAPI(scryfallId);
 
             sql.UpdateScryfallPrice(scryfallId, price);
 
-            consoleWriter.WriteLineToConsole($"Price for card ID {scryfallId} updated.");
+            _consoleWriter.WriteLineToConsole($"Price for card ID {scryfallId} updated.");
 
         }
-        public static void UpdateMVBPriceInDb(int csId, SqlCrud sql, IConsoleWriter consoleWriter)
+        public void UpdateMVBPriceInDb(int csId, SqlCrud sql)
         {
             decimal price = GetMVBPriceFromAPI(csId);
 
             sql.UpdateMvbPrice(csId, price);
 
-            consoleWriter.WriteLineToConsole($"Price for card ID {csId} updated.");
+            _consoleWriter.WriteLineToConsole($"Price for card ID {csId} updated.");
 
         }
     }
