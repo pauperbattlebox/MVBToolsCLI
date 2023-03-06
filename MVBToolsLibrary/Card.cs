@@ -1,6 +1,7 @@
 ﻿using DataAccessLibrary.Models;
 using DataAccessLibrary;
 using System.Text.Json;
+using MVBToolsLibrary.Endpoint;
 
 namespace MVBToolsLibrary
 {
@@ -22,6 +23,24 @@ namespace MVBToolsLibrary
             EditionCardsModel output = JsonSerializer.Deserialize<EditionCardsModel>(response);
 
             return output;
+        }
+
+        public static void GetAllCardsFromMVBAPI()
+        {
+            var endpoint = new MvbEndpoint();
+
+            string endpointUrl = endpoint.AllCards();
+                        
+            string response = HttpClientFactory.CallEndpoint(endpointUrl);
+
+            var json = JsonSerializer.Deserialize<List<MVBCardModel>>(response).Where(id => id.CsId != null);
+
+            for (int i = 0; i > 5; i++)
+            {
+                Console.WriteLine(json);
+            }
+
+            //return json;            
         }
 
         public static void AddFilteredCardsToDb(SqlCrud sqlConnection, EditionCardsModel model, IConsoleWriter consoleWriter)

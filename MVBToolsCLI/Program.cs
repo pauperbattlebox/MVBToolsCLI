@@ -16,7 +16,7 @@ namespace MVBToolsCLI
 
             while (continueProgram == true)
             {
-                Console.Write("Enter a command (viewsets, addset, viewcard, viewcardprice, addcards, addprice, exit): ");
+                Console.Write("Enter a command (viewsets, addset, viewcard, viewcardprice, addcards, addprice, test, exit): ");
 
                 string option = Console.ReadLine();
 
@@ -90,6 +90,8 @@ namespace MVBToolsCLI
                 {
                     continueProgram = false;
                 }
+                if (option == "test")
+                { Card.GetAllCardsFromMVBAPI(); }
             }
 
             Console.WriteLine("That's the end");
