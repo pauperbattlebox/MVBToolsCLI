@@ -2,6 +2,8 @@
 using DataAccessLibrary;
 using System.Text.Json;
 using MVBToolsLibrary.Endpoint;
+using MVBToolsLibrary.Json;
+using MVBToolsLibrary.Interfaces;
 
 namespace MVBToolsLibrary
 {
@@ -9,7 +11,7 @@ namespace MVBToolsLibrary
     {
         public static void AddCardToDb(SqlCrud sql, MVBCardModel cardModel, IConsoleWriter consoleWriter)
         {
-            sql.AddCardByEdition(cardModel);
+            sql.AddCard(cardModel);
 
             consoleWriter.WriteLineToConsole($"{cardModel.Name} was added to the db!");
         }
@@ -25,22 +27,13 @@ namespace MVBToolsLibrary
             return output;
         }
 
-        public static void GetAllCardsFromMVBAPI()
+        public static IEnumerable<MVBCardModel> ReadCardsFromMvbJsonFile(string fileName, IJsonHandler jsonHandler)
         {
-            var endpoint = new MvbEndpoint();
+            var json = jsonHandler.ReadFileFromJson(fileName);
 
-            string endpointUrl = endpoint.AllCards();
-                        
-            string response = HttpClientFactory.CallEndpoint(endpointUrl);
+            var output = JsonSerializer.Deserialize<IEnumerable<MVBCardModel>>(json);
 
-            var json = JsonSerializer.Deserialize<List<MVBCardModel>>(response).Where(id => id.CsId != null);
-
-            for (int i = 0; i > 5; i++)
-            {
-                Console.WriteLine(json);
-            }
-
-            //return json;            
+            return output;
         }
 
         public static void AddFilteredCardsToDb(SqlCrud sqlConnection, EditionCardsModel model, IConsoleWriter consoleWriter)
@@ -68,21 +61,6 @@ namespace MVBToolsLibrary
             var card = sqlConnection.GetCardPrice(csId);
 
             consoleWriter.WriteLineToConsole($"{card.Name}: Cardsphere Price - {card.CsPrice}, Scryfall Price - {card.ScryfallPrice}");
-        }
-
-        //public string GetBulkDataURLFromScryfall()
-        //{
-        //    ScryfallEndpoint endpoint = (ScryfallEndpoint)Factory.CreateScryfallEndpoint();
-
-        //    string response = Utilities.CallEndpoint(endpoint.AllCards());
-
-        //    var jsonHandler = Factory.CreateJsonHandler();
-
-        //    ScryfallBulkDataModel url = JsonConvert.DeserializeObject<ScryfallBulkDataModel>(response);
-
-        //    string output = url.BulkDataUrl;
-
-        //    return output;
-        //}
+        }        
     }
 }

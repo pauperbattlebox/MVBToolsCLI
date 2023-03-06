@@ -1,6 +1,7 @@
 ﻿using DataAccessLibrary;
 using Microsoft.Extensions.Configuration;
-using MVBToolsLibrary;
+using MVBToolsLibrary.Interfaces;
+using MVBToolsLibrary.Json;
 
 namespace MVBToolsCLI
 {
@@ -12,11 +13,13 @@ namespace MVBToolsCLI
 
             IConsoleWriter consoleWriter = new ConsoleWriter();
 
+            IJsonHandler jsonHandler = new JsonHandler();
+
             bool continueProgram = true;
 
             while (continueProgram == true)
             {
-                Console.Write("Enter a command (viewsets, addset, viewcard, viewcardprice, addcards, addprice, test, exit): ");
+                Console.Write("Enter a command (viewsets, addset, viewcard, viewcardprice, addcardsbyset, addallcards, addprice, test, exit): ");
 
                 string option = Console.ReadLine();
 
@@ -52,13 +55,25 @@ namespace MVBToolsCLI
                     Commands.GetCardPriceFromDb(sqlConnection, Int32.Parse(csId), consoleWriter);
                 }
 
-                if (option == "addcards")
+                if (option == "addcardsbyset")
                 {
                     Console.WriteLine("What set ID would you likd to add cards for: ");
 
                     string setId = Console.ReadLine();
 
                     Commands.AddCardsToDbByEdition(Int32.Parse(setId), sqlConnection, consoleWriter);
+                }
+
+                if (option == "addallcards")
+                {
+                    Console.WriteLine("This will attempt to process close to 100k cards, proceed(y/n)");
+
+                    string areYouSure = Console.ReadLine();
+
+                    if (areYouSure == "y")
+                    {
+                        Commands.AddCardsToDbFromJsonFile(sqlConnection, "all_ids.json", consoleWriter, jsonHandler);
+                    };
                 }
 
                 if (option == "addprice")
@@ -90,8 +105,7 @@ namespace MVBToolsCLI
                 {
                     continueProgram = false;
                 }
-                if (option == "test")
-                { Card.GetAllCardsFromMVBAPI(); }
+                                    
             }
 
             Console.WriteLine("That's the end");

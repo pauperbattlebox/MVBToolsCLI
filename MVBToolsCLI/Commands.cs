@@ -1,6 +1,9 @@
 ﻿using DataAccessLibrary;
 using DataAccessLibrary.Models;
 using MVBToolsLibrary;
+using MVBToolsLibrary.Interfaces;
+using MVBToolsLibrary.Json;
+using System.Data.SqlClient;
 using System.Text.Json;
 
 namespace MVBToolsCLI
@@ -46,5 +49,14 @@ namespace MVBToolsCLI
             Card.ReadCardPriceFromDb(sqlConnection, csId, consoleWriter);
         }
 
+        public static void AddCardsToDbFromJsonFile(SqlCrud sqlConnection, string fileName, IConsoleWriter consoleWriter, IJsonHandler jsonHandler)
+        {
+            var json = Card.ReadCardsFromMvbJsonFile(fileName, jsonHandler);            
+
+            foreach (MVBCardModel card in json)
+            {
+                Card.AddCardToDb(sqlConnection, card, consoleWriter);                
+            }
+        }
     }
 }

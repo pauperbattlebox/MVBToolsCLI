@@ -60,9 +60,9 @@ namespace DataAccessLibrary
                 _connectionString);
         }
 
-        public void AddCardByEdition(MVBCardModel card)
+        public void AddCard(MVBCardModel card)
         {
-            string sql = "insert into dbo.Card (CsId, Name, MtgjsonId, ScryfallId, MtgJsonCode) values (@CsId, @Name, @MtgJsonId, @ScryfallId, @MtgJsonCode);";
+            string sql = "IF NOT EXISTS (SELECT CsId FROM dbo.Card WHERE CsId = @CsId) BEGIN insert into dbo.Card (CsId, Name, MtgjsonId, ScryfallId, MtgJsonCode) values (@CsId, @Name, @MtgJsonId, @ScryfallId, @MtgJsonCode) END;";
             db.SaveData(sql,
                 new { card.CsId, card.Name, card.MtgJsonId, card.ScryfallId, card.MtgJsonCode },
                 _connectionString);
