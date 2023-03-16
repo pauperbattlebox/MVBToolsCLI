@@ -11,17 +11,17 @@ namespace MVBToolsLibrary
     {
 
         IConsoleWriter _consoleWriter;
-        IJsonHandler _jsonHandler;
+        IFileReader _filereader;
 
         public Card(IConsoleWriter consoleWriter)
         {
             _consoleWriter = consoleWriter;
         }
 
-        public Card(IConsoleWriter consoleWriter, IJsonHandler jsonHandler)
+        public Card(IConsoleWriter consoleWriter, IFileReader filereader)
         {
             _consoleWriter = consoleWriter;
-            _jsonHandler = jsonHandler;
+            _filereader = filereader;
         }
         public void AddCardToDb(SqlCrud sql, MVBCardModel cardModel)
         {
@@ -45,7 +45,7 @@ namespace MVBToolsLibrary
 
         public IEnumerable<MVBCardModel> ReadCardsFromMvbJsonFile(string fileName)
         {
-            var json = _jsonHandler.ReadFileFromJson(fileName);
+            var json = _filereader.ReadFile(fileName);
 
             var output = JsonSerializer.Deserialize<IEnumerable<MVBCardModel>>(json);
 

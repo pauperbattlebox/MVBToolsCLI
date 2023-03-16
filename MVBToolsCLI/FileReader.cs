@@ -2,16 +2,16 @@
 
 namespace MVBToolsLibrary.Json
 {
-    public class JsonHandler : IJsonHandler
+    public class FileReader : IFileReader
     {        
-        public string ReadFileFromJson(string filename)
+        public string ReadFile(string filename)
         {
             using (
                 StreamReader r = new StreamReader(filename))
             {
-                string json = r.ReadToEnd();
+                string text = r.ReadToEnd();
 
-                return json;                
+                return text;                
             }
         }
         

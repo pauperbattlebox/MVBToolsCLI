@@ -61,10 +61,10 @@ namespace MVBToolsCLI
             card.ReadCardPriceFromDb(sqlConnection, csId);
         }
 
-        public static void AddCardsToDbFromJsonFile(SqlCrud sqlConnection, string fileName, IConsoleWriter consoleWriter, IJsonHandler jsonHandler)
+        public static void AddCardsToDbFromJsonFile(SqlCrud sqlConnection, string fileName, IConsoleWriter consoleWriter, IFileReader filereader)
         {
 
-            Card card = new Card(consoleWriter, jsonHandler);
+            Card card = new Card(consoleWriter, filereader);
 
             var json = card.ReadCardsFromMvbJsonFile(fileName);
 

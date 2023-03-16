@@ -13,7 +13,7 @@ namespace MVBToolsCLI
 
             IConsoleWriter consoleWriter = new ConsoleWriter();
 
-            IJsonHandler jsonHandler = new JsonHandler();
+            IFileReader fileReader = new FileReader();
 
             bool continueProgram = true;
 
@@ -72,7 +72,7 @@ namespace MVBToolsCLI
 
                     if (areYouSure == "y")
                     {
-                        Commands.AddCardsToDbFromJsonFile(sqlConnection, "all_ids.json", consoleWriter, jsonHandler);
+                        Commands.AddCardsToDbFromJsonFile(sqlConnection, "all_ids.json", consoleWriter, fileReader);
                     };
                 }
 
