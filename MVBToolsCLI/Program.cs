@@ -1,13 +1,17 @@
 ﻿using DataAccessLibrary;
 using Microsoft.Extensions.Configuration;
+using MVBToolsLibrary;
 using MVBToolsLibrary.Interfaces;
 using MVBToolsLibrary.Json;
+using System.CommandLine;
+using System.CommandLine.Invocation;
+using System.ComponentModel;
 
 namespace MVBToolsCLI
 {
     class Program
     {
-        static void Main(string[] args)
+        static async Task<int> Main(string[] args)
         {
             SqlCrud sqlConnection = new SqlCrud(GetConnectionString());
 
@@ -15,98 +19,115 @@ namespace MVBToolsCLI
 
             IFileReader fileReader = new FileReader();
 
-            bool continueProgram = true;
+            var priceOption = new Option<string>(
+                name: "--priceProvider",
+                description: "Provider to pull prices from.");
 
-            while (continueProgram == true)
+
+            var cmd = new RootCommand("Root commands");
+            cmd.AddOption(priceOption);
+
+            cmd.SetHandler((provider) =>
             {
-                Console.Write("Enter a command (viewsets, addset, viewcard, viewcardprice, addcardsbyset, addallcards, addprice, exit): ");
+                PrintPriceOption(provider);
+            },
+            priceOption);
+                    
+            return await cmd.InvokeAsync(args);
 
-                string option = Console.ReadLine();
 
-                if (option == "addset")
-                {
-                    Console.WriteLine("What set ID would you like to add: ");
+            //bool continueProgram = true;
 
-                    string setId = Console.ReadLine();
+            //while (continueProgram == true)
+            //{
+            //    Console.Write("Enter a command (viewsets, addset, viewcard, viewcardprice, addcardsbyset, addallcards, addprice, exit): ");
 
-                    Commands.AddNewEditionToDb(Int32.Parse(setId), sqlConnection, consoleWriter);
-                }
+            //    string option = Console.ReadLine();
 
-                if (option == "viewsets")
-                {
-                    Commands.GetEditionsFromDb(sqlConnection, consoleWriter);
-                }
+            //    if (option == "addset")
+            //    {
+            //        Console.WriteLine("What set ID would you like to add: ");
 
-                if (option == "viewcard")
-                {
-                    Console.WriteLine("What card ID would you like to view: ");
+            //        string setId = Console.ReadLine();
 
-                    string csId = Console.ReadLine();
+            //        Commands.AddNewEditionToDb(Int32.Parse(setId), sqlConnection, consoleWriter);
+            //    }
 
-                    Commands.GetCardFromDb(sqlConnection, Int32.Parse(csId), consoleWriter);
-                }
+            //    if (option == "viewsets")
+            //    {
+            //        Commands.GetEditionsFromDb(sqlConnection, consoleWriter);
+            //    }
 
-                if (option == "viewcardprice")
-                {
-                    Console.WriteLine("What card ID would you like to view a price for: ");
+            //    if (option == "viewcard")
+            //    {
+            //        Console.WriteLine("What card ID would you like to view: ");
 
-                    string csId = Console.ReadLine();
+            //        string csId = Console.ReadLine();
 
-                    Commands.GetCardPriceFromDb(sqlConnection, Int32.Parse(csId), consoleWriter);
-                }
+            //        Commands.GetCardFromDb(sqlConnection, Int32.Parse(csId), consoleWriter);
+            //    }
 
-                if (option == "addcardsbyset")
-                {
-                    Console.WriteLine("What set ID would you likd to add cards for: ");
+            //    if (option == "viewcardprice")
+            //    {
+            //        Console.WriteLine("What card ID would you like to view a price for: ");
 
-                    string setId = Console.ReadLine();
+            //        string csId = Console.ReadLine();
 
-                    Commands.AddCardsToDbByEdition(Int32.Parse(setId), sqlConnection, consoleWriter);
-                }
+            //        Commands.GetCardPriceFromDb(sqlConnection, Int32.Parse(csId), consoleWriter);
+            //    }
 
-                if (option == "addallcards")
-                {
-                    Console.WriteLine("This will attempt to process close to 100k cards, proceed(y/n)");
+            //    if (option == "addcardsbyset")
+            //    {
+            //        Console.WriteLine("What set ID would you likd to add cards for: ");
 
-                    string areYouSure = Console.ReadLine();
+            //        string setId = Console.ReadLine();
 
-                    if (areYouSure == "y")
-                    {
-                        Commands.AddCardsToDbFromJsonFile(sqlConnection, "all_ids.json", consoleWriter, fileReader);
-                    };
-                }
+            //        Commands.AddCardsToDbByEdition(Int32.Parse(setId), sqlConnection, consoleWriter);
+            //    }
 
-                if (option == "addprice")
-                {
-                    Console.WriteLine("Would you like to add from MVB or Scryfall (mvb, scryfall): ");
+            //    if (option == "addallcards")
+            //    {
+            //        Console.WriteLine("This will attempt to process close to 100k cards, proceed(y/n)");
 
-                    string api = Console.ReadLine();
+            //        string areYouSure = Console.ReadLine();
 
-                    if (api == "mvb")
-                    {
-                        Console.WriteLine("Enter the Cardsphere ID: ");
+            //        if (areYouSure == "y")
+            //        {
+            //            Commands.AddCardsToDbFromJsonFile(sqlConnection, "all_ids.json", consoleWriter, fileReader);
+            //        };
+            //    }
 
-                        string csId = Console.ReadLine();
+            //    if (option == "addprice")
+            //    {
+            //        Console.WriteLine("Would you like to add from MVB or Scryfall (mvb, scryfall): ");
 
-                        Commands.RefreshMVBPriceInDb(Int32.Parse(csId), sqlConnection, consoleWriter);
-                    }
+            //        string api = Console.ReadLine();
 
-                    if (api == "scryfall")
-                    {
-                        Console.WriteLine("Enter the Scryfall ID: ");
+            //        if (api == "mvb")
+            //        {
+            //            Console.WriteLine("Enter the Cardsphere ID: ");
 
-                        string scryfallId = Console.ReadLine();
+            //            string csId = Console.ReadLine();
 
-                        Commands.RefreshScryfallPriceInDb(scryfallId, sqlConnection, consoleWriter);
-                    }
-                }
+            //            Commands.RefreshMVBPriceInDb(Int32.Parse(csId), sqlConnection, consoleWriter);
+            //        }
 
-                if (option == "exit")
-                {
-                    continueProgram = false;
-                }
+            //        if (api == "scryfall")
+            //        {
+            //            Console.WriteLine("Enter the Scryfall ID: ");
+
+            //            string scryfallId = Console.ReadLine();
+
+            //            Commands.RefreshScryfallPriceInDb(scryfallId, sqlConnection, consoleWriter);
+            //        }
+            //    }
+
+            //    if (option == "exit")
+            //    {
+            //        continueProgram = false;
+            //    }
                                     
-            }
+            //}
 
             Console.WriteLine("That's the end");
 
@@ -123,6 +144,13 @@ namespace MVBToolsCLI
                 string output = config.GetConnectionString(connectionStringName);
 
                 return output;
+            }
+
+            static string PrintPriceOption(string priceOption)
+            {
+                Console.WriteLine(  priceOption);
+
+                return priceOption;
             }
 
         }        
