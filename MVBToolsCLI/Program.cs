@@ -51,7 +51,17 @@ namespace MVBToolsCLI
 
             rootCommand.AddCommand(addEditionCommand);
 
-            //View card
+            //Add all cards from mtgjson file
+            var addAllCardsCommand = new Command("addAllCards", "Add all cards to db from mtgjson file.");
+
+            addAllCardsCommand.SetHandler(boolparam =>
+            {
+                Commands.AddCardsToDbFromJsonFile(sqlConnection, "all_ids.json", consoleWriter, fileReader);
+            });
+
+            rootCommand.AddCommand(addAllCardsCommand);
+
+            //Get card
             var csCardIdArgument = new Argument<int>(
                 name: "cardId",
                 description: "Card ID.");
@@ -80,6 +90,19 @@ namespace MVBToolsCLI
             }, editionIdArgument);
 
             rootCommand.AddCommand(addCardsByEdition);
+
+            //Get card price
+            var viewPriceCommand = new Command("getPrice", "View a card's prices.")
+            {
+                csCardIdArgument
+            };
+
+            viewPriceCommand.SetHandler((csId) =>
+            {
+                Commands.GetCardPriceFromDb(sqlConnection, csId, consoleWriter);
+            }, csCardIdArgument);
+
+            rootCommand.AddCommand(viewPriceCommand);
 
             //Add price
             var scryfallCardIdOption = new Option<string>(
@@ -121,7 +144,7 @@ namespace MVBToolsCLI
 
             return await rootCommand.InvokeAsync(args);
 
-            //    Console.Write("Enter a command (viewcardprice, addallcards): ");
+            //    Console.Write("Enter a command (addallcards): ");
 
             static string GetConnectionString(string connectionStringName = "Default")
             {
