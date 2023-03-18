@@ -19,21 +19,48 @@ namespace MVBToolsCLI
 
             IFileReader fileReader = new FileReader();
 
-            var priceOption = new Option<string>(
-                name: "--priceProvider",
-                description: "Provider to pull prices from.");
+            var rootCommand = new RootCommand();            
 
+            var getEditionsCommand = new Command("edition", "Get all editions from db.");
 
-            var cmd = new RootCommand("Root commands");
-            cmd.AddOption(priceOption);
-
-            cmd.SetHandler((provider) =>
+            getEditionsCommand.SetHandler(boolparam =>
             {
-                PrintPriceOption(provider);
-            },
-            priceOption);
-                    
-            return await cmd.InvokeAsync(args);
+                Commands.GetEditionsFromDb(sqlConnection,
+                    consoleWriter);
+            });
+
+            rootCommand.AddCommand(getEditionsCommand);
+
+            var editionIdOption = new Option<int>(
+                name: "--editionId",
+                description: "Edition ID to add to db.");
+
+
+            var addEditionCommand = new Command("addEdition", "Add edition to db by Cardsphere ID.")
+            {
+                editionIdOption
+            };
+
+            addEditionCommand.SetHandler((editionId) =>
+            {
+                Commands.AddNewEditionToDb(editionId, sqlConnection, consoleWriter);
+            }, editionIdOption);
+
+            rootCommand.AddCommand(addEditionCommand);
+
+            
+
+
+
+            
+
+
+            
+
+            
+
+
+            return await rootCommand.InvokeAsync(args);
 
 
             //bool continueProgram = true;
@@ -145,14 +172,6 @@ namespace MVBToolsCLI
 
                 return output;
             }
-
-            static string PrintPriceOption(string priceOption)
-            {
-                Console.WriteLine(  priceOption);
-
-                return priceOption;
-            }
-
         }        
     }
 }
