@@ -18,17 +18,17 @@ namespace MVBToolsLibrary.Repository
             return sql.GetAllEditions();
         }
 
-        public Task<int> GetAsync(int id)
+        public EditionModel Get(int id)
         {
-            throw new NotImplementedException();
+            return sql.GetEdition(id);
         }
 
-        public Task<EditionModel> Insert(EditionModel entity)
+        public EditionModel Insert(EditionModel entity)
         {
-            throw new NotImplementedException();
+            return sql.CreateSet(entity);
         }
 
-        public Task Save()
+        public void Save()
         {
             throw new NotImplementedException();
         }

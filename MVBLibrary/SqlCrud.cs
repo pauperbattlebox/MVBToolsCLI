@@ -19,6 +19,16 @@ namespace DataAccessLibrary
             return db.LoadData<EditionModel, dynamic>(sql, new  { }, _connectionString);
         }
 
+        public EditionModel GetEdition(int csId)
+        {
+            string sql = @"SELECT CsId, Name
+                            FROM dbo.Edition
+                            WHERE CsId = @CsId;";
+
+            return db.LoadData<EditionModel, dynamic>(sql, new { CsId = csId }, _connectionString).FirstOrDefault();
+
+        }
+
         public MVBCardModel GetCard(int csId)
         {
             string sql = @"SELECT CsId, Name
@@ -39,13 +49,15 @@ namespace DataAccessLibrary
             return db.LoadCardPriceData<DbCardModel, dynamic>(sql, new { CsId = csId }, _connectionString).FirstOrDefault();
         }       
 
-        public void CreateSet(EditionModel edition)
+        public EditionModel CreateSet(EditionModel edition)
         {
             string sql = @"INSERT dbo.Edition (CsId, CsName, MtgJsonCode)
                             VALUES (@CsId, @CsName, @MtgJsonCode);";
             db.SaveData(sql,
                 new { edition.CsId, edition.CsName, edition.MtgJsonCode },
                 _connectionString);
+
+            return edition;
         }
 
         public void CreateCard(MVBCardModel card)
