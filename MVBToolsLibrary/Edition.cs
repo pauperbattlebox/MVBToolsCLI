@@ -3,24 +3,29 @@ using DataAccessLibrary;
 using MVBToolsLibrary.Endpoint;
 using System.Text.Json;
 using MVBToolsLibrary.Interfaces;
+using MVBToolsLibrary.Repository;
 
 namespace MVBToolsLibrary
 {
     public class Edition
     {
         IConsoleWriter _consoleWriter;
+        
 
         public Edition(IConsoleWriter consoleWriter)
         {
             _consoleWriter = consoleWriter;
+            
         }
         public void ReadAllEditionsFromDb(SqlCrud sql)
         {
-            var rows = sql.GetAllEditions();
+            EditionRepository editionRepository = new EditionRepository();
 
-            foreach (var row in rows)
+            var editions = editionRepository.GetAll();
+
+            foreach(var edition in editions)
             {
-                _consoleWriter.WriteLineToConsole($"{row.CsName} - {row.MtgJsonCode}");
+                Console.WriteLine($"{edition.CsName}");
             }
         }        
         public string GetMVBEditionEndpoint(int editionId)

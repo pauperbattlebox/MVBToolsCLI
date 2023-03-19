@@ -12,7 +12,7 @@ namespace DataAccessLibrary
             _connectionString = connectionString;
         }
 
-        public List<EditionModel> GetAllEditions()
+        public IEnumerable<EditionModel> GetAllEditions()
         {
             string sql = @"SELECT * FROM dbo.Edition;";
 
