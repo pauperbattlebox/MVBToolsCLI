@@ -7,11 +7,19 @@ namespace DataAccessLibrary
 {
     public class SqlDataAccess
     {
-        public List<T> LoadData<T, U>(string sqlStatement, U parameters, string connectionString)
+        public async Task<IEnumerable<T>> LoadAsyncData<T, U>(string sqlStatement, U parameters, string connectionString)
         {
             using (IDbConnection connection = new SqlConnection(connectionString))
             {
-                List<T> rows = connection.Query<T>(sqlStatement, parameters).ToList();
+                var rows = await connection.QueryAsync<T>(sqlStatement, parameters);
+                return rows;
+            }
+        }
+        public async Task<T> LoadAsyncSingleData<T, U>(string sqlStatement, U parameters, string connectionString)
+        {
+            using (IDbConnection connection = new SqlConnection(connectionString))
+            {
+                var rows = await connection.QuerySingleAsync<T>(sqlStatement, parameters);
                 return rows;
             }
         }
@@ -25,12 +33,20 @@ namespace DataAccessLibrary
                 return rows;
             }
         }
-
-        public void SaveData<T>(string sqlStatement, T parameters, string connectionString)
+        public List<T> LoadData<T, U>(string sqlStatement, U parameters, string connectionString)
         {
             using (IDbConnection connection = new SqlConnection(connectionString))
             {
-                connection.Execute(sqlStatement, parameters);
+                List<T> rows = connection.Query<T>(sqlStatement, parameters).ToList();
+                return rows;
+            }
+        }
+
+        public async Task SaveData<T>(string sqlStatement, T parameters, string connectionString)
+        {
+            using (IDbConnection connection = new SqlConnection(connectionString))
+            {
+                await connection.ExecuteAsync(sqlStatement, parameters);
             }
         }
     }

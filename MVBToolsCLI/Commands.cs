@@ -44,7 +44,12 @@ namespace MVBToolsCLI
         {
             Edition edition = new Edition(consoleWriter);
 
-            edition.ReadAllEditionsFromDb(sqlConnection);
+            var editions = edition.ReadAllEditionsFromDb(sqlConnection);
+
+            foreach(var editionModel in editions.Result)
+            {
+                Console.WriteLine($"{editionModel.CsName} - {editionModel.MtgJsonCode}");
+            }
         }
 
         public static void GetCardFromDb(SqlCrud sqlConnection, int csId, IConsoleWriter consoleWriter)

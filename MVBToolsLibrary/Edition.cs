@@ -17,16 +17,12 @@ namespace MVBToolsLibrary
             _consoleWriter = consoleWriter;
             
         }
-        public void ReadAllEditionsFromDb(SqlCrud sql)
+        public async Task<IEnumerable<EditionModel>> ReadAllEditionsFromDb(SqlCrud sql)
         {
             EditionRepository editionRepository = new EditionRepository();
 
-            var editions = editionRepository.GetAll();
-
-            foreach(var edition in editions)
-            {
-                Console.WriteLine($"{edition.CsName}");
-            }
+            return await editionRepository.GetAll();
+            
         }        
         public string GetMVBEditionEndpoint(int editionId)
         {

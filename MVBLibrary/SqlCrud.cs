@@ -12,20 +12,20 @@ namespace DataAccessLibrary
             _connectionString = connectionString;
         }
 
-        public IEnumerable<EditionModel> GetAllEditions()
+        public async Task<IEnumerable<EditionModel>> GetAllEditions()
         {
             string sql = @"SELECT * FROM dbo.Edition;";
 
-            return db.LoadData<EditionModel, dynamic>(sql, new  { }, _connectionString);
+            return await db.LoadAsyncData<EditionModel, dynamic>(sql, new  { }, _connectionString);
         }
 
-        public EditionModel GetEdition(int csId)
+        public async Task<EditionModel> GetEdition(int csId)
         {
             string sql = @"SELECT CsId, Name
                             FROM dbo.Edition
                             WHERE CsId = @CsId;";
 
-            return db.LoadData<EditionModel, dynamic>(sql, new { CsId = csId }, _connectionString).FirstOrDefault();
+            return await db.LoadAsyncSingleData<EditionModel, dynamic>(sql, new { CsId = csId }, _connectionString);
 
         }
 

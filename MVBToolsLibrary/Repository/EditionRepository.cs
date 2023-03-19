@@ -13,14 +13,14 @@ namespace MVBToolsLibrary.Repository
     public class EditionRepository : IRepository<EditionModel, int>
     {
         SqlCrud sql = new SqlCrud("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=MVB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
-        public IEnumerable<EditionModel> GetAll()
+        public async Task<IEnumerable<EditionModel>> GetAll()
         {
-            return sql.GetAllEditions();
+            return await sql.GetAllEditions();
         }
 
-        public EditionModel Get(int id)
+        public async Task<EditionModel> Get(int id)
         {
-            return sql.GetEdition(id);
+            return await sql.GetEdition(id);
         }
 
         public EditionModel Insert(EditionModel entity)
