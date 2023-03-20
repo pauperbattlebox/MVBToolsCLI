@@ -9,20 +9,23 @@ namespace MVBToolsLibrary
 {
     public class Edition
     {
-        IConsoleWriter _consoleWriter;
+        
+        private readonly IConsoleWriter _consoleWriter;
+        private readonly IRepository<EditionModel, int> _editionRepository;
         
 
         public Edition(IConsoleWriter consoleWriter)
         {
-            _consoleWriter = consoleWriter;
-            
+            _consoleWriter = consoleWriter;            
         }
-        public async Task<IEnumerable<EditionModel>> ReadAllEditionsFromDb(SqlCrud sql)
-        {
-            EditionRepository editionRepository = new EditionRepository();
 
-            return await editionRepository.GetAll();
-            
+        public Edition(IRepository<EditionModel, int> repository)
+        {
+            _editionRepository = repository;
+        }
+        public async Task<IEnumerable<EditionModel>> ReadAllEditionsFromDb()
+        {            
+            return await _editionRepository.GetAll();           
         }        
         public string GetMVBEditionEndpoint(int editionId)
         {

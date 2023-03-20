@@ -40,11 +40,11 @@ namespace MVBToolsCLI
             price.UpdateMVBPriceInDb(csId, sqlConnection);
         }
 
-        public static void GetEditionsFromDb(SqlCrud sqlConnection, IConsoleWriter consoleWriter)
+        public static void GetEditionsFromDb(IConsoleWriter consoleWriter)
         {
             Edition edition = new Edition(consoleWriter);
 
-            var editions = edition.ReadAllEditionsFromDb(sqlConnection);
+            var editions = edition.ReadAllEditionsFromDb();
 
             foreach(var editionModel in editions.Result)
             {

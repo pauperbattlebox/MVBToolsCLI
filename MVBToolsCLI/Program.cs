@@ -20,6 +20,8 @@ namespace MVBToolsCLI
 
             IFileReader fileReader = new FileReader();
 
+            var container = Startup.ConfigureService();            
+
             var rootCommand = new RootCommand();            
 
             //Get editions from db
@@ -27,8 +29,7 @@ namespace MVBToolsCLI
 
             getEditionsCommand.SetHandler(boolparam =>
             {
-                Commands.GetEditionsFromDb(sqlConnection,
-                    consoleWriter);
+                Commands.GetEditionsFromDb(consoleWriter);
             });
 
             rootCommand.AddCommand(getEditionsCommand);
