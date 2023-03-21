@@ -9,7 +9,7 @@ namespace MVBToolsLibrary.Repository
     public interface IRepository<T, U> where T : class
     {
         Task <IEnumerable<T>> GetAll();
-        Task <T> Get(int id);
+        Task <T> Get(U id);
         T Insert(T entity);
         void Save();
     }

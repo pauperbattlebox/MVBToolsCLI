@@ -16,16 +16,21 @@ namespace MVBToolsLibrary
 
         public Edition(IConsoleWriter consoleWriter)
         {
-            _consoleWriter = consoleWriter;            
-        }
+            _consoleWriter = consoleWriter;
+        }        
 
         public Edition(IRepository<EditionModel, int> repository)
         {
             _editionRepository = repository;
         }
+
         public async Task<IEnumerable<EditionModel>> ReadAllEditionsFromDb()
-        {            
-            return await _editionRepository.GetAll();           
+        {
+            //IRepository<EditionModel, int> repository = new EditionRepository();
+
+            //return await repository.GetAll();
+
+            return await _editionRepository.GetAll();
         }        
         public string GetMVBEditionEndpoint(int editionId)
         {
@@ -34,7 +39,7 @@ namespace MVBToolsLibrary
             return endpoint.EditionById(editionId);
         }
 
-        public void AddEditionToDb(SqlCrud sql, EditionModel editionModel, IConsoleWriter consoleWriter)
+        public void AddEditionToDb(SqlCrud sql, EditionModel editionModel)
         {
             sql.CreateSet(editionModel);
 

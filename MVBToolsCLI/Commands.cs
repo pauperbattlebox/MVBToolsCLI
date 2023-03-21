@@ -14,7 +14,7 @@ namespace MVBToolsCLI
 
             EditionModel editionToAdd = edition.GetEditionFromMvb(editionId);
 
-            edition.AddEditionToDb(sqlConnection, editionToAdd, consoleWriter);
+            edition.AddEditionToDb(sqlConnection, editionToAdd);
         }
 
         public static void AddCardsToDbByEdition(int editionId, SqlCrud sqlConnection, IConsoleWriter consoleWriter)
