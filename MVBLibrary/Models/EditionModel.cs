@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 namespace DataAccessLibrary.Models
 {
     public class EditionModel
-    {
+    {        
         [JsonPropertyName("cs_id")]
         public int CsId { get; set; }
 

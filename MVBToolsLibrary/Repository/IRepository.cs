@@ -11,6 +11,5 @@ namespace MVBToolsLibrary.Repository
         Task <IEnumerable<T>> GetAll();
         Task <T> Get(U id);
         T Insert(T entity);
-        void Save();
     }
 }

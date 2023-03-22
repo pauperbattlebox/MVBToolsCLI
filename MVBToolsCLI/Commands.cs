@@ -46,7 +46,7 @@ namespace MVBToolsCLI
 
             var editions = edition.ReadAllEditionsFromDb();
 
-            foreach(var editionModel in editions.Result)
+            foreach (var editionModel in editions.Result)
             {
                 Console.WriteLine($"{editionModel.CsName} - {editionModel.MtgJsonCode}");
             }

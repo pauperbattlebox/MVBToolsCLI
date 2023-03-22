@@ -12,7 +12,7 @@ namespace MVBToolsLibrary
         
         private readonly IConsoleWriter _consoleWriter;
         private readonly IRepository<EditionModel, int> _editionRepository;
-        
+
 
         public Edition(IConsoleWriter consoleWriter)
         {
@@ -23,12 +23,14 @@ namespace MVBToolsLibrary
         {
             _editionRepository = repository;
         }
+        
+        
 
         public async Task<IEnumerable<EditionModel>> ReadAllEditionsFromDb()
         {
             //IRepository<EditionModel, int> repository = new EditionRepository();
 
-            //return await repository.GetAll();
+            //return await repository.GetAll();           
 
             return await _editionRepository.GetAll();
         }        

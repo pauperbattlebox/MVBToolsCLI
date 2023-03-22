@@ -1,14 +1,8 @@
 ﻿using DataAccessLibrary;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Hosting;
 using MVBToolsLibrary.Interfaces;
 using MVBToolsLibrary.Json;
-using System;
-using System.Collections.Generic;
 using System.CommandLine;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MVBToolsCLI
 {

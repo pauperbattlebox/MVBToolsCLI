@@ -1,16 +1,8 @@
-﻿using DataAccessLibrary;
-using DataAccessLibrary.Models;
-using Microsoft.Extensions.Configuration;
+﻿using DataAccessLibrary.Models;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MVBToolsLibrary;
-using MVBToolsLibrary.Interfaces;
-using MVBToolsLibrary.Json;
 using MVBToolsLibrary.Repository;
-using System.CommandLine;
-using System.CommandLine.Invocation;
-using System.ComponentModel;
-using System.Diagnostics.Tracing;
 
 namespace MVBToolsCLI
 {
@@ -23,15 +15,14 @@ namespace MVBToolsCLI
             using var scope = host.Services.CreateScope();
 
             var services = scope.ServiceProvider;
-
-            services.GetRequiredService<App>().Run(args);
-            
+                        
+            services.GetRequiredService<App>().Run(args);            
 
 
             static IHostBuilder CreateHostBuilder(string[] args)
             {
                 return Host.CreateDefaultBuilder(args)
-                    .ConfigureServices((_, services) =>
+                    .ConfigureServices((services) =>
                     {
                         services.AddScoped<IRepository<EditionModel, int>, EditionRepository>();
                         services.AddSingleton<App>();

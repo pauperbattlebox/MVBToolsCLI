@@ -20,10 +20,5 @@ namespace MVBToolsLibrary.Repository
         {
             return sql.CreateSet(entity);
         }
-
-        public void Save()
-        {
-            throw new NotImplementedException();
-        }
     }
 }
