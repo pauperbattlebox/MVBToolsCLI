@@ -11,7 +11,7 @@ namespace MVBToolsLibrary
     {
         
         private readonly IConsoleWriter _consoleWriter;
-        private readonly IRepository<EditionModel, int> _editionRepository;
+        private readonly IEditionDbRepository<EditionModel> _editionDbRepository;
 
 
         public Edition(IConsoleWriter consoleWriter)
@@ -19,9 +19,9 @@ namespace MVBToolsLibrary
             _consoleWriter = consoleWriter;
         }        
 
-        public Edition(IRepository<EditionModel, int> repository)
+        public Edition(IEditionDbRepository<EditionModel> repository)
         {
-            _editionRepository = repository;
+            _editionDbRepository = repository;
         }
         
         
@@ -32,7 +32,7 @@ namespace MVBToolsLibrary
 
             //return await repository.GetAll();           
 
-            return await _editionRepository.GetAll();
+            return await _editionDbRepository.GetAll();
         }        
         public string GetMVBEditionEndpoint(int editionId)
         {
@@ -46,7 +46,6 @@ namespace MVBToolsLibrary
             sql.CreateSet(editionModel);
 
             _consoleWriter.WriteLineToConsole($"{editionModel.CsName} added to ye olde database");
-
         }
 
         public EditionModel GetEditionFromMvb(int editionId)

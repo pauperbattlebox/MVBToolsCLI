@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace MVBToolsLibrary.Repository
 {
-    public interface IRepository<T, U> where T : class
+    public interface IEditionDbRepository<T> where T : class
     {
         Task <IEnumerable<T>> GetAll();
-        Task <T> Get(U id);
+        Task <T> Get(int id);
         T Insert(T entity);
     }
 }

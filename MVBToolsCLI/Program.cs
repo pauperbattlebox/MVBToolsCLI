@@ -15,8 +15,8 @@ namespace MVBToolsCLI
             using var scope = host.Services.CreateScope();
 
             var services = scope.ServiceProvider;
-                        
-            services.GetRequiredService<App>().Run(args);            
+                                                
+            services.GetRequiredService<App>().Run(args);
 
 
             static IHostBuilder CreateHostBuilder(string[] args)
@@ -24,7 +24,7 @@ namespace MVBToolsCLI
                 return Host.CreateDefaultBuilder(args)
                     .ConfigureServices((services) =>
                     {
-                        services.AddScoped<IRepository<EditionModel, int>, EditionRepository>();
+                        services.AddScoped<IEditionDbRepository<EditionModel>, EditionDbRepository>();
                         services.AddSingleton<App>();
                     });
             }

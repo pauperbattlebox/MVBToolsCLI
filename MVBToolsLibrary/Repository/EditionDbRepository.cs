@@ -3,7 +3,7 @@ using DataAccessLibrary.Models;
 
 namespace MVBToolsLibrary.Repository
 {
-    public class EditionRepository : IRepository<EditionModel, int>
+    public class EditionDbRepository : IEditionDbRepository<EditionModel>
     {
         SqlCrud sql = new SqlCrud("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=MVB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
         public async Task<IEnumerable<EditionModel>> GetAll()
