@@ -13,10 +13,12 @@ namespace MVBToolsCLI
     {
 
         private readonly IEditionDbRepository<EditionModel> _editionDbRepository;
+        private readonly ICardDbRepository<MVBCardModel> _cardDbRepository;
 
-        public App (IEditionDbRepository<EditionModel> editionDbRepository)
+        public App (IEditionDbRepository<EditionModel> editionDbRepository, ICardDbRepository<MVBCardModel> cardDbRepository)
         {
             _editionDbRepository = editionDbRepository;
+            _cardDbRepository = cardDbRepository;
         }
 
         public async Task<int> Run(string[] args)

@@ -25,6 +25,7 @@ namespace MVBToolsCLI
                     .ConfigureServices((services) =>
                     {
                         services.AddScoped<IEditionDbRepository<EditionModel>, EditionDbRepository>();
+                        services.AddScoped<ICardDbRepository<MVBCardModel>, CardDbRepository>();
                         services.AddSingleton<App>();
                     });
             }

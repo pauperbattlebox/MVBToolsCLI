@@ -1,8 +1,7 @@
 {
   "profiles": {
     "MVBToolsCLI": {
-      "commandName": "Project",
-      "commandLineArgs": "edition"
+      "commandName": "Project"
     }
   }
 }
