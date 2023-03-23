@@ -1,15 +1,26 @@
 ﻿using DataAccessLibrary;
+using DataAccessLibrary.Models;
 using Microsoft.Extensions.Configuration;
 using MVBToolsLibrary.Interfaces;
 using MVBToolsLibrary.Json;
+using MVBToolsLibrary.Repository;
 using System.CommandLine;
+using System.Runtime.CompilerServices;
 
 namespace MVBToolsCLI
 {
     public class App
     {
-        public async Task<int> Run(string[] args)
+
+        private readonly IEditionDbRepository<EditionModel> _editionDbRepository;
+
+        public App (IEditionDbRepository<EditionModel> editionDbRepository)
         {
+            _editionDbRepository = editionDbRepository;
+        }
+
+        public async Task<int> Run(string[] args)
+        {            
             SqlCrud sqlConnection = new SqlCrud(GetConnectionString());
 
             IConsoleWriter consoleWriter = new ConsoleWriter();
@@ -23,7 +34,12 @@ namespace MVBToolsCLI
 
             getEditionsCommand.SetHandler(boolparam =>
             {
-                Commands.GetEditionsFromDb(consoleWriter);
+                var rows = _editionDbRepository.GetAll().Result;
+
+                foreach(var row in rows)
+                {
+                    Console.WriteLine($"{row.CsName} - {row.MtgJsonCode}");
+                }
             });
 
             rootCommand.AddCommand(getEditionsCommand);
