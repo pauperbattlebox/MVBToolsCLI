@@ -21,7 +21,7 @@ namespace MVBToolsLibrary
 
             string endpointUrl = scryfallEndpoint.CardById(scryfallId);
 
-            string response = HttpClientFactory.CallEndpoint(endpointUrl);            
+            string response = HttpClient.CallEndpoint(endpointUrl);            
 
             ScryfallCardModel output = JsonSerializer.Deserialize<ScryfallCardModel>(response);
             
@@ -33,7 +33,7 @@ namespace MVBToolsLibrary
 
             string endpointUrl = mvbEndpoint.CardById(csId);
 
-            string response = HttpClientFactory.CallEndpoint(endpointUrl);
+            string response = HttpClient.CallEndpoint(endpointUrl);
 
             MVBCardModel output = JsonSerializer.Deserialize<MVBCardModel>(response);
                         

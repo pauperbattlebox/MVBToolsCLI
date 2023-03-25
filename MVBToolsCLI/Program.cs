@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MVBToolsLibrary;
 using MVBToolsLibrary.Repository;
+using MVBToolsLibrary.Interfaces;
 
 namespace MVBToolsCLI
 {
@@ -15,21 +16,21 @@ namespace MVBToolsCLI
             using IHost host = CreateHostBuilder(args).Build();
             using var scope = host.Services.CreateScope();
 
-            var services = scope.ServiceProvider;
+            var services = scope.ServiceProvider;            
                         
             services.GetRequiredService<App>().Run(args);
-
 
             static IHostBuilder CreateHostBuilder(string[] args)
             {
                 return Host.CreateDefaultBuilder(args)
-                    .ConfigureServices((services) =>
+                    .ConfigureServices((_, services) =>
                     {
                         services.AddScoped<IEditionDbRepository<EditionModel>, EditionDbRepository>();
                         services.AddScoped<ICardDbRepository<MVBCardModel>, CardDbRepository>();
+                        services.AddHttpClient();
                         services.AddSingleton<App>();
                     });
-            }
+            }            
         }
     }
 }

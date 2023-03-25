@@ -5,8 +5,6 @@ using MVBToolsLibrary.Interfaces;
 using MVBToolsLibrary.Json;
 using MVBToolsLibrary.Repository;
 using System.CommandLine;
-using System.Data;
-using System.Runtime.CompilerServices;
 
 namespace MVBToolsCLI
 {
@@ -15,11 +13,13 @@ namespace MVBToolsCLI
 
         private readonly IEditionDbRepository<EditionModel> _editionDbRepository;
         private readonly ICardDbRepository<MVBCardModel> _cardDbRepository;
+        private readonly IHttpClientFactory _httpClientFactory;
 
-        public App (IEditionDbRepository<EditionModel> editionDbRepository, ICardDbRepository<MVBCardModel> cardDbRepository)
+        public App (IEditionDbRepository<EditionModel> editionDbRepository, ICardDbRepository<MVBCardModel> cardDbRepository, IHttpClientFactory httpClientFactory)
         {
             _editionDbRepository = editionDbRepository;
             _cardDbRepository = cardDbRepository;
+            _httpClientFactory = httpClientFactory;
         }
 
         public async Task<int> Run(string[] args)
@@ -33,11 +33,11 @@ namespace MVBToolsCLI
             var rootCommand = new RootCommand();
 
             //Get editions from db
-            var getEditionsCommand = new Command("edition", "Get all editions from db.");
+            var getEditionsCommand = new Command("getAllEditions", "Get all editions from db.");
 
             getEditionsCommand.SetHandler(boolparam =>
             {
-                var rows = _editionDbRepository.GetAll().Result;
+                var rows = _editionDbRepository.GetAll().Result;                
 
                 foreach(var row in rows)
                 {
@@ -186,6 +186,7 @@ namespace MVBToolsCLI
                     .SetBasePath(Directory.GetCurrentDirectory())
                     .AddJsonFile("appsettings.json");
 
+                
                 var config = builder.Build();
 
                 string output = config.GetConnectionString(connectionStringName);

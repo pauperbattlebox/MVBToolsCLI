@@ -13,27 +13,10 @@ namespace MVBToolsLibrary
         private readonly IConsoleWriter _consoleWriter;
         private readonly IEditionDbRepository<EditionModel> _editionDbRepository;
 
-
         public Edition(IConsoleWriter consoleWriter)
         {
             _consoleWriter = consoleWriter;
-        }        
-
-        public Edition(IEditionDbRepository<EditionModel> repository)
-        {
-            _editionDbRepository = repository;
-        }
-        
-        
-
-        public async Task<IEnumerable<EditionModel>> ReadAllEditionsFromDb()
-        {
-            //IRepository<EditionModel, int> repository = new EditionRepository();
-
-            //return await repository.GetAll();           
-
-            return await _editionDbRepository.GetAll();
-        }        
+        } 
         public string GetMVBEditionEndpoint(int editionId)
         {
             var endpoint = new MvbEndpoint();
@@ -52,7 +35,7 @@ namespace MVBToolsLibrary
         {
             string endpoint = GetMVBEditionEndpoint(editionId);
 
-            string response = HttpClientFactory.CallEndpoint(endpoint);
+            string response = HttpClient.CallEndpoint(endpoint);            
 
             EditionModel output = JsonSerializer.Deserialize<EditionModel>(response);
 

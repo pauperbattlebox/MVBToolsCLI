@@ -39,19 +39,6 @@ namespace MVBToolsCLI
 
             price.UpdateMVBPriceInDb(csId, sqlConnection);
         }
-
-        public static void GetEditionsFromDb(IConsoleWriter consoleWriter)
-        {
-            Edition edition = new Edition(consoleWriter);
-
-            var editions = edition.ReadAllEditionsFromDb();
-
-            foreach (var editionModel in editions.Result)
-            {
-                Console.WriteLine($"{editionModel.CsName} - {editionModel.MtgJsonCode}");
-            }
-        }
-
         public static void GetCardFromDb(SqlCrud sqlConnection, int csId, IConsoleWriter consoleWriter)
         {
             Card card = new Card(consoleWriter);

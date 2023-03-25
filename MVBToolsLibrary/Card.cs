@@ -36,7 +36,7 @@ namespace MVBToolsLibrary
             
             string endpointUrl = edition.GetMVBEditionEndpoint(editionId);
 
-            string response = HttpClientFactory.CallEndpoint(endpointUrl);
+            string response = HttpClient.CallEndpoint(endpointUrl);
 
             EditionCardsModel output = JsonSerializer.Deserialize<EditionCardsModel>(response);
 
