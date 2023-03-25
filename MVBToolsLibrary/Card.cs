@@ -64,9 +64,9 @@ namespace MVBToolsLibrary
             }
         }
 
-        public void ReadCardFromDb(SqlCrud sqlConnection, int csId)
+        public async Task ReadCardFromDb(SqlCrud sqlConnection, int csId)
         {
-            var card = sqlConnection.GetCard(csId);
+            var card = sqlConnection.GetCard(csId).Result;
 
             _consoleWriter.WriteLineToConsole(card.Name);
 

@@ -5,6 +5,7 @@ using MVBToolsLibrary.Interfaces;
 using MVBToolsLibrary.Json;
 using MVBToolsLibrary.Repository;
 using System.CommandLine;
+using System.Data;
 using System.Runtime.CompilerServices;
 
 namespace MVBToolsCLI
@@ -91,7 +92,29 @@ namespace MVBToolsCLI
 
             rootCommand.AddCommand(getCardCommand);
 
-            //Add cards by set
+            //Get cards by edition
+            var editionMtgJsonCodeArgument = new Argument<string>(
+                name: "mtgJsonCode",
+                description: "MTGJSON Edition Code");
+
+            var getCardsByEditionCommand = new Command("getCardsByEdition", "Get all cards from db by MTGJSON Edition Code.")
+            {
+                editionMtgJsonCodeArgument
+            };
+
+            getCardsByEditionCommand.SetHandler((mtgJsonCode) =>
+            {
+                var rows = _cardDbRepository.GetAllById(mtgJsonCode).Result;
+
+                foreach( var row in rows)
+                {
+                    Console.WriteLine($"{row.Name} - { row.MtgJsonCode}");
+                }
+            }, editionMtgJsonCodeArgument);
+
+            rootCommand.AddCommand(getCardsByEditionCommand);
+
+            //Add cards by edition
             var addCardsByEdition = new Command("addCardsByEdition", "Add all cards from a given edition to db.")
             {
                 editionIdArgument
@@ -155,9 +178,7 @@ namespace MVBToolsCLI
             rootCommand.AddCommand(addPriceCommand);
 
 
-            return await rootCommand.InvokeAsync(args);
-
-            //    Console.Write("Enter a command (addallcards): ");            
+            return await rootCommand.InvokeAsync(args);        
 
             static string GetConnectionString(string connectionStringName = "Default")
             {

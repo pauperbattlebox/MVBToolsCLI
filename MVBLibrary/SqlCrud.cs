@@ -29,15 +29,29 @@ namespace DataAccessLibrary
 
         }
 
-        public MVBCardModel GetCard(int csId)
+        public async Task<MVBCardModel> GetCard(int csId)
         {
             string sql = @"SELECT CsId, Name
                             FROM dbo.Card
                             WHERE CsId = @CsId;";
 
-            return db.LoadData<MVBCardModel, dynamic>(sql, new { CsId = csId }, _connectionString).FirstOrDefault();
+            return await db.LoadAsyncSingleData<MVBCardModel, dynamic>(sql, new { CsId = csId }, _connectionString);
 
         }
+
+        public async Task<IEnumerable<MVBCardModel>> GetAllCardsByEditionId(string mtgJsonCode)
+        {
+            string sql = @"SELECT c.Name, c.MtgJsonCode, e.csName
+                            FROM dbo.Card as c
+                            LEFT JOIN dbo.Edition as e
+                            ON c.MtgJsonCode = e.MtgJsonCode
+                            WHERE e.MtgJsonCode = @MtgJsonCode;";
+
+            return await db.LoadAsyncData<MVBCardModel, dynamic>(sql, new { MtgJsonCode = mtgJsonCode }, _connectionString);
+
+        }
+
+
 
         public DbCardModel GetCardPrice(int csId)
         {
@@ -60,7 +74,7 @@ namespace DataAccessLibrary
             return edition;
         }
 
-        public void CreateCard(MVBCardModel card)
+        public async void CreateCard(MVBCardModel card)
         {
             string sql = @"IF NOT EXISTS
                             (SELECT CsId FROM dbo.Card WHERE CsId = @CsId)
@@ -68,7 +82,7 @@ namespace DataAccessLibrary
                             INSERT INTO dbo.Card (CsId, Name, MtgjsonId, ScryfallId, MtgJsonCode)
                             VALUES (@CsId, @Name, @MtgJsonId, @ScryfallId, @MtgJsonCode)
                             END;";
-            db.SaveData(sql,
+            await db.SaveData(sql,
                 new { card.CsId, card.Name, card.MtgJsonId, card.ScryfallId, card.MtgJsonCode },
                 _connectionString);
         }

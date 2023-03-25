@@ -7,9 +7,9 @@ namespace MVBToolsLibrary.Repository
     {
         SqlCrud sql = new SqlCrud("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=MVB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
 
-        public async Task<IEnumerable<MVBCardModel>> GetAllById(int editionId)
+        public async Task<IEnumerable<MVBCardModel>> GetAllById(string mtgJsonCode)
         {
-            return await sql.GetAllCardsByEditionId(editionId);
+            return await sql.GetAllCardsByEditionId(mtgJsonCode);
         }
 
         public async Task<MVBCardModel> Get(int id)
@@ -17,15 +17,9 @@ namespace MVBToolsLibrary.Repository
             return await sql.GetCard(id);
         }
 
-        public async Task<MVBCardModel> Insert(MVBCardModel entity)
+        public async Task Insert(MVBCardModel entity)
         {
-            return await sql.CreateCard(entity);
+            sql.CreateCard(entity);
         }
-
-        public async Task<MVBCardModel> Update(MVBCardModel entity)
-        {
-            return await sql.UpdateCard(entity);
-        }
-
     }
 }

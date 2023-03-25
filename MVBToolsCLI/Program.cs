@@ -1,4 +1,5 @@
 ﻿using DataAccessLibrary.Models;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MVBToolsLibrary;
@@ -15,7 +16,7 @@ namespace MVBToolsCLI
             using var scope = host.Services.CreateScope();
 
             var services = scope.ServiceProvider;
-                                                
+                        
             services.GetRequiredService<App>().Run(args);
 
 
@@ -29,6 +30,6 @@ namespace MVBToolsCLI
                         services.AddSingleton<App>();
                     });
             }
-        }        
+        }
     }
 }
