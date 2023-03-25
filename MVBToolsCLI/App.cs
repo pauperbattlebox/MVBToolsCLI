@@ -5,6 +5,7 @@ using MVBToolsLibrary.Interfaces;
 using MVBToolsLibrary.Json;
 using MVBToolsLibrary.Repository;
 using System.CommandLine;
+using System.Data;
 
 namespace MVBToolsCLI
 {
@@ -13,13 +14,13 @@ namespace MVBToolsCLI
 
         private readonly IEditionDbRepository<EditionModel> _editionDbRepository;
         private readonly ICardDbRepository<MVBCardModel> _cardDbRepository;
-        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly IMvbApiRepository _mvbApiRepository;
 
-        public App (IEditionDbRepository<EditionModel> editionDbRepository, ICardDbRepository<MVBCardModel> cardDbRepository, IHttpClientFactory httpClientFactory)
+        public App (IEditionDbRepository<EditionModel> editionDbRepository, ICardDbRepository<MVBCardModel> cardDbRepository, IMvbApiRepository mvbApiRepository)
         {
             _editionDbRepository = editionDbRepository;
             _cardDbRepository = cardDbRepository;
-            _httpClientFactory = httpClientFactory;
+            _mvbApiRepository = mvbApiRepository;
         }
 
         public async Task<int> Run(string[] args)
@@ -87,6 +88,12 @@ namespace MVBToolsCLI
 
             getCardCommand.SetHandler((cardId) =>
             {
+                var response = _mvbApiRepository.Get("https://www.multiversebridge.com/api/v1/cards/cs/1");
+
+                Console.WriteLine(response);
+
+                
+
                 Commands.GetCardFromDb(sqlConnection, cardId, consoleWriter);
             }, csCardIdArgument);
 
