@@ -61,7 +61,10 @@ namespace MVBToolsCLI
 
             addEditionCommand.SetHandler((editionId) =>
             {
-                Commands.AddNewEditionToDb(editionId, sqlConnection, consoleWriter);
+                var editionModel = _mvbApiRepository.GetEdition(editionId).Result;                
+
+                _editionDbRepository.Insert(editionModel);
+                
             }, editionIdArgument);
 
             rootCommand.AddCommand(addEditionCommand);
@@ -76,7 +79,7 @@ namespace MVBToolsCLI
 
             rootCommand.AddCommand(addAllCardsCommand);
 
-            //Get card
+            //Get card from db
             var csCardIdArgument = new Argument<int>(
                 name: "cardId",
                 description: "Card ID.");
@@ -126,7 +129,18 @@ namespace MVBToolsCLI
 
             addCardsByEdition.SetHandler((editionId) =>
             {
-                Commands.AddCardsToDbByEdition(editionId, sqlConnection, consoleWriter);
+
+                var model = _mvbApiRepository.GetCardsByEdition(editionId).Result;
+
+                var filteredCards = from card in model.Cards
+                                    where card.IsFoil == false && card.MtgJsonId != null
+                                    select card;
+
+                foreach (var card in filteredCards)
+                {
+                    _cardDbRepository.Insert(card);
+                }
+                
             }, editionIdArgument);
 
             rootCommand.AddCommand(addCardsByEdition);

@@ -9,6 +9,8 @@ namespace MVBToolsLibrary.Repository
 {
     public interface IMvbApiRepository
     {
-        Task<MVBCardModel> Get(string url);
+        Task<MVBCardModel> GetCard(string url);
+        Task<EditionModel> GetEdition(int id);
+        Task<EditionCardsModel> GetCardsByEdition(int id);
     }
 }

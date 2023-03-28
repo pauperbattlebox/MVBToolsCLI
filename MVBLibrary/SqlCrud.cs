@@ -63,7 +63,7 @@ namespace DataAccessLibrary
             return db.LoadCardPriceData<DbCardModel, dynamic>(sql, new { CsId = csId }, _connectionString).FirstOrDefault();
         }       
 
-        public EditionModel CreateSet(EditionModel edition)
+        public async Task<EditionModel> CreateSet(EditionModel edition)
         {
             string sql = @"INSERT dbo.Edition (CsId, CsName, MtgJsonCode)
                             VALUES (@CsId, @CsName, @MtgJsonCode);";
@@ -82,7 +82,7 @@ namespace DataAccessLibrary
                             INSERT INTO dbo.Card (CsId, Name, MtgjsonId, ScryfallId, MtgJsonCode)
                             VALUES (@CsId, @Name, @MtgJsonId, @ScryfallId, @MtgJsonCode)
                             END;";
-            await db.SaveData(sql,
+            db.SaveData(sql,
                 new { card.CsId, card.Name, card.MtgJsonId, card.ScryfallId, card.MtgJsonCode },
                 _connectionString);
         }

@@ -43,11 +43,11 @@ namespace DataAccessLibrary
             }
         }
 
-        public async Task SaveData<T>(string sqlStatement, T parameters, string connectionString)
+        public void SaveData<T>(string sqlStatement, T parameters, string connectionString)
         {
             using (IDbConnection connection = new SqlConnection(connectionString))
             {
-                await connection.ExecuteAsync(sqlStatement, parameters);
+                connection.Execute(sqlStatement, parameters);
             }
         }
     }

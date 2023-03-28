@@ -16,9 +16,9 @@ namespace MVBToolsLibrary.Repository
             return await sql.GetEdition(id);
         }
 
-        public EditionModel Insert(EditionModel entity)
+        public async Task<EditionModel> Insert(EditionModel entity)
         {
-            return sql.CreateSet(entity);
+            return await sql.CreateSet(entity);
         }
     }
 }

@@ -10,6 +10,6 @@ namespace MVBToolsLibrary.Repository
     {
         Task <IEnumerable<T>> GetAll();
         Task <T> Get(int id);
-        T Insert(T entity);
+        Task<T> Insert(T entity);
     }
 }

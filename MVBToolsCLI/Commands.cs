@@ -7,25 +7,7 @@ using MVBToolsLibrary.Json;
 namespace MVBToolsCLI
 {
     public class Commands
-    {        
-        public static void AddNewEditionToDb(int editionId, SqlCrud sqlConnection, IConsoleWriter consoleWriter)
-        {
-            Edition edition = new Edition(consoleWriter);
-
-            EditionModel editionToAdd = edition.GetEditionFromMvb(editionId);
-
-            edition.AddEditionToDb(sqlConnection, editionToAdd);
-        }
-
-        public static void AddCardsToDbByEdition(int editionId, SqlCrud sqlConnection, IConsoleWriter consoleWriter)
-        {
-            Card card = new Card(consoleWriter);
-
-            EditionCardsModel model = card.GetCardsFromMVBAPI(editionId, consoleWriter);
-
-            card.AddFilteredCardsToDb(sqlConnection, model);
-        }
-
+    {           
         public static void RefreshScryfallPriceInDb(string scryfallId, SqlCrud sqlConnection, IConsoleWriter consoleWriter)
         {
             Price price = new Price(consoleWriter);
