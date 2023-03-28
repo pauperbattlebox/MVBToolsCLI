@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DataAccessLibrary.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,6 @@ namespace MVBToolsLibrary.Repository
 {
     public interface IMvbApiRepository
     {
-        Task<string> Get(string url);
+        Task<MVBCardModel> Get(string url);
     }
 }

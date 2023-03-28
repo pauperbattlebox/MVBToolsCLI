@@ -1,7 +1,8 @@
 {
   "profiles": {
     "MVBToolsCLI": {
-      "commandName": "Project"
+      "commandName": "Project",
+      "commandLineArgs": "getCard 1150"
     }
   }
 }

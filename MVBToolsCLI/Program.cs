@@ -16,7 +16,6 @@ namespace MVBToolsCLI
 
             var services = scope.ServiceProvider;
 
-            services.GetRequiredService<IMvbApiRepository>();
             services.GetRequiredService<App>().Run(args);
 
             static IHostBuilder CreateHostBuilder(string[] args)
@@ -24,10 +23,10 @@ namespace MVBToolsCLI
                 return Host.CreateDefaultBuilder(args)
                     .ConfigureServices((_, services) =>
                     {
-                        services.AddScoped<IEditionDbRepository<EditionModel>, EditionDbRepository>();
-                        services.AddScoped<ICardDbRepository<MVBCardModel>, CardDbRepository>();
                         services.AddHttpClient();
-                        services.AddTransient<IMvbApiRepository, MvbApiRepository>();
+                        services.AddScoped<IEditionDbRepository<EditionModel>, EditionDbRepository>();
+                        services.AddScoped<ICardDbRepository<MVBCardModel>, CardDbRepository>();                        
+                        services.AddScoped<IMvbApiRepository, MvbApiRepository>();                        
                         services.AddSingleton<App>();
                     });
             }            

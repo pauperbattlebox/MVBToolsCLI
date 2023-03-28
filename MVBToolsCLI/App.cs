@@ -88,13 +88,10 @@ namespace MVBToolsCLI
 
             getCardCommand.SetHandler((cardId) =>
             {
-                var response = _mvbApiRepository.Get("https://www.multiversebridge.com/api/v1/cards/cs/1");
+                var response = _cardDbRepository.Get(cardId).Result;
 
-                Console.WriteLine(response);
-
+                Console.WriteLine($"{response.Name} - {response.MtgJsonCode}");
                 
-
-                Commands.GetCardFromDb(sqlConnection, cardId, consoleWriter);
             }, csCardIdArgument);
 
             rootCommand.AddCommand(getCardCommand);

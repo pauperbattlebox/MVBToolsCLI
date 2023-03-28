@@ -20,6 +20,7 @@ namespace DataAccessLibrary
             using (IDbConnection connection = new SqlConnection(connectionString))
             {
                 var rows = await connection.QuerySingleAsync<T>(sqlStatement, parameters);
+
                 return rows;
             }
         }

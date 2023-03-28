@@ -31,7 +31,7 @@ namespace DataAccessLibrary
 
         public async Task<MVBCardModel> GetCard(int csId)
         {
-            string sql = @"SELECT CsId, Name
+            string sql = @"SELECT CsId, Name, MtgJsonCode
                             FROM dbo.Card
                             WHERE CsId = @CsId;";
 
