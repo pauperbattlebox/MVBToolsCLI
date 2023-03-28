@@ -74,7 +74,7 @@ namespace DataAccessLibrary
             return edition;
         }
 
-        public async void CreateCard(MVBCardModel card)
+        public void CreateCard(MVBCardModel card)
         {
             string sql = @"IF NOT EXISTS
                             (SELECT CsId FROM dbo.Card WHERE CsId = @CsId)
