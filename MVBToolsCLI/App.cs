@@ -19,6 +19,7 @@ namespace MVBToolsCLI
         private readonly IMvbApiCardRepository _mvbApiCardRepository;
         private readonly IMvbApiEditionRepository _mvbApiEditionRepository;
         private readonly IMvbApiPriceRepository _mvbApiPriceRepository;
+        private readonly IScryfallApiPriceRepository _scryfallApiPriceRepository;
         
 
         public App (IEditionDbRepository<EditionModel> editionDbRepository,
@@ -26,7 +27,8 @@ namespace MVBToolsCLI
             IPriceDbRepository priceDbRepository,
             IMvbApiCardRepository mvbApiCardRepository,
             IMvbApiEditionRepository mvbApiEditionRepository,
-            IMvbApiPriceRepository mvbApiPriceRepository)
+            IMvbApiPriceRepository mvbApiPriceRepository,
+            IScryfallApiPriceRepository scryfallApiPriceRepository)
         {
             _editionDbRepository = editionDbRepository;
             _cardDbRepository = cardDbRepository;
@@ -34,15 +36,16 @@ namespace MVBToolsCLI
             _mvbApiCardRepository = mvbApiCardRepository;
             _mvbApiEditionRepository = mvbApiEditionRepository;
             _mvbApiPriceRepository = mvbApiPriceRepository;
+            _scryfallApiPriceRepository= scryfallApiPriceRepository;
         }
 
         public async Task<int> Run(string[] args)
         {            
             SqlCrud sqlConnection = new SqlCrud(GetConnectionString());
 
-            IConsoleWriter consoleWriter = new ConsoleWriter();
+            //IConsoleWriter consoleWriter = new ConsoleWriter();
 
-            IFileReader fileReader = new FileReader();
+            //IFileReader fileReader = new FileReader();
 
             var rootCommand = new RootCommand();
 
@@ -87,7 +90,7 @@ namespace MVBToolsCLI
 
             addAllCardsCommand.SetHandler(boolparam =>
             {
-                Commands.AddCardsToDbFromJsonFile(sqlConnection, "all_ids.json", consoleWriter, fileReader);
+                Commands.AddCardsToDbFromJsonFile(sqlConnection, "all_ids.json");
             });
 
             rootCommand.AddCommand(addAllCardsCommand);
@@ -206,12 +209,14 @@ namespace MVBToolsCLI
                 {
                     var price = _mvbApiPriceRepository.Get(csId).Result;
 
-                    _priceDbRepository.Update(csId, price);
+                    _priceDbRepository.UpdateCardsphere(csId, price);
                     
                 }
                 if (source == "scryfall")
                 {
-                    Commands.RefreshScryfallPriceInDb(scryfallId, sqlConnection, consoleWriter);
+                    var price = _scryfallApiPriceRepository.Get(scryfallId).Result;
+
+                    _priceDbRepository.UpdateScryfall(scryfallId, price);
                 }
             }, priceSourceOption, csCardIdOption, scryfallCardIdOption);
 

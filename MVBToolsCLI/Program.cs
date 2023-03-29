@@ -1,7 +1,6 @@
 ﻿using DataAccessLibrary.Models;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using MVBToolsLibrary;
 using MVBToolsLibrary.Repository.Api;
 using MVBToolsLibrary.Repository.Db;
 
@@ -31,6 +30,7 @@ namespace MVBToolsCLI
                         services.AddScoped<IMvbApiCardRepository, MvbApiCardRepository>();
                         services.AddScoped<IMvbApiEditionRepository, MvbApiEditionRespository>();
                         services.AddScoped<IMvbApiPriceRepository, MvbApiPriceRepository>();
+                        services.AddScoped<IScryfallApiPriceRepository, ScryfallApiPriceRepository>();
                         services.AddSingleton<App>();
                     });
             }            

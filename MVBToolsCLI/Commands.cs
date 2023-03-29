@@ -7,29 +7,10 @@ using MVBToolsLibrary.Json;
 namespace MVBToolsCLI
 {
     public class Commands
-    {           
-        public static void RefreshScryfallPriceInDb(string scryfallId, SqlCrud sqlConnection, IConsoleWriter consoleWriter)
+    {      
+        public static void AddCardsToDbFromJsonFile(SqlCrud sqlConnection, string fileName)
         {
-            Price price = new Price(consoleWriter);
-
-            price.UpdateScryfallPriceInDb(scryfallId, sqlConnection);
-        }        
-        
-        
-
-        public static void AddCardsToDbFromJsonFile(SqlCrud sqlConnection, string fileName, IConsoleWriter consoleWriter, IFileReader filereader)
-        {
-
-            Card card = new Card(consoleWriter, filereader);
-
-            var json = card.ReadCardsFromMvbJsonFile(fileName);
-
-            foreach (MVBCardModel cardModel in json)
-            {
-                Card newCard = new Card(consoleWriter);
-
-                newCard.AddCardToDb(sqlConnection, cardModel);
-            }
+            
         }
     }
 }

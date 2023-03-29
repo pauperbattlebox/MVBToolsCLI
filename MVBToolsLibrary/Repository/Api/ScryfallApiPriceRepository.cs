@@ -2,34 +2,35 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.WebSockets;
-using System.Reflection.Metadata.Ecma335;
+using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace MVBToolsLibrary.Repository.Api
 {
-    public class MvbApiCardRepository : IMvbApiCardRepository
+    public class ScryfallApiPriceRepository : IScryfallApiPriceRepository
     {
         private readonly IHttpClientFactory _httpClient;
 
-        public MvbApiCardRepository(IHttpClientFactory httpClient)
+        public ScryfallApiPriceRepository(IHttpClientFactory httpClient)
         {
             _httpClient = httpClient;
         }
-
-        public async Task<MVBCardModel> GetCard(string url)
+        public async Task<decimal> Get(string id)
         {
-            var uri = new Uri(url);
+
+            var uri = new Uri($"https://api.scryfall.com/cards/{id}");
 
             var response = await _httpClient.CreateClient().GetAsync(uri);
 
             var text = await response.Content.ReadAsStringAsync();
 
-            var output = JsonSerializer.Deserialize<MVBCardModel>(text);
+            var output = JsonSerializer.Deserialize<ScryfallCardModel>(text);
 
-            return output;
-        }        
+            var price = Decimal.Parse(output.Prices.Price);
+
+            return price;
+        }
     }
 }

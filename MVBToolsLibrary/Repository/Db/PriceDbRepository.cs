@@ -12,9 +12,14 @@ namespace MVBToolsLibrary.Repository.Db
     {
         SqlCrud sql = new SqlCrud("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=MVB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
                 
-        public async Task Update(int id, decimal price)
+        public async Task UpdateCardsphere(int id, decimal price)
         {
             await sql.UpdateMvbPrice(id, price);
+        }
+
+        public async Task UpdateScryfall(string id, decimal price)
+        {
+            await sql.UpdateScryfallPrice(id, price);
         }
 
         public async Task<IEnumerable<DbCardModel>> Get(int id)

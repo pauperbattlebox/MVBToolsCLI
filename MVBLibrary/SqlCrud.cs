@@ -106,7 +106,7 @@ namespace DataAccessLibrary
                 _connectionString);
         }
 
-        public void UpdateScryfallPrice(string scryfallid, decimal price)
+        public async Task UpdateScryfallPrice(string scryfallid, decimal price)
         {
             string sqlGetCsId = @"SELECT CsId
                                     FROM dbo.Card
