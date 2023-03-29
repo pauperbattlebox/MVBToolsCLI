@@ -53,14 +53,14 @@ namespace DataAccessLibrary
 
 
 
-        public DbCardModel GetCardPrice(int csId)
+        public async Task<IEnumerable<DbCardModel>> GetCardPrice(int csId)
         {
             string sql = @"SELECT c.CsId, c.Name, 0 as splitter, p.CsPrice, p.ScryfallPrice
                             FROM dbo.Card as c
                             LEFT JOIN dbo.Prices AS p ON c.CsId = p.CsId
                             WHERE c.CsId = @CsId;";
 
-            return db.LoadCardPriceData<DbCardModel, dynamic>(sql, new { CsId = csId }, _connectionString).FirstOrDefault();
+            return db.LoadCardPriceData<DbCardModel, dynamic>(sql, new { CsId = csId }, _connectionString);
         }       
 
         public async Task<EditionModel> CreateSet(EditionModel edition)
@@ -87,7 +87,7 @@ namespace DataAccessLibrary
                 _connectionString);
         }
 
-        public void UpdateMvbPrice(int csId, decimal price)
+        public async Task UpdateMvbPrice(int csId, decimal price)
         {            
             string sql = @"IF NOT EXISTS
                             (SELECT CsId FROM dbo.Prices WHERE CsId = @CsId)

@@ -1,7 +1,7 @@
 ﻿using DataAccessLibrary;
 using DataAccessLibrary.Models;
 
-namespace MVBToolsLibrary.Repository
+namespace MVBToolsLibrary.Repository.Db
 {
     public class CardDbRepository : ICardDbRepository<MVBCardModel>
     {

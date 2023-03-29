@@ -3,7 +3,8 @@ using DataAccessLibrary.Models;
 using Microsoft.Extensions.Configuration;
 using MVBToolsLibrary.Interfaces;
 using MVBToolsLibrary.Json;
-using MVBToolsLibrary.Repository;
+using MVBToolsLibrary.Repository.Api;
+using MVBToolsLibrary.Repository.Db;
 using System.CommandLine;
 using System.Data;
 
@@ -14,13 +15,25 @@ namespace MVBToolsCLI
 
         private readonly IEditionDbRepository<EditionModel> _editionDbRepository;
         private readonly ICardDbRepository<MVBCardModel> _cardDbRepository;
-        private readonly IMvbApiRepository _mvbApiRepository;
+        private readonly IPriceDbRepository _priceDbRepository;
+        private readonly IMvbApiCardRepository _mvbApiCardRepository;
+        private readonly IMvbApiEditionRepository _mvbApiEditionRepository;
+        private readonly IMvbApiPriceRepository _mvbApiPriceRepository;
+        
 
-        public App (IEditionDbRepository<EditionModel> editionDbRepository, ICardDbRepository<MVBCardModel> cardDbRepository, IMvbApiRepository mvbApiRepository)
+        public App (IEditionDbRepository<EditionModel> editionDbRepository,
+            ICardDbRepository<MVBCardModel> cardDbRepository,
+            IPriceDbRepository priceDbRepository,
+            IMvbApiCardRepository mvbApiCardRepository,
+            IMvbApiEditionRepository mvbApiEditionRepository,
+            IMvbApiPriceRepository mvbApiPriceRepository)
         {
             _editionDbRepository = editionDbRepository;
             _cardDbRepository = cardDbRepository;
-            _mvbApiRepository = mvbApiRepository;
+            _priceDbRepository = priceDbRepository;
+            _mvbApiCardRepository = mvbApiCardRepository;
+            _mvbApiEditionRepository = mvbApiEditionRepository;
+            _mvbApiPriceRepository = mvbApiPriceRepository;
         }
 
         public async Task<int> Run(string[] args)
@@ -61,7 +74,7 @@ namespace MVBToolsCLI
 
             addEditionCommand.SetHandler((editionId) =>
             {
-                var editionModel = _mvbApiRepository.GetEdition(editionId).Result;                
+                var editionModel = _mvbApiEditionRepository.Get(editionId).Result;                
 
                 _editionDbRepository.Insert(editionModel);
                 
@@ -130,7 +143,7 @@ namespace MVBToolsCLI
             addCardsByEdition.SetHandler((editionId) =>
             {
 
-                var model = _mvbApiRepository.GetCardsByEdition(editionId).Result;
+                var model = _mvbApiEditionRepository.GetCardsByEdition(editionId).Result;
 
                 var filteredCards = from card in model.Cards
                                     where card.IsFoil == false && card.MtgJsonId != null
@@ -153,7 +166,13 @@ namespace MVBToolsCLI
 
             viewPriceCommand.SetHandler((csId) =>
             {
-                Commands.GetCardPriceFromDb(sqlConnection, csId, consoleWriter);
+                var models = _priceDbRepository.Get(csId).Result;
+
+                foreach(var model in models)
+                {
+                    Console.WriteLine($"{model.Name} - Carsphere: {model.CsPrice} - Scryfall: {model.ScryfallPrice}");
+                }
+                
             }, csCardIdArgument);
 
             rootCommand.AddCommand(viewPriceCommand);
@@ -185,7 +204,10 @@ namespace MVBToolsCLI
             {
                 if (source == "cardsphere")
                 {
-                    Commands.RefreshMVBPriceInDb(csId, sqlConnection, consoleWriter);
+                    var price = _mvbApiPriceRepository.Get(csId).Result;
+
+                    _priceDbRepository.Update(csId, price);
+                    
                 }
                 if (source == "scryfall")
                 {
@@ -203,7 +225,6 @@ namespace MVBToolsCLI
                 var builder = new ConfigurationBuilder()
                     .SetBasePath(Directory.GetCurrentDirectory())
                     .AddJsonFile("appsettings.json");
-
                 
                 var config = builder.Build();
 

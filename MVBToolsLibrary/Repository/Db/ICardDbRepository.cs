@@ -1,6 +1,6 @@
 ﻿using DataAccessLibrary.Models;
 
-namespace MVBToolsLibrary.Repository
+namespace MVBToolsLibrary.Repository.Db
 {
     public interface ICardDbRepository<T> where T : class
     {

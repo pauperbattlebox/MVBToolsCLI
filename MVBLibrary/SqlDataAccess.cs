@@ -25,11 +25,11 @@ namespace DataAccessLibrary
             }
         }
 
-        public List<DbCardModel> LoadCardPriceData<T, U>(string sqlStatement, U parameters, string connectionString)
+        public IEnumerable<DbCardModel> LoadCardPriceData<T, U>(string sqlStatement, U parameters, string connectionString)
         {
             using (IDbConnection connection = new SqlConnection(connectionString))
             {
-                List<DbCardModel> rows = connection.Query<DbCardModel, DbPriceModel, DbCardModel>(sqlStatement, (card, price) => { card.CsPrice = price.CsPrice; card.ScryfallPrice = price.ScryfallPrice; return card; }, parameters, splitOn: "splitter").ToList();
+                IEnumerable<DbCardModel> rows = connection.Query<DbCardModel, DbPriceModel, DbCardModel>(sqlStatement, (card, price) => { card.CsPrice = price.CsPrice; card.ScryfallPrice = price.ScryfallPrice; return card; }, parameters, splitOn: "splitter").ToList();
 
                 return rows;
             }

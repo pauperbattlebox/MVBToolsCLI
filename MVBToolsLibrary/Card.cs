@@ -28,20 +28,7 @@ namespace MVBToolsLibrary
             sql.CreateCard(cardModel);
 
             _consoleWriter.WriteLineToConsole($"{cardModel.Name} was added to the db!");
-        }
-
-        public EditionCardsModel GetCardsFromMVBAPI(int editionId, IConsoleWriter consoleWriter)
-        {
-            Edition edition = new Edition(consoleWriter);
-            
-            string endpointUrl = edition.GetMVBEditionEndpoint(editionId);
-
-            string response = HttpClient.CallEndpoint(endpointUrl);
-
-            EditionCardsModel output = JsonSerializer.Deserialize<EditionCardsModel>(response);
-
-            return output;
-        }
+        }        
 
         public IEnumerable<MVBCardModel> ReadCardsFromMvbJsonFile(string fileName)
         {
@@ -50,33 +37,6 @@ namespace MVBToolsLibrary
             var output = JsonSerializer.Deserialize<IEnumerable<MVBCardModel>>(json);
 
             return output;
-        }
-
-        public void AddFilteredCardsToDb(SqlCrud sqlConnection, EditionCardsModel model)
-        {
-            var filteredCards = from card in model.Cards
-                                where card.IsFoil == false && card.MtgJsonId != null
-                                select card;
-
-            foreach (var card in filteredCards)
-            {
-                AddCardToDb(sqlConnection, card);
-            }
-        }
-
-        public async Task ReadCardFromDb(SqlCrud sqlConnection, int csId)
-        {
-            var card = sqlConnection.GetCard(csId).Result;
-
-            _consoleWriter.WriteLineToConsole(card.Name);
-
-        }
-
-        public void ReadCardPriceFromDb(SqlCrud sqlConnection, int csId)
-        {
-            var card = sqlConnection.GetCardPrice(csId);
-
-            _consoleWriter.WriteLineToConsole($"{card.Name}: Cardsphere Price - {card.CsPrice}, Scryfall Price - {card.ScryfallPrice}");
-        }        
+        }    
     }
 }

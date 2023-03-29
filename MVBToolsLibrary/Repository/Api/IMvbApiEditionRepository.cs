@@ -5,12 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MVBToolsLibrary.Repository
+namespace MVBToolsLibrary.Repository.Api
 {
-    public interface IMvbApiRepository
+    public interface IMvbApiEditionRepository
     {
-        Task<MVBCardModel> GetCard(string url);
-        Task<EditionModel> GetEdition(int id);
+        Task<EditionModel> Get(int id);
         Task<EditionCardsModel> GetCardsByEdition(int id);
     }
 }

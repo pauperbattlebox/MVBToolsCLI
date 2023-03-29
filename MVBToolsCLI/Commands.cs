@@ -13,27 +13,9 @@ namespace MVBToolsCLI
             Price price = new Price(consoleWriter);
 
             price.UpdateScryfallPriceInDb(scryfallId, sqlConnection);
-        }
-
-        public static void RefreshMVBPriceInDb(int csId, SqlCrud sqlConnection, IConsoleWriter consoleWriter)
-        {
-            Price price = new Price(consoleWriter);
-
-            price.UpdateMVBPriceInDb(csId, sqlConnection);
-        }
-        public static void GetCardFromDb(SqlCrud sqlConnection, int csId, IConsoleWriter consoleWriter)
-        {
-            Card card = new Card(consoleWriter);
-
-            card.ReadCardFromDb(sqlConnection, csId);
-        }
-
-        public static void GetCardPriceFromDb(SqlCrud sqlConnection, int csId, IConsoleWriter consoleWriter)
-        {
-            Card card = new Card(consoleWriter);
-
-            card.ReadCardPriceFromDb(sqlConnection, csId);
-        }
+        }        
+        
+        
 
         public static void AddCardsToDbFromJsonFile(SqlCrud sqlConnection, string fileName, IConsoleWriter consoleWriter, IFileReader filereader)
         {

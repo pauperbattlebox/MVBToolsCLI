@@ -2,7 +2,8 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MVBToolsLibrary;
-using MVBToolsLibrary.Repository;
+using MVBToolsLibrary.Repository.Api;
+using MVBToolsLibrary.Repository.Db;
 
 namespace MVBToolsCLI
 {
@@ -25,8 +26,11 @@ namespace MVBToolsCLI
                     {
                         services.AddHttpClient();
                         services.AddScoped<IEditionDbRepository<EditionModel>, EditionDbRepository>();
-                        services.AddScoped<ICardDbRepository<MVBCardModel>, CardDbRepository>();                        
-                        services.AddScoped<IMvbApiRepository, MvbApiRepository>();                        
+                        services.AddScoped<ICardDbRepository<MVBCardModel>, CardDbRepository>();
+                        services.AddScoped<IPriceDbRepository, PriceDbRepository>();
+                        services.AddScoped<IMvbApiCardRepository, MvbApiCardRepository>();
+                        services.AddScoped<IMvbApiEditionRepository, MvbApiEditionRespository>();
+                        services.AddScoped<IMvbApiPriceRepository, MvbApiPriceRepository>();
                         services.AddSingleton<App>();
                     });
             }            
