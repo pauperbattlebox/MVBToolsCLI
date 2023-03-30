@@ -1,8 +1,6 @@
 ﻿using DataAccessLibrary;
 using DataAccessLibrary.Models;
 using Microsoft.Extensions.Configuration;
-using MVBToolsLibrary.Interfaces;
-using MVBToolsLibrary.Json;
 using MVBToolsLibrary.Repository.Api;
 using MVBToolsLibrary.Repository.Db;
 using System.CommandLine;
@@ -40,13 +38,7 @@ namespace MVBToolsCLI
         }
 
         public async Task<int> Run(string[] args)
-        {            
-            SqlCrud sqlConnection = new SqlCrud(GetConnectionString());
-
-            //IConsoleWriter consoleWriter = new ConsoleWriter();
-
-            //IFileReader fileReader = new FileReader();
-
+        {   
             var rootCommand = new RootCommand();
 
             //Get editions from db
@@ -86,14 +78,14 @@ namespace MVBToolsCLI
             rootCommand.AddCommand(addEditionCommand);
 
             //Add all cards from mtgjson file
-            var addAllCardsCommand = new Command("addAllCards", "Add all cards to db from mtgjson file.");
+            //var addAllCardsCommand = new Command("addAllCards", "Add all cards to db from mtgjson file.");
 
-            addAllCardsCommand.SetHandler(boolparam =>
-            {
-                Commands.AddCardsToDbFromJsonFile(sqlConnection, "all_ids.json");
-            });
+            //addAllCardsCommand.SetHandler(boolparam =>
+            //{
+            //    Commands.AddCardsToDbFromJsonFile(sqlConnection, "all_ids.json");
+            //});
 
-            rootCommand.AddCommand(addAllCardsCommand);
+            //rootCommand.AddCommand(addAllCardsCommand);
 
             //Get card from db
             var csCardIdArgument = new Argument<int>(
@@ -223,20 +215,19 @@ namespace MVBToolsCLI
             rootCommand.AddCommand(addPriceCommand);
 
 
-            return await rootCommand.InvokeAsync(args);        
+            return await rootCommand.InvokeAsync(args);            
+        }
+        public static string GetConnectionString(string connectionStringName = "Default")
+        {
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json");
 
-            static string GetConnectionString(string connectionStringName = "Default")
-            {
-                var builder = new ConfigurationBuilder()
-                    .SetBasePath(Directory.GetCurrentDirectory())
-                    .AddJsonFile("appsettings.json");
-                
-                var config = builder.Build();
+            var config = builder.Build();
 
-                string output = config.GetConnectionString(connectionStringName);
+            string output = config.GetConnectionString(connectionStringName);
 
-                return output;
-            }            
+            return output;
         }
     }
 }
