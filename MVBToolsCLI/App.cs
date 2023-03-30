@@ -51,7 +51,7 @@ namespace MVBToolsCLI
             getEditionsCommand.SetHandler(boolparam =>
             {
 
-                Console.WriteLine(_appSettings);
+                Console.WriteLine(_appSettings.Default);
                 var rows = _editionDbRepository.GetAll().Result;                
 
                 foreach(var row in rows)

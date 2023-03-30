@@ -32,7 +32,7 @@ namespace MVBToolsCLI
                             .AddJsonFile("appsettings.json")
                             .Build();
 
-                        services.Configure<AppSettings>(configuration.GetSection("Default"));
+                        services.Configure<AppSettings>(configuration.GetSection("ConnectionStrings"));
                         services.AddHttpClient();
                         services.AddScoped<IEditionDbRepository<EditionModel>, EditionDbRepository>();
                         services.AddScoped<ICardDbRepository<MVBCardModel>, CardDbRepository>();
