@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+
+using MVBToolsLibrary.Models;
 
 namespace MVBToolsLibrary.Repository.Db
 {
@@ -10,6 +8,6 @@ namespace MVBToolsLibrary.Repository.Db
     {
         Task<IEnumerable<T>> GetAll();
         Task<T> Get(int id);
-        Task Insert(T entity);
+        Task Insert(EditionModel entity);
     }
 }

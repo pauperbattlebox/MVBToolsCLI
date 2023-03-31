@@ -1,7 +1,5 @@
-﻿using DataAccessLibrary;
-using DataAccessLibrary.Models;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Options;
+﻿using Microsoft.Extensions.Options;
+using MVBToolsLibrary.Models;
 using MVBToolsLibrary.Repository.Api;
 using MVBToolsLibrary.Repository.Db;
 using System.CommandLine;

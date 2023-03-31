@@ -1,8 +1,7 @@
-﻿using DataAccessLibrary;
-using DataAccessLibrary.Models;
-using System.Data.SqlClient;
+﻿using System.Data.SqlClient;
 using System.Data;
 using Dapper;
+using MVBToolsLibrary.Models;
 
 namespace MVBToolsLibrary.Repository.Db
 {
