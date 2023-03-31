@@ -105,10 +105,8 @@ namespace MVBToolsCLI
             {
                 var response = _cardDbRepository.Get(cardId).Result;
 
-                foreach (var row in response)
-                {
-                    Console.WriteLine($"{row.Name} - {row.MtgJsonCode}");
-                }
+                Console.WriteLine($"{response.Name} - {response.MtgJsonCode}");
+                
             }, csCardIdArgument);
 
             rootCommand.AddCommand(getCardCommand);
@@ -167,12 +165,9 @@ namespace MVBToolsCLI
 
             viewPriceCommand.SetHandler((csId) =>
             {
-                var models = _priceDbRepository.Get(csId).Result;
+                var response = _priceDbRepository.Get(csId).Result;
 
-                foreach(var model in models)
-                {
-                    Console.WriteLine($"{model.Name} - Carsphere: {model.CsPrice} - Scryfall: {model.ScryfallPrice}");
-                }
+                Console.WriteLine($"{response.Name} - Carsphere: {response.CsPrice} - Scryfall: {response.ScryfallPrice}");
                 
             }, csCardIdArgument);
 
@@ -214,7 +209,7 @@ namespace MVBToolsCLI
                 {
                     var price = _scryfallApiPriceRepository.Get(scryfallId).Result;
 
-                    _priceDbRepository.UpdateScryfall(scryfallId, price);
+                    _priceDbRepository.UpdateScryfall(scryfallId, csId, price);
                 }
             }, priceSourceOption, csCardIdOption, scryfallCardIdOption);
 

@@ -9,7 +9,7 @@ namespace MVBToolsLibrary.Repository.Db
     public interface IEditionDbRepository<T> where T : class
     {
         Task<IEnumerable<T>> GetAll();
-        Task<IEnumerable<T>> Get(int id);
+        Task<T> Get(int id);
         Task Insert(T entity);
     }
 }

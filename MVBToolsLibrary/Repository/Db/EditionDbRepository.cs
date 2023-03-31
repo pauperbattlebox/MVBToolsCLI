@@ -21,7 +21,7 @@ namespace MVBToolsLibrary.Repository.Db
             }
         }
 
-        public async Task<IEnumerable<EditionModel>> Get(int id)
+        public async Task<EditionModel> Get(int id)
         {
             string query = @"SELECT CsId, Name
                             FROM dbo.Edition
@@ -29,7 +29,7 @@ namespace MVBToolsLibrary.Repository.Db
 
             using (IDbConnection connection = new SqlConnection(connectionString))
             {
-                var rows = await connection.QueryAsync<EditionModel>(query, new { CsId = id });
+                var rows = await connection.QueryFirstOrDefaultAsync<EditionModel>(query, new { CsId = id });
                 return rows;
             }            
         }

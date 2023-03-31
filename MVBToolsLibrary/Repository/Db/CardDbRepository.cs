@@ -26,7 +26,7 @@ namespace MVBToolsLibrary.Repository.Db
             }
         }
 
-        public async Task<IEnumerable<MVBCardModel>> Get(int id)
+        public async Task<MVBCardModel> Get(int id)
         {
             string query = @"SELECT CsId, Name, MtgJsonCode
                             FROM dbo.Card
@@ -34,8 +34,8 @@ namespace MVBToolsLibrary.Repository.Db
 
             using (IDbConnection connection = new SqlConnection(connectionString))
             {
-                var rows = await connection.QueryAsync<MVBCardModel>(query, new { CsId = id });
-                return rows;
+                var row = await connection.QueryFirstOrDefaultAsync<MVBCardModel>(query, new { CsId = id });
+                return row;
             }            
         }
 
