@@ -8,8 +8,6 @@ namespace MVBToolsLibrary.Repository.Db
 {
     public class EditionDbRepository : IEditionDbRepository<EditionModel>
     {        
-        SqlCrud sql = new SqlCrud("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=MVB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
-
         string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=MVB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
         
         public async Task<IEnumerable<EditionModel>> GetAll()
@@ -36,9 +34,15 @@ namespace MVBToolsLibrary.Repository.Db
             }            
         }
 
-        public async Task<EditionModel> Insert(EditionModel entity)
+        public async Task Insert(EditionModel edition)
         {
-            return await sql.CreateSet(entity);
+            string query = @"INSERT dbo.Edition (CsId, CsName, MtgJsonCode)
+                            VALUES (@CsId, @CsName, @MtgJsonCode);";
+
+            using (IDbConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Execute(query, new { edition.CsId, edition.CsName, edition.MtgJsonCode });
+            }
         }
     }
 }

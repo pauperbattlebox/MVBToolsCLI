@@ -105,8 +105,10 @@ namespace MVBToolsCLI
             {
                 var response = _cardDbRepository.Get(cardId).Result;
 
-                Console.WriteLine($"{response.Name} - {response.MtgJsonCode}");
-                
+                foreach (var row in response)
+                {
+                    Console.WriteLine($"{row.Name} - {row.MtgJsonCode}");
+                }
             }, csCardIdArgument);
 
             rootCommand.AddCommand(getCardCommand);

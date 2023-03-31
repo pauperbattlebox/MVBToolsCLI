@@ -10,31 +10,7 @@ namespace DataAccessLibrary
         public SqlCrud(string connectionString)
         {
             _connectionString = connectionString;
-        }        
-
-        public async Task<MVBCardModel> GetCard(int csId)
-        {
-            string sql = @"SELECT CsId, Name, MtgJsonCode
-                            FROM dbo.Card
-                            WHERE CsId = @CsId;";
-
-            return await db.LoadAsyncSingleData<MVBCardModel, dynamic>(sql, new { CsId = csId }, _connectionString);
-
         }
-
-        public async Task<IEnumerable<MVBCardModel>> GetAllCardsByEditionId(string mtgJsonCode)
-        {
-            string sql = @"SELECT c.Name, c.MtgJsonCode, e.csName
-                            FROM dbo.Card as c
-                            LEFT JOIN dbo.Edition as e
-                            ON c.MtgJsonCode = e.MtgJsonCode
-                            WHERE e.MtgJsonCode = @MtgJsonCode;";
-
-            return await db.LoadAsyncData<MVBCardModel, dynamic>(sql, new { MtgJsonCode = mtgJsonCode }, _connectionString);
-
-        }
-
-
 
         public async Task<IEnumerable<DbCardModel>> GetCardPrice(int csId)
         {
@@ -44,32 +20,7 @@ namespace DataAccessLibrary
                             WHERE c.CsId = @CsId;";
 
             return db.LoadCardPriceData<DbCardModel, dynamic>(sql, new { CsId = csId }, _connectionString);
-        }       
-
-        public async Task<EditionModel> CreateSet(EditionModel edition)
-        {
-            string sql = @"INSERT dbo.Edition (CsId, CsName, MtgJsonCode)
-                            VALUES (@CsId, @CsName, @MtgJsonCode);";
-            db.SaveData(sql,
-                new { edition.CsId, edition.CsName, edition.MtgJsonCode },
-                _connectionString);
-
-            return edition;
         }
-
-        public void CreateCard(MVBCardModel card)
-        {
-            string sql = @"IF NOT EXISTS
-                            (SELECT CsId FROM dbo.Card WHERE CsId = @CsId)
-                            BEGIN
-                            INSERT INTO dbo.Card (CsId, Name, MtgjsonId, ScryfallId, MtgJsonCode)
-                            VALUES (@CsId, @Name, @MtgJsonId, @ScryfallId, @MtgJsonCode)
-                            END;";
-            db.SaveData(sql,
-                new { card.CsId, card.Name, card.MtgJsonId, card.ScryfallId, card.MtgJsonCode },
-                _connectionString);
-        }
-
         public async Task UpdateMvbPrice(int csId, decimal price)
         {            
             string sql = @"IF NOT EXISTS
