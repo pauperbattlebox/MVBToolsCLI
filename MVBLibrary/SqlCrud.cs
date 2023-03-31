@@ -10,24 +10,7 @@ namespace DataAccessLibrary
         public SqlCrud(string connectionString)
         {
             _connectionString = connectionString;
-        }
-
-        public async Task<IEnumerable<EditionModel>> GetAllEditions()
-        {
-            string sql = @"SELECT * FROM dbo.Edition;";
-
-            return await db.LoadAsyncData<EditionModel, dynamic>(sql, new  { }, _connectionString);
-        }
-
-        public async Task<EditionModel> GetEdition(int csId)
-        {
-            string sql = @"SELECT CsId, Name
-                            FROM dbo.Edition
-                            WHERE CsId = @CsId;";
-
-            return await db.LoadAsyncSingleData<EditionModel, dynamic>(sql, new { CsId = csId }, _connectionString);
-
-        }
+        }        
 
         public async Task<MVBCardModel> GetCard(int csId)
         {

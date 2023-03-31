@@ -49,9 +49,7 @@ namespace MVBToolsCLI
             var getEditionsCommand = new Command("getAllEditions", "Get all editions from db.");
 
             getEditionsCommand.SetHandler(boolparam =>
-            {
-
-                Console.WriteLine(_appSettings.Default);
+            {   
                 var rows = _editionDbRepository.GetAll().Result;                
 
                 foreach(var row in rows)

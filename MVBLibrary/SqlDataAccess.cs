@@ -7,8 +7,9 @@ namespace DataAccessLibrary
 {
     public class SqlDataAccess
     {
+        
         public async Task<IEnumerable<T>> LoadAsyncData<T, U>(string sqlStatement, U parameters, string connectionString)
-        {
+        {            
             using (IDbConnection connection = new SqlConnection(connectionString))
             {
                 var rows = await connection.QueryAsync<T>(sqlStatement, parameters);
