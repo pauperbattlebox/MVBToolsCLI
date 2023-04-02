@@ -4,6 +4,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MVBToolsLibrary.Repository.Api;
 using MVBToolsLibrary.Repository.Db;
+using MVBToolsLibrary.Interfaces;
+using Microsoft.Extensions.Options;
 
 namespace MVBToolsCLI
 {
@@ -32,8 +34,9 @@ namespace MVBToolsCLI
                             .AddJsonFile("appsettings.json")
                             .Build();
 
-                        services.Configure<AppSettings>(configuration.GetSection("ConnectionStrings"));
-                        services.AddHttpClient();
+                        services.AddSingleton<IConfiguration>(configuration);
+                        services.Configure<DbSettings>(configuration.GetSection("ConnectionStrings"));
+                        services.AddScoped<IDbSettings>(c => c.GetService<IOptions<DbSettings>>().Value);
                         services.AddScoped<IEditionDbRepository<EditionModel>, EditionDbRepository>();
                         services.AddScoped<ICardDbRepository<MVBCardModel>, CardDbRepository>();
                         services.AddScoped<IPriceDbRepository, PriceDbRepository>();
@@ -41,8 +44,10 @@ namespace MVBToolsCLI
                         services.AddScoped<IMvbApiEditionRepository, MvbApiEditionRespository>();
                         services.AddScoped<IMvbApiPriceRepository, MvbApiPriceRepository>();
                         services.AddScoped<IScryfallApiPriceRepository, ScryfallApiPriceRepository>();
-                        services.AddSingleton<AppSettings>();
+                        services.AddSingleton<DbSettings>();                        
                         services.AddSingleton<App>();
+                        services.AddOptions();
+                        services.AddHttpClient();
                     });
             }            
         }

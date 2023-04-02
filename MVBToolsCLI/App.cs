@@ -17,7 +17,7 @@ namespace MVBToolsCLI
         private readonly IMvbApiEditionRepository _mvbApiEditionRepository;
         private readonly IMvbApiPriceRepository _mvbApiPriceRepository;
         private readonly IScryfallApiPriceRepository _scryfallApiPriceRepository;
-        private readonly AppSettings _appSettings;
+        private readonly DbSettings _appSettings;
         
 
         public App (IEditionDbRepository<EditionModel> editionDbRepository,
@@ -27,7 +27,7 @@ namespace MVBToolsCLI
             IMvbApiEditionRepository mvbApiEditionRepository,
             IMvbApiPriceRepository mvbApiPriceRepository,
             IScryfallApiPriceRepository scryfallApiPriceRepository,
-            IOptions<AppSettings> appSettings)
+            IOptions<DbSettings> appSettings)
         {
             _editionDbRepository = editionDbRepository;
             _cardDbRepository = cardDbRepository;
