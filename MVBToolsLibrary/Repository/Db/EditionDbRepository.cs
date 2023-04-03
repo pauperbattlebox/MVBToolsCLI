@@ -2,8 +2,6 @@
 using System.Data;
 using Dapper;
 using MVBToolsLibrary.Models;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Options;
 using MVBToolsLibrary.Interfaces;
 
 namespace MVBToolsLibrary.Repository.Db

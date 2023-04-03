@@ -2,21 +2,26 @@
 using System.Data;
 using Dapper;
 using MVBToolsLibrary.Models;
+using MVBToolsLibrary.Interfaces;
 
 namespace MVBToolsLibrary.Repository.Db
 {
     public class CardDbRepository : ICardDbRepository<MVBCardModel>
     {
-        
-        string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=MVB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
 
+        private readonly IDbSettings _dbSettings;
+
+        public CardDbRepository(IDbSettings dbSettings)
+        {
+            this._dbSettings = dbSettings;
+        }
         public async Task<IEnumerable<MVBCardModel>> GetAllById(string mtgJsonCode)
         {
-            string query = @"SELECT c.Name, c.MtgJsonCode, e.csName
-                            FROM dbo.Card as c
-                            LEFT JOIN dbo.Edition as e
-                            ON c.MtgJsonCode = e.MtgJsonCode
-                            WHERE e.MtgJsonCode = @MtgJsonCode;";
+            string connectionString = _dbSettings.Default;            
+
+            string query = @"SELECT Name, MtgJsonCode
+                            FROM dbo.Card
+                            WHERE MtgJsonCode = @MtgJsonCode;";
 
             using (IDbConnection connection = new SqlConnection(connectionString))
             {
@@ -27,6 +32,9 @@ namespace MVBToolsLibrary.Repository.Db
 
         public async Task<MVBCardModel> Get(int id)
         {
+
+            string connectionString = _dbSettings.Default;
+
             string query = @"SELECT CsId, Name, MtgJsonCode
                             FROM dbo.Card
                             WHERE CsId = @CsId;";
@@ -40,6 +48,8 @@ namespace MVBToolsLibrary.Repository.Db
 
         public async Task Insert(MVBCardModel card)
         {
+            string connectionString = _dbSettings.Default;
+
             string query = @"IF NOT EXISTS
                             (SELECT CsId FROM dbo.Card WHERE CsId = @CsId)
                             BEGIN
