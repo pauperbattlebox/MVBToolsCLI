@@ -137,7 +137,7 @@ namespace MVBToolsCLI
             addCardsByEdition.SetHandler((editionId) =>
             {
 
-                var model = _mvbApiEditionRepository.GetCardsByEdition(editionId).Result;
+                var model = _mvbApiEditionRepository.GetCardsByEdition(editionId, Routes.BuildUrl).Result;
 
                 var filteredCards = from card in model.Cards
                                     where card.IsFoil == false && card.MtgJsonId != null

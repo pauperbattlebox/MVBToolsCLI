@@ -20,9 +20,9 @@ namespace MVBToolsLibrary.Repository.Api
             _httpClient = httpClient;
         }
 
-        public async Task<MVBCardModel> GetCard(string url)
+        public async Task<MVBCardModel> GetCard(int id, Func<int, string, string> buildUrl)
         {
-            var uri = new Uri(url);
+            var uri = new Uri(buildUrl(id, "cardById"));
 
             var response = await _httpClient.CreateClient().GetAsync(uri);
 

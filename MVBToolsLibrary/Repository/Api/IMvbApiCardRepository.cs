@@ -10,7 +10,7 @@ namespace MVBToolsLibrary.Repository.Api
 {
     public interface IMvbApiCardRepository
     {
-        Task<MVBCardModel> GetCard(string url);
+        Task<MVBCardModel> GetCard(int id, Func<int, string, string> buildUrl);
         
     }
 }

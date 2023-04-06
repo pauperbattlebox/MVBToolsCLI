@@ -25,9 +25,9 @@ namespace MVBToolsLibrary.Repository.Api
             return output;
         }
 
-        public async Task<EditionCardsModel> GetCardsByEdition(int id)
+        public async Task<EditionCardsModel> GetCardsByEdition(int id, Func<int, string, string> buildUrl)
         {
-            var uri = new Uri($"https://www.multiversebridge.com/api/v1/sets/cs/{id}");
+            var uri = new Uri(buildUrl(id, "editionById"));
 
             var response = await _httpClient.CreateClient().GetAsync(uri);
 

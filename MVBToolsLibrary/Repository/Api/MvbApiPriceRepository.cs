@@ -18,7 +18,7 @@ namespace MVBToolsLibrary.Repository.Api
         }
         public async Task<decimal> Get(int id, Func<int, string, string> buildUrl)
         {   
-            var uri = new Uri(buildUrl(id, "cardsById"));
+            var uri = new Uri(buildUrl(id, "cardById"));
 
             var response = await _httpClient.CreateClient().GetAsync(uri);
 

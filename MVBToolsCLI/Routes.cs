@@ -10,7 +10,7 @@ namespace MVBToolsCLI
     {
         private static readonly Dictionary<string, string> routes = new Dictionary<string, string>()
         {
-            { "cardsById", "cards/cs" },
+            { "cardById", "cards/cs" },
             { "editionById", "sets/cs" }
         };
         
