@@ -6,7 +6,7 @@ namespace MVBToolsLibrary.Repository.Api
     public class MvbApiEditionRespository : IMvbApiEditionRepository
     {
         private readonly IHttpClientFactory _httpClient;
-
+                
         public MvbApiEditionRespository(IHttpClientFactory httpClient)
         {
             _httpClient = httpClient;

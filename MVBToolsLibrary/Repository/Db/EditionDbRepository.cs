@@ -17,7 +17,7 @@ namespace MVBToolsLibrary.Repository.Db
         }
                 
         public async Task<IEnumerable<EditionModel>> GetAll()
-        {            
+        {
             string connectionString = _dbSettings.Default;
 
             string query = @"SELECT * FROM dbo.Edition;";

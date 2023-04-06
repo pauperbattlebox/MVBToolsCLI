@@ -9,7 +9,7 @@ namespace MVBToolsLibrary.Repository.Db
     public class CardDbRepository : ICardDbRepository<MVBCardModel>
     {
 
-        private readonly IDbSettings _dbSettings;
+        private readonly IDbSettings _dbSettings;        
 
         public CardDbRepository(IDbSettings dbSettings)
         {

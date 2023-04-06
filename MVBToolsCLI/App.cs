@@ -17,7 +17,6 @@ namespace MVBToolsCLI
         private readonly IMvbApiEditionRepository _mvbApiEditionRepository;
         private readonly IMvbApiPriceRepository _mvbApiPriceRepository;
         private readonly IScryfallApiPriceRepository _scryfallApiPriceRepository;
-        private readonly DbSettings _appSettings;
         
 
         public App (IEditionDbRepository<EditionModel> editionDbRepository,
@@ -26,8 +25,7 @@ namespace MVBToolsCLI
             IMvbApiCardRepository mvbApiCardRepository,
             IMvbApiEditionRepository mvbApiEditionRepository,
             IMvbApiPriceRepository mvbApiPriceRepository,
-            IScryfallApiPriceRepository scryfallApiPriceRepository,
-            IOptions<DbSettings> appSettings)
+            IScryfallApiPriceRepository scryfallApiPriceRepository)
         {
             _editionDbRepository = editionDbRepository;
             _cardDbRepository = cardDbRepository;
@@ -36,7 +34,6 @@ namespace MVBToolsCLI
             _mvbApiEditionRepository = mvbApiEditionRepository;
             _mvbApiPriceRepository = mvbApiPriceRepository;
             _scryfallApiPriceRepository= scryfallApiPriceRepository;
-            _appSettings = appSettings.Value;
         }
 
         public async Task<int> Run(string[] args)
@@ -47,7 +44,7 @@ namespace MVBToolsCLI
             var getEditionsCommand = new Command("getAllEditions", "Get all editions from db.");
 
             getEditionsCommand.SetHandler(boolparam =>
-            {   
+            {
                 var rows = _editionDbRepository.GetAll().Result;                
 
                 foreach(var row in rows)
@@ -198,7 +195,7 @@ namespace MVBToolsCLI
             {
                 if (source == "cardsphere")
                 {
-                    var price = _mvbApiPriceRepository.Get(csId).Result;
+                    var price = _mvbApiPriceRepository.Get(csId, Routes.BuildUrl).Result;
 
                     _priceDbRepository.UpdateCardsphere(csId, price);
                     
@@ -215,18 +212,6 @@ namespace MVBToolsCLI
 
 
             return await rootCommand.InvokeAsync(args);            
-        }
-        //public static string GetConnectionString(string connectionStringName = "Default")
-        //{
-        //    var builder = new ConfigurationBuilder()
-        //        .SetBasePath(Directory.GetCurrentDirectory())
-        //        .AddJsonFile("appsettings.json");
-
-        //    var config = builder.Build();
-
-        //    string output = config.GetConnectionString(connectionStringName);
-
-        //    return output;
-        //}
+        }        
     }
 }

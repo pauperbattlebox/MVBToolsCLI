@@ -6,6 +6,7 @@ using MVBToolsLibrary.Repository.Api;
 using MVBToolsLibrary.Repository.Db;
 using MVBToolsLibrary.Interfaces;
 using Microsoft.Extensions.Options;
+using MVBToolsLibrary;
 
 namespace MVBToolsCLI
 {
@@ -44,12 +45,12 @@ namespace MVBToolsCLI
                         services.AddScoped<IMvbApiEditionRepository, MvbApiEditionRespository>();
                         services.AddScoped<IMvbApiPriceRepository, MvbApiPriceRepository>();
                         services.AddScoped<IScryfallApiPriceRepository, ScryfallApiPriceRepository>();
-                        services.AddSingleton<DbSettings>();                        
+                        services.AddSingleton<DbSettings>();
                         services.AddSingleton<App>();
                         services.AddOptions();
                         services.AddHttpClient();
                     });
             }            
-        }
+        }        
     }
 }
