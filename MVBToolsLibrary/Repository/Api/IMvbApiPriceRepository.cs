@@ -2,6 +2,6 @@
 {
     public interface IMvbApiPriceRepository
     {
-        Task<decimal> Get(int id, Func<int, string> buildUrl);
+        Task<decimal> Get(int id, Func<int, string, string> buildUrl);
     }
 }

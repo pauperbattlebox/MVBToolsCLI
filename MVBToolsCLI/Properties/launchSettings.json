@@ -2,7 +2,7 @@
   "profiles": {
     "MVBToolsCLI": {
       "commandName": "Project",
-      "commandLineArgs": "addPrice -p scryfall -s 3d27e65f-6d55-420e-a843-16097b50f7a2"
+      "commandLineArgs": "addPrice -p cardsphere -c 4"
     }
   }
 }

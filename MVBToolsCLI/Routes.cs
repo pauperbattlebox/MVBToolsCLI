@@ -8,9 +8,18 @@ namespace MVBToolsCLI
 {
     public class Routes
     {
-        public static string BuildUrl(int id)
+        private static readonly Dictionary<string, string> routes = new Dictionary<string, string>()
         {
-            return $"https://www.multiversebridge.com/api/v1/cards/cs/{id}";
+            { "cardsById", "cards/cs" }
+        };
+        
+        public static string BuildUrl(int id, string endpoint)
+        {
+            var param = routes[endpoint];
+
+            var output = $"https://www.multiversebridge.com/api/v1/{param}/{id}";
+
+            return output;
         }
     }
 }
