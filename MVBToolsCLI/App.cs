@@ -68,7 +68,7 @@ namespace MVBToolsCLI
 
             addEditionCommand.SetHandler((editionId) =>
             {
-                var editionModel = _mvbApiEditionRepository.Get(editionId).Result;                
+                var editionModel = _mvbApiEditionRepository.Get(editionId, Routes.BuildUrl).Result;                
 
                 _editionDbRepository.Insert(editionModel);
                 
