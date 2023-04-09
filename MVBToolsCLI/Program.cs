@@ -14,9 +14,6 @@ namespace MVBToolsCLI
     {
         static void Main(string[] args)
         {
-
-            
-
             using IHost host = CreateHostBuilder(args).Build();
             using var scope = host.Services.CreateScope();
 
@@ -45,7 +42,6 @@ namespace MVBToolsCLI
                         services.AddScoped<IMvbApiEditionRepository, MvbApiEditionRespository>();
                         services.AddScoped<IMvbApiPriceRepository, MvbApiPriceRepository>();
                         services.AddScoped<IScryfallApiPriceRepository, ScryfallApiPriceRepository>();
-                        services.AddSingleton<DbSettings>();
                         services.AddSingleton<App>();
                         services.AddOptions();
                         services.AddHttpClient();

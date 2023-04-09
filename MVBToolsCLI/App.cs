@@ -210,7 +210,6 @@ namespace MVBToolsCLI
 
             rootCommand.AddCommand(addPriceCommand);
 
-
             return await rootCommand.InvokeAsync(args);            
         }        
     }

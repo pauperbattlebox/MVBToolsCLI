@@ -2,7 +2,7 @@
   "profiles": {
     "MVBToolsCLI": {
       "commandName": "Project",
-      "commandLineArgs": "addPrice -p cardsphere -c 4"
+      "commandLineArgs": "getAllEditions"
     }
   }
 }
