@@ -49,7 +49,7 @@ namespace MVBToolsCLI
 
                 foreach(var row in rows)
                 {
-                    Console.WriteLine($"{row.CsName} - {row.MtgJsonCode}");
+                    Console.WriteLine($"{row.CsName} - {row.MtgJsonCode} - {row.CsId}");
                 }
             });
 
@@ -122,7 +122,7 @@ namespace MVBToolsCLI
 
                 foreach( var row in rows)
                 {
-                    Console.WriteLine($"{row.Name} - { row.MtgJsonCode}");
+                    Console.WriteLine($"{row.Name} - { row.MtgJsonCode} - {row.CsId}");
                 }
             }, editionMtgJsonCodeArgument);
 

@@ -19,7 +19,7 @@ namespace MVBToolsLibrary.Repository.Db
         {
             string connectionString = _dbSettings.Default;            
 
-            string query = @"SELECT Name, MtgJsonCode
+            string query = @"SELECT Name, CsId, MtgJsonCode
                             FROM dbo.Card
                             WHERE MtgJsonCode = @MtgJsonCode;";
 
