@@ -3,6 +3,7 @@ using System.Data;
 using Dapper;
 using MVBToolsLibrary.Models;
 using MVBToolsLibrary.Interfaces;
+using Microsoft.Extensions.Configuration;
 
 namespace MVBToolsLibrary.Repository.Db
 {
@@ -10,14 +11,17 @@ namespace MVBToolsLibrary.Repository.Db
     {   
 
         private readonly IDbSettings _dbSettings;
+        private readonly IConfiguration _config;
 
-        public EditionDbRepository(IDbSettings dbSettings)
+        public EditionDbRepository(IDbSettings dbSettings, IConfiguration config)
         {            
-            this._dbSettings = dbSettings;            
+            this._dbSettings = dbSettings;
+            _config = config;
         }
                 
         public async Task<IEnumerable<EditionModel>> GetAll()
         {
+            //string cs = _config.GetConnectionString();
             string connectionString = _dbSettings.Default;
 
             string query = @"SELECT * FROM dbo.Edition;";
