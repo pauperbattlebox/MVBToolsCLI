@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Options;
+using MVBToolsLibrary;
 using MVBToolsLibrary.Models;
 using MVBToolsLibrary.Repository.Api;
 using MVBToolsLibrary.Repository.Db;
@@ -39,6 +40,24 @@ namespace MVBToolsCLI
         public async Task<int> Run(string[] args)
         {   
             var rootCommand = new RootCommand();
+
+            //Scrape
+            var scrapeCommand = new Command("scrape", "Scrape the webpage");
+
+            scrapeCommand.SetHandler(boolparam =>
+            {
+
+                Scraper scraper = new Scraper();
+
+                var result = scraper.GetHtml();
+
+                foreach (var item in result)
+                {
+                    Console.WriteLine(item.InnerText);
+                }
+            });
+
+            rootCommand.AddCommand(scrapeCommand);
 
             //Get editions from db
             var getEditionsCommand = new Command("getAllEditions", "Get all editions from db.");
