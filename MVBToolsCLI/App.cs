@@ -51,10 +51,12 @@ namespace MVBToolsCLI
 
                 var result = scraper.GetHtml();
 
-                foreach (var item in result)
-                {
-                    Console.WriteLine(item.InnerText);
-                }
+                Console.WriteLine(result);
+
+                //foreach (var item in result)
+                //{
+                //    Console.WriteLine(item.InnerText);
+                //}
             });
 
             rootCommand.AddCommand(scrapeCommand);

@@ -1,4 +1,6 @@
-﻿using HtmlAgilityPack;
+﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
+using System.Reflection.Metadata;
 
 namespace MVBToolsLibrary
 {
@@ -6,22 +8,37 @@ namespace MVBToolsLibrary
     {
         //public Uri uri { get; set; }        
 
-        public HtmlNodeCollection GetHtml()
+        public string GetHtml()
         {
-            var client = new HttpClient();
+            //HtmlWeb web = new HtmlWeb();
 
-            var response = client.GetStringAsync("https://www.cardsphere.com").Result.ToString();
+            //HtmlDocument document = web.Load("https://www.cardsphere.com/sets/1304");
 
-            HtmlDocument htmlDoc = new HtmlDocument();
+            ////string xpath = @"/html";
+            /////html/body/div[2]/div/div[2]/h3/text()
+            //string xpath = @"/html/body/script[4]";
 
-            htmlDoc.LoadHtml(response);
+            //var scriptString = document.DocumentNode.SelectSingleNode(xpath).InnerHtml;
 
-            //string xpath = "/html/body/nav/div/div[1]/a/img";
-            string xpath = "/html";
+            //return "HI";
 
-            var html = htmlDoc.DocumentNode.SelectNodes(xpath);
+            var options = new ChromeOptions()
+            {
+                BinaryLocation = "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe"
+            };
 
-            return html;
+            options.AddArguments(new List<string>() { "headless", "disable-gpu" });
+
+            var browser = new ChromeDriver(options);
+
+            browser.Navigate().GoToUrl("https://www.cardsphere.com/sets/1304");
+
+            var title = browser.FindElements(By.XPath("/html/body/div[2]/div/div[2]/h3"))[0].Text;
+            //var title = browser.FindElements(By.CssSelector("body > div.layout-content > div > div:nth-child(2) > h3"))[0].GetAttribute("innerHTML").ToString();
+
+            return title;
         }
     }
 }
+
+
