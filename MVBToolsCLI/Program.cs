@@ -7,6 +7,7 @@ using MVBToolsLibrary.Repository.Db;
 using MVBToolsLibrary.Interfaces;
 using Microsoft.Extensions.Options;
 using MVBToolsLibrary;
+using MVBToolsLibrary.Scrapers;
 
 namespace MVBToolsCLI
 {

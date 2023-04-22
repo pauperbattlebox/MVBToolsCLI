@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.Options;
-using MVBToolsLibrary;
 using MVBToolsLibrary.Models;
 using MVBToolsLibrary.Repository.Api;
 using MVBToolsLibrary.Repository.Db;
+using MVBToolsLibrary.Scrapers;
 using System.CommandLine;
 using System.Data;
 
@@ -46,10 +46,11 @@ namespace MVBToolsCLI
 
             scrapeCommand.SetHandler(boolparam =>
             {
+                CardsphereCardPage cardPage = new CardsphereCardPage("1304");
 
-                Scraper scraper = new Scraper();
-
-                var result = scraper.GetHtml();
+                cardPage.ScrapePage();
+                
+                var result = cardPage.GetEditionTitle();
 
                 Console.WriteLine(result);
 
