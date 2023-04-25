@@ -41,6 +41,7 @@ namespace MVBToolsCLI
                         services.AddScoped<ICardDbRepository<MVBCardModel>, CardDbRepository>();
                         services.AddScoped<ICardManager, CardManager>();
                         services.AddScoped<IPriceDbRepository, PriceDbRepository>();
+                        services.AddScoped<IPriceManager, PriceManager>();
                         services.AddScoped<IMvbApiCardRepository, MvbApiCardRepository>();
                         services.AddScoped<IMvbApiEditionRepository, MvbApiEditionRespository>();
                         services.AddScoped<IMvbApiPriceRepository, MvbApiPriceRepository>();

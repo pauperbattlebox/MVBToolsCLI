@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.Options;
-using MVBToolsLibrary;
 using MVBToolsLibrary.Interfaces;
 using MVBToolsLibrary.Models;
 using MVBToolsLibrary.Repository.Api;
@@ -18,6 +17,7 @@ namespace MVBToolsCLI
         private readonly ICardDbRepository<MVBCardModel> _cardDbRepository;
         private readonly ICardManager _cardManager;
         private readonly IPriceDbRepository _priceDbRepository;
+        private readonly IPriceManager _priceManager;
         private readonly IMvbApiCardRepository _mvbApiCardRepository;
         private readonly IMvbApiEditionRepository _mvbApiEditionRepository;
         private readonly IMvbApiPriceRepository _mvbApiPriceRepository;
@@ -29,6 +29,7 @@ namespace MVBToolsCLI
             ICardDbRepository<MVBCardModel> cardDbRepository,
             ICardManager cardManager,
             IPriceDbRepository priceDbRepository,
+            IPriceManager priceManager,
             IMvbApiCardRepository mvbApiCardRepository,
             IMvbApiEditionRepository mvbApiEditionRepository,
             IMvbApiPriceRepository mvbApiPriceRepository,
@@ -40,6 +41,7 @@ namespace MVBToolsCLI
             _cardDbRepository = cardDbRepository;
             _cardManager = cardManager;
             _priceDbRepository = priceDbRepository;
+            _priceManager = priceManager;
             _mvbApiCardRepository = mvbApiCardRepository;
             _mvbApiEditionRepository = mvbApiEditionRepository;
             _mvbApiPriceRepository = mvbApiPriceRepository;
@@ -192,7 +194,7 @@ namespace MVBToolsCLI
 
             viewPriceCommand.SetHandler((csId) =>
             {
-                var response = _priceDbRepository.Get(csId).Result;
+                var response = _priceManager.GetPriceFromDb(csId).Result;
 
                 Console.WriteLine($"{response.Name} - Carsphere: {response.CsPrice} - Scryfall: {response.ScryfallPrice}");
                 
