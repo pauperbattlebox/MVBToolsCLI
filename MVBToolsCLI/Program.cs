@@ -39,6 +39,7 @@ namespace MVBToolsCLI
                         services.AddScoped<IEditionDbRepository<EditionModel>, EditionDbRepository>();
                         services.AddScoped<IEditionManager, EditionManager>();
                         services.AddScoped<ICardDbRepository<MVBCardModel>, CardDbRepository>();
+                        services.AddScoped<ICardManager, CardManager>();
                         services.AddScoped<IPriceDbRepository, PriceDbRepository>();
                         services.AddScoped<IMvbApiCardRepository, MvbApiCardRepository>();
                         services.AddScoped<IMvbApiEditionRepository, MvbApiEditionRespository>();

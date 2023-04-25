@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Options;
 using MVBToolsLibrary;
+using MVBToolsLibrary.Interfaces;
 using MVBToolsLibrary.Models;
 using MVBToolsLibrary.Repository.Api;
 using MVBToolsLibrary.Repository.Db;
@@ -15,6 +16,7 @@ namespace MVBToolsCLI
         private readonly IEditionDbRepository<EditionModel> _editionDbRepository;
         private readonly IEditionManager _editionManager;
         private readonly ICardDbRepository<MVBCardModel> _cardDbRepository;
+        private readonly ICardManager _cardManager;
         private readonly IPriceDbRepository _priceDbRepository;
         private readonly IMvbApiCardRepository _mvbApiCardRepository;
         private readonly IMvbApiEditionRepository _mvbApiEditionRepository;
@@ -25,6 +27,7 @@ namespace MVBToolsCLI
         public App (IEditionDbRepository<EditionModel> editionDbRepository,
             IEditionManager editionManager,
             ICardDbRepository<MVBCardModel> cardDbRepository,
+            ICardManager cardManager,
             IPriceDbRepository priceDbRepository,
             IMvbApiCardRepository mvbApiCardRepository,
             IMvbApiEditionRepository mvbApiEditionRepository,
@@ -35,6 +38,7 @@ namespace MVBToolsCLI
             _editionDbRepository = editionDbRepository;
             _editionManager = editionManager;
             _cardDbRepository = cardDbRepository;
+            _cardManager = cardManager;
             _priceDbRepository = priceDbRepository;
             _mvbApiCardRepository = mvbApiCardRepository;
             _mvbApiEditionRepository = mvbApiEditionRepository;
@@ -126,7 +130,7 @@ namespace MVBToolsCLI
 
             getCardCommand.SetHandler((cardId) =>
             {
-                var response = _cardDbRepository.Get(cardId).Result;
+                var response = _cardManager.GetCardFromDb(cardId).Result;
 
                 Console.WriteLine($"{response.Name} - {response.MtgJsonCode}");
                 
