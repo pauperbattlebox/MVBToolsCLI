@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Options;
+using MVBToolsLibrary;
 using MVBToolsLibrary.Models;
 using MVBToolsLibrary.Repository.Api;
 using MVBToolsLibrary.Repository.Db;
@@ -12,29 +13,34 @@ namespace MVBToolsCLI
     {
 
         private readonly IEditionDbRepository<EditionModel> _editionDbRepository;
+        private readonly IEditionManager _editionManager;
         private readonly ICardDbRepository<MVBCardModel> _cardDbRepository;
         private readonly IPriceDbRepository _priceDbRepository;
         private readonly IMvbApiCardRepository _mvbApiCardRepository;
         private readonly IMvbApiEditionRepository _mvbApiEditionRepository;
         private readonly IMvbApiPriceRepository _mvbApiPriceRepository;
         private readonly IScryfallApiPriceRepository _scryfallApiPriceRepository;
-        
+        private readonly IChromeDriverSetup _chromeDriverSetup;
 
         public App (IEditionDbRepository<EditionModel> editionDbRepository,
+            IEditionManager editionManager,
             ICardDbRepository<MVBCardModel> cardDbRepository,
             IPriceDbRepository priceDbRepository,
             IMvbApiCardRepository mvbApiCardRepository,
             IMvbApiEditionRepository mvbApiEditionRepository,
             IMvbApiPriceRepository mvbApiPriceRepository,
-            IScryfallApiPriceRepository scryfallApiPriceRepository)
+            IScryfallApiPriceRepository scryfallApiPriceRepository,
+            IChromeDriverSetup chromeDriverSetup)
         {
             _editionDbRepository = editionDbRepository;
+            _editionManager = editionManager;
             _cardDbRepository = cardDbRepository;
             _priceDbRepository = priceDbRepository;
             _mvbApiCardRepository = mvbApiCardRepository;
             _mvbApiEditionRepository = mvbApiEditionRepository;
             _mvbApiPriceRepository = mvbApiPriceRepository;
-            _scryfallApiPriceRepository= scryfallApiPriceRepository;
+            _scryfallApiPriceRepository = scryfallApiPriceRepository;
+            _chromeDriverSetup = chromeDriverSetup;
         }
 
         public async Task<int> Run(string[] args)
@@ -46,7 +52,7 @@ namespace MVBToolsCLI
 
             scrapeCommand.SetHandler(boolparam =>
             {
-                CardsphereCardPage cardPage = new CardsphereCardPage("1304");
+                CardsphereCardPage cardPage = new CardsphereCardPage("1304", _chromeDriverSetup);
 
                 cardPage.ScrapePage();
                 
@@ -67,7 +73,7 @@ namespace MVBToolsCLI
 
             getEditionsCommand.SetHandler(boolparam =>
             {
-                var rows = _editionDbRepository.GetAll().Result;                
+                var rows = _editionManager.GetAllEditionsFromDb().Result;
 
                 foreach(var row in rows)
                 {

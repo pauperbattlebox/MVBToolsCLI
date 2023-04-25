@@ -4,7 +4,7 @@ using System.Reflection.Metadata;
 
 namespace MVBToolsLibrary.Scrapers
 {
-    public class ChromeDriverSetup
+    public class ChromeDriverSetup : IChromeDriverSetup
     {
         public ChromeDriver BuildChromeDriver()
         {
@@ -15,7 +15,7 @@ namespace MVBToolsLibrary.Scrapers
 
             options.AddArguments(new List<string>() { "headless", "disable-gpu" });
 
-            var browser = new OpenQA.Selenium.Chrome.ChromeDriver(options);
+            var browser = new ChromeDriver(options);
 
             return browser;
         }

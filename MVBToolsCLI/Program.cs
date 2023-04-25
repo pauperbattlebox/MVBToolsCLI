@@ -37,12 +37,14 @@ namespace MVBToolsCLI
                         services.Configure<DbSettings>(configuration.GetSection("ConnectionStrings"));
                         services.AddScoped<IDbSettings>(c => c.GetService<IOptions<DbSettings>>().Value);
                         services.AddScoped<IEditionDbRepository<EditionModel>, EditionDbRepository>();
+                        services.AddScoped<IEditionManager, EditionManager>();
                         services.AddScoped<ICardDbRepository<MVBCardModel>, CardDbRepository>();
                         services.AddScoped<IPriceDbRepository, PriceDbRepository>();
                         services.AddScoped<IMvbApiCardRepository, MvbApiCardRepository>();
                         services.AddScoped<IMvbApiEditionRepository, MvbApiEditionRespository>();
                         services.AddScoped<IMvbApiPriceRepository, MvbApiPriceRepository>();
                         services.AddScoped<IScryfallApiPriceRepository, ScryfallApiPriceRepository>();
+                        services.AddSingleton<IChromeDriverSetup, ChromeDriverSetup>();
                         services.AddSingleton<App>();
                         services.AddOptions();
                         services.AddHttpClient();

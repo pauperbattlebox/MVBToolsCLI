@@ -13,12 +13,13 @@ namespace MVBToolsLibrary.Scrapers
     {
         public string BaseUrl { get; private set; } = "https://www.cardsphere.com/sets";
         public string Id { get; set; }
-        private readonly ChromeDriverSetup ChromeDriverSetup = new ChromeDriverSetup();
+        private readonly IChromeDriverSetup _driverSetup;
         private ChromeDriver Driver;
 
-        public CardsphereCardPage(string id)
-        {            
-            Driver = ChromeDriverSetup.BuildChromeDriver();
+        public CardsphereCardPage(string id, IChromeDriverSetup driverSetup)
+        {
+            _driverSetup = driverSetup;
+            Driver = _driverSetup.BuildChromeDriver();
             Id = id;
         }
 
@@ -37,6 +38,6 @@ namespace MVBToolsLibrary.Scrapers
             //var title = browser.FindElements(By.CssSelector("body > div.layout-content > div > div:nth-child(2) > h3"))[0].GetAttribute("innerHTML").ToString();
 
             return title;
-        }
+        }        
     }
 }
