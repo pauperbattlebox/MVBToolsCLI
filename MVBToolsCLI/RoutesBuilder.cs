@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MVBToolsCLI
 {
-    public class Routes
+    public class RoutesBuilder
     {
         private static readonly Dictionary<string, string> routes = new Dictionary<string, string>()
         {

@@ -16,6 +16,6 @@ namespace MVBToolsLibrary
         public async Task<DbCardModel> GetPriceFromDb(int id)
         {
             return await _priceDbRepository.Get(id);
-        }
+        }        
     }
 }

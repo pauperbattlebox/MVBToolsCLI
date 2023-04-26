@@ -1,49 +1,35 @@
-﻿using Microsoft.Extensions.Options;
-using MVBToolsLibrary.Interfaces;
+﻿using MVBToolsLibrary.Interfaces;
 using MVBToolsLibrary.Models;
 using MVBToolsLibrary.Repository.Api;
 using MVBToolsLibrary.Repository.Db;
 using MVBToolsLibrary.Scrapers;
 using System.CommandLine;
-using System.Data;
 
 namespace MVBToolsCLI
 {
     public class App
-    {
-
-        private readonly IEditionDbRepository<EditionModel> _editionDbRepository;
+    {   
         private readonly IEditionManager _editionManager;
-        private readonly ICardDbRepository<MVBCardModel> _cardDbRepository;
         private readonly ICardManager _cardManager;
         private readonly IPriceDbRepository _priceDbRepository;
         private readonly IPriceManager _priceManager;
-        private readonly IMvbApiCardRepository _mvbApiCardRepository;
-        private readonly IMvbApiEditionRepository _mvbApiEditionRepository;
         private readonly IMvbApiPriceRepository _mvbApiPriceRepository;
         private readonly IScryfallApiPriceRepository _scryfallApiPriceRepository;
         private readonly IChromeDriverSetup _chromeDriverSetup;
 
-        public App (IEditionDbRepository<EditionModel> editionDbRepository,
+        public App (
             IEditionManager editionManager,
-            ICardDbRepository<MVBCardModel> cardDbRepository,
             ICardManager cardManager,
             IPriceDbRepository priceDbRepository,
             IPriceManager priceManager,
-            IMvbApiCardRepository mvbApiCardRepository,
-            IMvbApiEditionRepository mvbApiEditionRepository,
             IMvbApiPriceRepository mvbApiPriceRepository,
             IScryfallApiPriceRepository scryfallApiPriceRepository,
             IChromeDriverSetup chromeDriverSetup)
-        {
-            _editionDbRepository = editionDbRepository;
+        {            
             _editionManager = editionManager;
-            _cardDbRepository = cardDbRepository;
             _cardManager = cardManager;
             _priceDbRepository = priceDbRepository;
             _priceManager = priceManager;
-            _mvbApiCardRepository = mvbApiCardRepository;
-            _mvbApiEditionRepository = mvbApiEditionRepository;
             _mvbApiPriceRepository = mvbApiPriceRepository;
             _scryfallApiPriceRepository = scryfallApiPriceRepository;
             _chromeDriverSetup = chromeDriverSetup;
@@ -64,12 +50,7 @@ namespace MVBToolsCLI
                 
                 var result = cardPage.GetEditionTitle();
 
-                Console.WriteLine(result);
-
-                //foreach (var item in result)
-                //{
-                //    Console.WriteLine(item.InnerText);
-                //}
+                Console.WriteLine(result);                
             });
 
             rootCommand.AddCommand(scrapeCommand);
@@ -102,23 +83,11 @@ namespace MVBToolsCLI
 
             addEditionCommand.SetHandler((editionId) =>
             {
-                var editionModel = _mvbApiEditionRepository.Get(editionId, Routes.BuildUrl).Result;                
-
-                _editionDbRepository.Insert(editionModel);
+                _editionManager.AddEditionToDb(editionId);                
                 
             }, editionIdArgument);
 
-            rootCommand.AddCommand(addEditionCommand);
-
-            //Add all cards from mtgjson file
-            //var addAllCardsCommand = new Command("addAllCards", "Add all cards to db from mtgjson file.");
-
-            //addAllCardsCommand.SetHandler(boolparam =>
-            //{
-            //    Commands.AddCardsToDbFromJsonFile(sqlConnection, "all_ids.json");
-            //});
-
-            //rootCommand.AddCommand(addAllCardsCommand);
+            rootCommand.AddCommand(addEditionCommand);            
 
             //Get card from db
             var csCardIdArgument = new Argument<int>(
@@ -152,7 +121,7 @@ namespace MVBToolsCLI
 
             getCardsByEditionCommand.SetHandler((mtgJsonCode) =>
             {
-                var rows = _cardDbRepository.GetAllById(mtgJsonCode).Result;
+                var rows = _cardManager.GetCardsByEditionCode(mtgJsonCode).Result;
 
                 foreach( var row in rows)
                 {
@@ -162,25 +131,15 @@ namespace MVBToolsCLI
 
             rootCommand.AddCommand(getCardsByEditionCommand);
 
-            //Add cards by edition
+            //Add cards by id
             var addCardsByEdition = new Command("addCardsByEdition", "Add all cards from a given edition to db.")
             {
                 editionIdArgument
             };
 
-            addCardsByEdition.SetHandler((editionId) =>
+            addCardsByEdition.SetHandler((id) =>
             {
-
-                var model = _mvbApiEditionRepository.GetCardsByEdition(editionId, Routes.BuildUrl).Result;
-
-                var filteredCards = from card in model.Cards
-                                    where card.IsFoil == false && card.MtgJsonId != null
-                                    select card;
-
-                foreach (var card in filteredCards)
-                {
-                    _cardDbRepository.Insert(card);
-                }
+                _cardManager.AddCardsToDbByEditionCode(id);
                 
             }, editionIdArgument);
 
@@ -229,7 +188,7 @@ namespace MVBToolsCLI
             {
                 if (source == "cardsphere")
                 {
-                    var price = _mvbApiPriceRepository.Get(csId, Routes.BuildUrl).Result;
+                    var price = _mvbApiPriceRepository.Get(csId, RoutesBuilder.BuildUrl).Result;
 
                     _priceDbRepository.UpdateCardsphere(csId, price);
                     
