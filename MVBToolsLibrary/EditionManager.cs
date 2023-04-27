@@ -33,7 +33,7 @@ namespace MVBToolsLibrary
             await _dbRepository.Insert(editionToAdd);
         }
 
-        private async Task<EditionModel> GetEditionFromApi(int editionId)
+        public async Task<EditionModel> GetEditionFromApi(int editionId)
         {
             return await _mvbApiRepository.Get(editionId);            
         }
