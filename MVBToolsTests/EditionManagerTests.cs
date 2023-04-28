@@ -3,6 +3,7 @@ using MVBToolsLibrary;
 using MVBToolsLibrary.Models;
 using MVBToolsLibrary.Repository.Api;
 using MVBToolsLibrary.Repository.Db;
+using System.Diagnostics;
 
 namespace MVBToolsTests
 {
@@ -12,7 +13,6 @@ namespace MVBToolsTests
         [TestMethod]
         public void TestGetEditionFromApi()
         {
-            int editionId = 772;
 
             EditionModel edition = new EditionModel()
             {
@@ -26,13 +26,15 @@ namespace MVBToolsTests
             Mock<IMvbApiEditionRepository> mockApiRepo = new Mock<IMvbApiEditionRepository>();
 
 
-            mockApiRepo.Setup(e => e.Get(editionId)).ReturnsAsync(edition);
+            mockApiRepo.Setup(e => e.Get(edition.CsId)).ReturnsAsync(edition);
 
             EditionManager manager = new EditionManager(mockDbRepo.Object, mockApiRepo.Object);
 
-            var result = manager.GetEditionFromApi(editionId).Result;
+            var result = manager.GetEditionFromApi(edition.CsId).Result;
+
 
             Assert.AreEqual(result, edition);
+            Assert.IsNotNull(result);
         }
     }
 }
