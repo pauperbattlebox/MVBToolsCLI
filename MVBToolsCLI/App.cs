@@ -75,24 +75,38 @@ namespace MVBToolsCLI
             rootCommand.AddCommand(addEditionCommand);
 
             //Scrape webpage for edition.
-            var scrapeCommand = new Command("scrapeEditionTitle", "Scrape the webpage for edition title")
+            var scrapeEditionCommand = new Command("scrapeEditionTitle", "Scrape the webpage for edition title.")
             {
                 editionIdArgument
             };
 
-            scrapeCommand.SetHandler((editionId) =>
+            scrapeEditionCommand.SetHandler((editionId) =>
             {
-                //var result = _editionManager.ScrapeEditionFromWebpage(editionId.ToString()).Result;
-                var result = _editionManager.ScrapeCardsAndPrices(editionId.ToString());
+                var result = _editionManager.ScrapeEditionFromWebpage(editionId.ToString()).Result;
 
-                foreach(var card in result)
-                {
-                    Console.WriteLine($"{card.CsId} - {card.Name} - {card.Prices.Price}");
-                }
+                Console.WriteLine(result);
 
             }, editionIdArgument);
 
-            rootCommand.AddCommand(scrapeCommand);
+            rootCommand.AddCommand(scrapeEditionCommand);
+
+            //Scrape webpage for cards list and prices.
+            var scrapePricesCommand = new Command("scrapePrices", "Scrape webapge for cards and their prices.")
+            {
+                editionIdArgument
+            };
+
+            scrapePricesCommand.SetHandler((editionId) =>
+            {
+                var result = _editionManager.ScrapeCardsAndPrices(editionId.ToString());
+
+                foreach (var card in result)
+                {
+                    Console.WriteLine($"{card.CsId} - {card.Name} - {card.Prices.Price}");
+                }
+            }, editionIdArgument);
+
+            rootCommand.AddCommand(scrapePricesCommand);
 
             //Get card from db
             var csCardIdArgument = new Argument<int>(

@@ -60,7 +60,7 @@ namespace MVBToolsLibrary.Scrapers
 
                 var price = item.FindElement(By.CssSelector(".card-price")).Text.Replace("$", "");
 
-                decimal output = 0;
+                decimal output;
 
                 if (Decimal.TryParse(price, out output))
                 {
