@@ -1,8 +1,10 @@
-﻿using OpenQA.Selenium;
+﻿using MVBToolsLibrary.Models;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.DevTools.V110.Page;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -38,6 +40,43 @@ namespace MVBToolsLibrary.Scrapers
             //var title = browser.FindElements(By.CssSelector("body > div.layout-content > div > div:nth-child(2) > h3"))[0].GetAttribute("innerHTML").ToString();
 
             return title;
-        }        
+        }
+
+        public List<MVBCardModel> GetCardsAndPrices()
+        {            
+            var priceList = Driver.FindElements(By.CssSelector(".cards .cs-row"));   
+            
+            List<MVBCardModel> cardsList = new List<MVBCardModel>();
+
+            foreach (var item in priceList)
+            {
+                MVBCardModel cardModel = new MVBCardModel();
+                
+                cardModel.Name = item.FindElement(By.ClassName("cardpeek")).Text;
+
+                cardModel.CsId = Int32.Parse(item.FindElement(By.ClassName("cardpeek")).GetAttribute("href").Split("/cards/")[1]);
+
+                MVBPricesModel pricesModel= new MVBPricesModel();
+
+                var price = item.FindElement(By.CssSelector(".card-price")).Text.Replace("$", "");
+
+                decimal output = 0;
+
+                if (Decimal.TryParse(price, out output))
+                {
+                    pricesModel.Price = output;
+                }
+                else
+                {
+                    pricesModel.Price = output;
+                };
+
+                cardModel.Prices = pricesModel;                
+                
+                cardsList.Add(cardModel);
+            }
+
+            return cardsList;
+        }
     }
 }

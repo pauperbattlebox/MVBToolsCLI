@@ -2,7 +2,7 @@
   "profiles": {
     "MVBToolsCLI": {
       "commandName": "Project",
-      "commandLineArgs": "addCardsByEdition 772"
+      "commandLineArgs": "scrapeEditionTitle 772"
     }
   }
 }

@@ -39,22 +39,7 @@ namespace MVBToolsCLI
         {   
             var rootCommand = new RootCommand();
 
-            //Scrape
-            var scrapeCommand = new Command("scrape", "Scrape the webpage");
-
-            scrapeCommand.SetHandler(boolparam =>
-            {
-                CardsphereCardPage cardPage = new CardsphereCardPage("1304", _chromeDriverSetup);
-
-                cardPage.ScrapePage();
-                
-                var result = cardPage.GetEditionTitle();
-
-                Console.WriteLine(result);                
-            });
-
-            rootCommand.AddCommand(scrapeCommand);
-
+            
             //Get editions from db
             var getEditionsCommand = new Command("getAllEditions", "Get all editions from db.");
 
@@ -87,7 +72,27 @@ namespace MVBToolsCLI
                 
             }, editionIdArgument);
 
-            rootCommand.AddCommand(addEditionCommand);            
+            rootCommand.AddCommand(addEditionCommand);
+
+            //Scrape webpage for edition.
+            var scrapeCommand = new Command("scrapeEditionTitle", "Scrape the webpage for edition title")
+            {
+                editionIdArgument
+            };
+
+            scrapeCommand.SetHandler((editionId) =>
+            {
+                //var result = _editionManager.ScrapeEditionFromWebpage(editionId.ToString()).Result;
+                var result = _editionManager.ScrapeCardsAndPrices(editionId.ToString());
+
+                foreach(var card in result)
+                {
+                    Console.WriteLine($"{card.CsId} - {card.Name} - {card.Prices.Price}");
+                }
+
+            }, editionIdArgument);
+
+            rootCommand.AddCommand(scrapeCommand);
 
             //Get card from db
             var csCardIdArgument = new Argument<int>(
