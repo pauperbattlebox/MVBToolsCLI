@@ -8,6 +8,6 @@ namespace MVBToolsLibrary.Interfaces
         Task<decimal> GetPriceFromMvbApi(int id);
         Task<decimal> GetPriceFromScryfallApi(string id);
         Task UpsertCardPriceFromMvbApi(int id);
-        Task UpsertCardPriceFromScryfallApi(string scryfallIdd, int cardsphereId);
+        Task UpsertCardPriceFromScryfallApi(string scryfallId, int cardsphereId);
     }
 }

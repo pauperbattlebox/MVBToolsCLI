@@ -43,11 +43,11 @@ namespace MVBToolsLibrary
             await _priceDbRepository.UpdateCardsphere(id, price);
         }
 
-        public async Task UpsertCardPriceFromScryfallApi(string scryfallIdd, int cardsphereId)
+        public async Task UpsertCardPriceFromScryfallApi(string scryfallId, int cardsphereId)
         {
-            var price = await _scryfallApiPriceRepository.Get(scryfallIdd);
+            var price = await _scryfallApiPriceRepository.Get(scryfallId);
 
-            await _priceDbRepository.UpdateScryfall(scryfallIdd, cardsphereId, price);
+            await _priceDbRepository.UpdateScryfall(scryfallId, cardsphereId, price);
         }
     }
 }
