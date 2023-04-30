@@ -11,11 +11,11 @@ namespace MVBToolsLibrary.Repository.Api
         {
             _httpClient = httpClient;
         }
-        public async Task<decimal> Get(int id, Func<int, string, string> buildUrl)
-        {   
-            var uri = new Uri(buildUrl(id, "cardById"));
+        public async Task<decimal> Get(int id)
+        {
+            var url = $"{Routes.MvbCards.Get}/{id}";
 
-            var response = await _httpClient.CreateClient().GetAsync(uri);
+            var response = _httpClient.CreateClient().GetAsync(url).Result;
 
             var text = await response.Content.ReadAsStringAsync();
 
@@ -25,6 +25,5 @@ namespace MVBToolsLibrary.Repository.Api
 
             return price;
         }
-
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MVBToolsLibrary.Scrapers
 {
-    internal class CardsphereCardDetailPage
+    public class CardsphereCardDetailPage
     {
     }
 }

@@ -13,10 +13,9 @@ namespace MVBToolsLibrary.Repository.Api
         }
         public async Task<decimal> Get(string id)
         {
+            var url = $"{Routes.ScryfallCards.Get}/{id}";
 
-            var uri = new Uri($"https://api.scryfall.com/cards/{id}");
-
-            var response = await _httpClient.CreateClient().GetAsync(uri);
+            var response = _httpClient.CreateClient().GetAsync(url).Result;
 
             var text = await response.Content.ReadAsStringAsync();
 

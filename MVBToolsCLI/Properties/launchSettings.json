@@ -2,7 +2,7 @@
   "profiles": {
     "MVBToolsCLI": {
       "commandName": "Project",
-      "commandLineArgs": "scrapeEditionTitle 772"
+      "commandLineArgs": "addPrice 24831 b3a69a1c-c80f-4413-a6fd-ae54cabbce28"
     }
   }
 }

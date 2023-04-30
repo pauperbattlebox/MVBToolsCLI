@@ -1,17 +1,10 @@
 ﻿using MVBToolsLibrary.Models;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.DevTools.V110.Page;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MVBToolsLibrary.Scrapers
 {
-    public class CardsphereCardPage
+    internal class CardsphereCardPage
     {
         public string BaseUrl { get; private set; } = "https://www.cardsphere.com/sets";
         public string Id { get; set; }

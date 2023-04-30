@@ -32,7 +32,7 @@ namespace MVBToolsLibrary.Repository.Db
 
             using (IDbConnection connection = new SqlConnection(connectionString))
             {
-                connection.Execute(query, new { CsPrice = price, CsId = id });
+                connection.Execute(query, new { CsId = id, CsPrice = price });
             }            
         }
 
