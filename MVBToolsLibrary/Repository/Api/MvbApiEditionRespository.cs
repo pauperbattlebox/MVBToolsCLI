@@ -14,7 +14,7 @@ namespace MVBToolsLibrary.Repository.Api
 
         public async Task<EditionModel> Get(int id)
         {
-            var url = $"{Routes.MvbEditions.Get}/{id}";
+            var url = $"{Routes.MvbEditions.GET}/{id}";
 
             var response = await _httpClient.CreateClient().GetAsync(url);
 
@@ -27,7 +27,7 @@ namespace MVBToolsLibrary.Repository.Api
 
         public async Task<IEnumerable<MVBCardModel>> GetCardsByEdition(int editionId)
         {
-            var url = $"{Routes.MvbEditions.GetByCsId}/{editionId}";
+            var url = $"{Routes.MvbEditions.GETBYMTGJSONCODE}/{editionId}";
 
             var response = _httpClient.CreateClient().GetAsync(url).Result;
 

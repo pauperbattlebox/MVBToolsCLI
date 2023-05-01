@@ -8,32 +8,32 @@ namespace MVBToolsLibrary
 {
     public static class Routes
     {
-        private const string MvbBaseUrl = "https://www.multiversebridge.com/api/v1";
-        private const string ScryfallBaseUrl = "https://api.scryfall.com";
+        private const string MVBBASEURL = "https://www.multiversebridge.com/api/v1";
+        private const string SCRYFALLBASEURL = "https://api.scryfall.com";
 
         public static class MvbCards
         {
-            private const string Base = $"{MvbBaseUrl}/cards/cs";
+            private const string BASE = $"{MVBBASEURL}/cards/cs";
 
-            public const string Get = $"{Base}";
+            public const string GET = $"{BASE}";
         }
 
         public static class MvbEditions
         {
-            private const string Base = $"{MvbBaseUrl}/sets";
+            private const string BASE = $"{MVBBASEURL}/sets";
 
-            public const string Get = $"{Base}/cs";
+            public const string GET = $"{BASE}/cs";
 
-            public const string GetByMtgJsonCode = $"{Base}/mtgjson";
+            public const string GETBYMTGJSONCODE = $"{BASE}/mtgjson";
 
-            public const string GetByCsId = $"{Base}/cs";
+            public const string GETBYCSID = $"{BASE}/cs";
         }
 
         public static class ScryfallCards
         {
-            private const string Base = $"{ScryfallBaseUrl}/cards";
+            private const string BASE = $"{SCRYFALLBASEURL}/cards";
 
-            public const string Get = $"{Base}";
+            public const string GET = $"{BASE}";
         }
     }
 }

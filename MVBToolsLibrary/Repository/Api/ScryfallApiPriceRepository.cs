@@ -13,7 +13,7 @@ namespace MVBToolsLibrary.Repository.Api
         }
         public async Task<decimal> Get(string id)
         {
-            var url = $"{Routes.ScryfallCards.Get}/{id}";
+            var url = $"{Routes.ScryfallCards.GET}/{id}";
 
             var response = _httpClient.CreateClient().GetAsync(url).Result;
 
