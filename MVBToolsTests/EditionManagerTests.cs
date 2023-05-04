@@ -5,6 +5,7 @@ using MVBToolsLibrary.Repository.Api;
 using MVBToolsLibrary.Repository.Db;
 using MVBToolsLibrary.Scrapers;
 using System.Diagnostics;
+using Bogus;
 
 namespace MVBToolsTests
 {
@@ -14,13 +15,13 @@ namespace MVBToolsTests
         [TestMethod]
         public void TestGetEditionFromApi()
         {
+            var faker = new Faker<EditionModel>()
+                .RuleFor(x => x.CsId, f => f.Random.Int(1, 1000))
+                .RuleFor(x => x.CsName, f => f.Random.Words())
+                .RuleFor(x => x.MtgJsonCode, f => f.Lorem.Word());
 
-            EditionModel edition = new EditionModel()
-            {
-                CsId = 772,
-                CsName = "Avacyn Restored",                
-                MtgJsonCode = "AVR"
-            };
+            var edition = faker.Generate();
+
 
             Mock<IEditionDbRepository<EditionModel>> mockDbRepo = new Mock<IEditionDbRepository<EditionModel>>();
 
@@ -35,13 +36,10 @@ namespace MVBToolsTests
 
             var result = manager.GetEditionFromApi(edition.CsId).Result;
 
-
-            Debug.WriteLine(edition.CsId);
-            Debug.WriteLine(result.CsId);
-
+            Debug.WriteLine($"{result.CsId}, {result.CsName}, {result.MtgJsonCode}");
+            Debug.WriteLine($"{edition.CsId}, {edition.CsName}, {result.MtgJsonCode}");
 
             Assert.AreEqual(result, edition);
-            Assert.IsNotNull(result);
         }
     }
 }

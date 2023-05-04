@@ -72,6 +72,7 @@ namespace MVBToolsCLI
 
             rootCommand.AddCommand(addEditionCommand);
 
+
             //Scrape webpage for edition.
             var scrapeEditionCommand = new Command("scrapeEditionTitle", "Scrape Cardsphere edition webapge for edition title.")
             {
@@ -87,6 +88,7 @@ namespace MVBToolsCLI
             }, editionIdArgument);
 
             rootCommand.AddCommand(scrapeEditionCommand);
+
 
             //Scrape webpage for cards list and prices.
             var scrapePricesCommand = new Command("scrapePrices", "Scrape Cardsphere webapge by edition Id for cards and their prices.")
@@ -106,6 +108,7 @@ namespace MVBToolsCLI
 
             rootCommand.AddCommand(scrapePricesCommand);
 
+
             //Get card from db            
             var getCardCommand = new Command("getCard", "Get card from db by Cardshpere ID.")
             {
@@ -121,6 +124,7 @@ namespace MVBToolsCLI
             }, csCardIdArgument);
 
             rootCommand.AddCommand(getCardCommand);
+
 
             //Get cards by edition
             var getCardsByEditionCommand = new Command("getCardsByEdition", "Get all cards from db by MTGJSON Edition Code.")
@@ -140,6 +144,7 @@ namespace MVBToolsCLI
 
             rootCommand.AddCommand(getCardsByEditionCommand);
 
+
             //Add cards by id
             var addCardsByEdition = new Command("addCardsByEdition", "Add all cards from a given edition ID to db.")
             {
@@ -153,6 +158,7 @@ namespace MVBToolsCLI
             }, editionIdArgument);
 
             rootCommand.AddCommand(addCardsByEdition);
+
 
             //Get card price
             var viewPriceCommand = new Command("getPrice", "View a card's prices.")
@@ -186,9 +192,7 @@ namespace MVBToolsCLI
             //var priceSourceOption = new Option<string>(
             //    name: "--priceSource",
             //    description: "Source to add price from").FromAmong("cardsphere", "scryfall");
-            //priceSourceOption.AddAlias("-p");
-
-            
+            //priceSourceOption.AddAlias("-p");            
 
             var addPriceCommand = new Command("addPrice", "Add or update card prices in db")
             {
@@ -209,6 +213,7 @@ namespace MVBToolsCLI
             }, csCardIdArgument, scryfallCardIdArgument);
 
             rootCommand.AddCommand(addPriceCommand);
+
 
             return await rootCommand.InvokeAsync(args);            
         }        
