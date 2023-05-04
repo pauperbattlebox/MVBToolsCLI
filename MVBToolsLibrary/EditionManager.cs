@@ -3,11 +3,6 @@ using MVBToolsLibrary.Models;
 using MVBToolsLibrary.Repository.Api;
 using MVBToolsLibrary.Repository.Db;
 using MVBToolsLibrary.Scrapers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MVBToolsLibrary
 {
@@ -38,7 +33,7 @@ namespace MVBToolsLibrary
 
         public async Task<EditionModel> GetEditionFromApi(int editionId)
         {
-            return await _mvbApiRepository.Get(editionId);            
+            return await _mvbApiRepository.Get(editionId);
         }
 
         public async Task<string> ScrapeEditionFromWebpage(string id)

@@ -42,6 +42,7 @@ namespace MVBToolsCLI
                 name: "mtgJsonCode",
                 description: "MTGJSON Edition Code");
 
+
             //Get all editions from db
             var getEditionsCommand = new Command("getAllEditions", "Get all editions from db.");
 
