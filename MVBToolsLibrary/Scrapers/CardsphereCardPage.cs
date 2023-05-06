@@ -4,7 +4,7 @@ using OpenQA.Selenium.Chrome;
 
 namespace MVBToolsLibrary.Scrapers
 {
-    internal class CardsphereCardPage
+    public class CardsphereCardPage : ICardsphereCardPage
     {
         public string BaseUrl { get; private set; } = "https://www.cardsphere.com/sets";
         public string Id { get; set; }
@@ -24,7 +24,7 @@ namespace MVBToolsLibrary.Scrapers
 
             Driver.Navigate().GoToUrl(url);
 
-            return Driver;            
+            return Driver;
         }
 
         public string GetEditionTitle()
@@ -36,20 +36,20 @@ namespace MVBToolsLibrary.Scrapers
         }
 
         public List<MVBCardModel> GetCardsAndPrices()
-        {            
-            var priceList = Driver.FindElements(By.CssSelector(".cards .cs-row"));   
-            
+        {
+            var priceList = Driver.FindElements(By.CssSelector(".cards .cs-row"));
+
             List<MVBCardModel> cardsList = new List<MVBCardModel>();
 
             foreach (var item in priceList)
             {
                 MVBCardModel cardModel = new MVBCardModel();
-                
+
                 cardModel.Name = item.FindElement(By.ClassName("cardpeek")).Text;
 
                 cardModel.CsId = Int32.Parse(item.FindElement(By.ClassName("cardpeek")).GetAttribute("href").Split("/cards/")[1]);
 
-                MVBPricesModel pricesModel= new MVBPricesModel();
+                MVBPricesModel pricesModel = new MVBPricesModel();
 
                 var price = item.FindElement(By.CssSelector(".card-price")).Text.Replace("$", "");
 
@@ -64,8 +64,8 @@ namespace MVBToolsLibrary.Scrapers
                     pricesModel.Price = output;
                 };
 
-                cardModel.Prices = pricesModel;                
-                
+                cardModel.Prices = pricesModel;
+
                 cardsList.Add(cardModel);
             }
 

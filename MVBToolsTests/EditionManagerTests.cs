@@ -39,5 +39,25 @@ namespace MVBToolsTests
             Assert.AreEqual(result, edition);
             Assert.IsNotNull(result);
         }
+
+        [TestMethod]
+        public void TestScrapeEditionFromWebpage()
+        {
+            var faker = new Faker<EditionModel>()
+                .RuleFor(x => x.CsId, f => f.Random.Int(1,1000))
+                .RuleFor(x => x.CsName, f => f.Lorem.Word());
+
+            var edition = faker.Generate();
+
+            Mock<IChromeDriverSetup> mockDriverSetup = new Mock<IChromeDriverSetup>();
+            Mock<ICardsphereCardPage> mockCardPage = new Mock<ICardsphereCardPage>();
+
+            mockCardPage.Setup(e => e.GetEditionTitle()).Returns(edition.CsName);
+
+            CardsphereCardPage cardsphereCardPage = new CardsphereCardPage(edition.CsId, mockDriverSetup.Object);
+
+
+
+        }
     }
 }
