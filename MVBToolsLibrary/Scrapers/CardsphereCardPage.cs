@@ -9,7 +9,7 @@ namespace MVBToolsLibrary.Scrapers
         public string BaseUrl { get; private set; } = "https://www.cardsphere.com/sets";
         public int Id { get; set; }
         private readonly IChromeDriverSetup _driverSetup;
-        private ChromeDriver Driver;
+        public ChromeDriver Driver { get; set; }
 
         public CardsphereCardPage(int id, IChromeDriverSetup driverSetup)
         {
@@ -30,7 +30,6 @@ namespace MVBToolsLibrary.Scrapers
         public string GetEditionTitle()
         {
             var title = Driver.FindElements(By.XPath("/html/body/div[2]/div/div[2]/h3"))[0].Text;
-            //var title = browser.FindElements(By.CssSelector("body > div.layout-content > div > div:nth-child(2) > h3"))[0].GetAttribute("innerHTML").ToString();
 
             return title;
         }

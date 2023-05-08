@@ -6,6 +6,7 @@ using MVBToolsLibrary.Repository.Db;
 using MVBToolsLibrary.Scrapers;
 using System.Diagnostics;
 using Bogus;
+using OpenQA.Selenium.Chrome;
 
 namespace MVBToolsTests
 {
@@ -43,21 +44,23 @@ namespace MVBToolsTests
         [TestMethod]
         public void TestScrapeEditionFromWebpage()
         {
-            var faker = new Faker<EditionModel>()
-                .RuleFor(x => x.CsId, f => f.Random.Int(1,1000))
-                .RuleFor(x => x.CsName, f => f.Lorem.Word());
+            ChromeDriverSetup driverSetup = new ChromeDriverSetup();
+            EditionModel editionModel = new EditionModel()
+            {
+                CsId = 1304,
+                CsName = "Kaldheim"
+            };
+            CardsphereCardPage cardsphereCardPage = new CardsphereCardPage(editionModel.CsId, driverSetup);
+            ChromeDriver driver = cardsphereCardPage.ScrapePage();
+            cardsphereCardPage.Driver = driver;
 
-            var edition = faker.Generate();
+            var result = cardsphereCardPage.GetEditionTitle();
 
-            Mock<IChromeDriverSetup> mockDriverSetup = new Mock<IChromeDriverSetup>();
-            Mock<ICardsphereCardPage> mockCardPage = new Mock<ICardsphereCardPage>();
+            Debug.WriteLine($"{editionModel.CsName} - {editionModel.CsId}");
+            Debug.WriteLine($"{result}");
 
-            mockCardPage.Setup(e => e.GetEditionTitle()).Returns(edition.CsName);
-
-            CardsphereCardPage cardsphereCardPage = new CardsphereCardPage(edition.CsId, mockDriverSetup.Object);
-
-
-
+            Assert.AreEqual(result, editionModel.CsName);
+            Assert.IsNotNull(result);
         }
     }
 }

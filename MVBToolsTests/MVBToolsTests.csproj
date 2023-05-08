@@ -22,4 +22,8 @@
     <ProjectReference Include="..\MVBToolsLibrary\MVBToolsLibrary.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Integration Tests\" />
+  </ItemGroup>
+
 </Project>
