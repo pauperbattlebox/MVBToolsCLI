@@ -9,7 +9,7 @@ using System.Diagnostics;
 namespace MVBToolsTests
 {
     [TestClass]
-    public class PriceManagerTests
+    public class PriceManagerUnitTests
     {
         [TestMethod]
         public void TestGetPriceFromMvbApi()

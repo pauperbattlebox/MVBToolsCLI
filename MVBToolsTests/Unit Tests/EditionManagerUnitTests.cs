@@ -11,7 +11,7 @@ using OpenQA.Selenium.Chrome;
 namespace MVBToolsTests
 {
     [TestClass]
-    public class EditionManagerTests
+    public class EditionManagerUnitTests
     {
         [TestMethod]
         public void TestGetEditionFromApi()

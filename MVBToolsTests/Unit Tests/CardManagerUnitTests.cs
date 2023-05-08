@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace MVBToolsTests
 {
     [TestClass]
-    public class CardManagerTests
+    public class CardManagerUnitTests
     {
         
     }    
