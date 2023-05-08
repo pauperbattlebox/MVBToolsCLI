@@ -36,7 +36,7 @@ namespace MVBToolsLibrary
             return await _mvbApiRepository.Get(editionId);
         }
 
-        public async Task<string> ScrapeEditionFromWebpage(string id)
+        public async Task<string> ScrapeEditionFromWebpage(int id)
         {
             CardsphereCardPage cardPage = new CardsphereCardPage(id, _chromeDriverSetup);
 
@@ -47,7 +47,7 @@ namespace MVBToolsLibrary
             return title;
         }
 
-        public List<MVBCardModel> ScrapeCardsAndPrices(string id)
+        public List<MVBCardModel> ScrapeCardsAndPrices(int id)
         {
             CardsphereCardPage cardPage = new CardsphereCardPage(id, _chromeDriverSetup);
 

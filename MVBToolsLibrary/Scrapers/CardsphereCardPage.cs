@@ -7,11 +7,11 @@ namespace MVBToolsLibrary.Scrapers
     public class CardsphereCardPage : ICardsphereCardPage
     {
         public string BaseUrl { get; private set; } = "https://www.cardsphere.com/sets";
-        public string Id { get; set; }
+        public int Id { get; set; }
         private readonly IChromeDriverSetup _driverSetup;
         private ChromeDriver Driver;
 
-        public CardsphereCardPage(string id, IChromeDriverSetup driverSetup)
+        public CardsphereCardPage(int id, IChromeDriverSetup driverSetup)
         {
             _driverSetup = driverSetup;
             Driver = _driverSetup.BuildChromeDriver();

@@ -6,8 +6,8 @@ namespace MVBToolsLibrary.Interfaces
     {
         Task<IEnumerable<EditionModel>> GetAllEditionsFromDb();
         Task AddEditionToDb(int editionId);
-        Task<string> ScrapeEditionFromWebpage(string id);
-        List<MVBCardModel> ScrapeCardsAndPrices(string id);
+        Task<string> ScrapeEditionFromWebpage(int id);
+        List<MVBCardModel> ScrapeCardsAndPrices(int id);
 
     }
 }

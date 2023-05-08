@@ -6,7 +6,7 @@ namespace MVBToolsLibrary.Scrapers
     public interface ICardsphereCardPage
     {
         string BaseUrl { get; }
-        string Id { get; set; }
+        int Id { get; set; }
 
         List<MVBCardModel> GetCardsAndPrices();
         string GetEditionTitle();

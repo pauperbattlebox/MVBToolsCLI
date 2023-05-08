@@ -82,7 +82,7 @@ namespace MVBToolsCLI
 
             scrapeEditionCommand.SetHandler((editionId) =>
             {
-                var result = _editionManager.ScrapeEditionFromWebpage(editionId.ToString()).Result;
+                var result = _editionManager.ScrapeEditionFromWebpage(editionId).Result;
 
                 Console.WriteLine(result);
 
@@ -99,7 +99,7 @@ namespace MVBToolsCLI
 
             scrapePricesCommand.SetHandler((editionId) =>
             {
-                var result = _editionManager.ScrapeCardsAndPrices(editionId.ToString());
+                var result = _editionManager.ScrapeCardsAndPrices(editionId);
 
                 foreach (var card in result)
                 {
