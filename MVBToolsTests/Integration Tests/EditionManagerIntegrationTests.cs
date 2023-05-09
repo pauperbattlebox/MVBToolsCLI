@@ -1,12 +1,6 @@
 ﻿using RestSharp;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using WireMock;
 using WireMock.RequestBuilders;
 using WireMock.ResponseBuilders;
 using WireMock.Server;
@@ -16,37 +10,31 @@ namespace MVBToolsTests.Integration_Tests
     [TestClass]
     public class EditionManagerIntegrationTests
     {
+        private readonly MvbApiMockServer _mvbApiMockServer = new();
+
         [TestMethod]
         public async Task TestGetEditionFromApi()
         {
-            string jsonResponse = @"{
-                                    ""cs_id"": 965,
-                                    ""cs_name"": ""Archenemy: Nicol Bolas"",
-                                    ""mtgjson_code"": ""E01""}";
+            int editionId = 965;
 
-            var server = WireMockServer.Start(9876);
+            _mvbApiMockServer.Start();
 
-            server.Given(
-                Request.Create().WithPath("/edition").UsingGet()
-            )
-            .RespondWith(
-                Response.Create()
-                .WithStatusCode(200)
-                .WithHeader("Content-Type", "application/json")
-                .WithBody(jsonResponse)
-                );            
+            _mvbApiMockServer.ReturnEdition(editionId);
+            
 
             var client = new RestClient("http://localhost:9876");
-            RestRequest request = new RestRequest("/edition", Method.Get);
+            RestRequest request = new RestRequest($"/edition/{editionId}", Method.Get);
             RestResponse response = await client.ExecuteAsync(request);
 
-            Debug.WriteLine($"{response.StatusCode} - {response.ContentType} - {response.Content}");
+            Debug.WriteLine($"{response.StatusCode}");
+            Debug.WriteLine($"{response.ContentType}");
+            Debug.WriteLine($"{response.Content}");
 
             Assert.AreEqual(response.StatusCode, HttpStatusCode.OK);
             Assert.AreEqual(response.ContentType, "application/json");
-            Assert.AreEqual(response.Content, jsonResponse);
+            Assert.IsTrue(response.Content.Contains(editionId.ToString()));
 
-            server.Stop();
+            _mvbApiMockServer.Dispose();
         }
 
     }
