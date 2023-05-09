@@ -1,4 +1,6 @@
-﻿using WireMock.RequestBuilders;
+﻿using Bogus;
+using MVBToolsLibrary.Models;
+using WireMock.RequestBuilders;
 using WireMock.ResponseBuilders;
 using WireMock.Server;
 
@@ -13,21 +15,16 @@ namespace MVBToolsTests.Integration_Tests
             _server = WireMockServer.Start(9876);
         }
 
-        public void ReturnEdition(int editionId)
+        public void ReturnEdition(EditionModel edition)
         {
-
-            string jsonResponse = @"{""cs_id"": 965,
-                                    ""cs_name"": ""Archenemy: Nicol Bolas"",
-                                    ""mtgjson_code"": ""E01""}";
-
             _server.Given(
-                Request.Create().WithPath($"/edition/{editionId}").UsingGet()
+                Request.Create().WithPath($"/edition/{edition.CsId}").UsingGet()
             )
             .RespondWith(
                 Response.Create()
                 .WithStatusCode(200)
                 .WithHeader("Content-Type", "application/json")
-                .WithBody(jsonResponse)
+                .WithBodyAsJson(edition)
                 );
         }
 

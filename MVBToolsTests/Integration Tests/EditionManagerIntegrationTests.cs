@@ -1,4 +1,6 @@
-﻿using RestSharp;
+﻿using Bogus;
+using MVBToolsLibrary.Models;
+using RestSharp;
 using System.Diagnostics;
 using System.Net;
 using WireMock.RequestBuilders;
@@ -15,16 +17,15 @@ namespace MVBToolsTests.Integration_Tests
         [TestMethod]
         public async Task TestGetEditionFromApi()
         {
-            int editionId = 965;
+            EditionModel edition = GenerateEditionModel();
+            var client = new RestClient("http://localhost:9876");
+
 
             _mvbApiMockServer.Start();
-
-            _mvbApiMockServer.ReturnEdition(editionId);
-            
-
-            var client = new RestClient("http://localhost:9876");
-            RestRequest request = new RestRequest($"/edition/{editionId}", Method.Get);
+            _mvbApiMockServer.ReturnEdition(edition);            
+            RestRequest request = new RestRequest($"/edition/{edition.CsId}", Method.Get);
             RestResponse response = await client.ExecuteAsync(request);
+
 
             Debug.WriteLine($"{response.StatusCode}");
             Debug.WriteLine($"{response.ContentType}");
@@ -32,10 +33,21 @@ namespace MVBToolsTests.Integration_Tests
 
             Assert.AreEqual(response.StatusCode, HttpStatusCode.OK);
             Assert.AreEqual(response.ContentType, "application/json");
-            Assert.IsTrue(response.Content.Contains(editionId.ToString()));
+            Assert.IsTrue(response.Content.Contains(edition.CsId.ToString()));
 
             _mvbApiMockServer.Dispose();
         }
 
+        private EditionModel GenerateEditionModel()
+        {
+            var faker = new Faker<EditionModel>()
+                .RuleFor(x => x.CsId, f => f.Random.Int(1, 1000))
+                .RuleFor(x => x.CsName, f => f.Random.Words())
+                .RuleFor(x => x.MtgJsonCode, f => f.Lorem.Word());
+
+            var edition = faker.Generate();
+
+            return edition;
+        }
     }
 }
