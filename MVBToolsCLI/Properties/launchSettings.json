@@ -1,8 +1,7 @@
 {
   "profiles": {
     "MVBToolsCLI": {
-      "commandName": "Project",
-      "commandLineArgs": "scrapeEditionTitle 1533"
+      "commandName": "Project"
     }
   }
 }

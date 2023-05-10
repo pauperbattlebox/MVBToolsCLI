@@ -1,4 +1,5 @@
 ﻿using Bogus;
+using MVBToolsLibrary;
 using MVBToolsLibrary.Models;
 using RestSharp;
 using System.Diagnostics;
@@ -25,7 +26,6 @@ namespace MVBToolsTests.Integration_Tests
             _mvbApiMockServer.ReturnEdition(edition);            
             RestRequest request = new RestRequest($"/edition/{edition.CsId}", Method.Get);
             RestResponse response = await client.ExecuteAsync(request);
-
 
             Debug.WriteLine($"{response.StatusCode}");
             Debug.WriteLine($"{response.ContentType}");
