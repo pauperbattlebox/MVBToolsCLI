@@ -1,6 +1,6 @@
 ﻿using MVBToolsLibrary.Models;
 
-namespace MVBToolsLibrary.Interfaces
+namespace MVBToolsLibrary
 {
     public interface IEditionManager
     {

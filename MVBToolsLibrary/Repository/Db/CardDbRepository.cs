@@ -2,22 +2,21 @@
 using System.Data;
 using Dapper;
 using MVBToolsLibrary.Models;
-using MVBToolsLibrary.Interfaces;
+using Microsoft.Extensions.Options;
 
 namespace MVBToolsLibrary.Repository.Db
 {
     public class CardDbRepository : ICardDbRepository<MVBCardModel>
     {
+        private DbSettings _settings;
 
-        private readonly IDbSettings _dbSettings;        
-
-        public CardDbRepository(IDbSettings dbSettings)
+        public CardDbRepository(IOptions<DbSettings> settings)
         {
-            this._dbSettings = dbSettings;
+            _settings = settings.Value;
         }
         public async Task<IEnumerable<MVBCardModel>> GetAllById(string mtgJsonCode)
         {
-            string connectionString = _dbSettings.Default;
+            var connectionString = _settings.Default;
 
             string query = @"SELECT Name, CsId, MtgJsonCode
                             FROM dbo.Card
@@ -33,7 +32,7 @@ namespace MVBToolsLibrary.Repository.Db
         public async Task<MVBCardModel> Get(int id)
         {
 
-            string connectionString = _dbSettings.Default;
+            string connectionString = _settings.Default;
 
             string query = @"SELECT CsId, Name, MtgJsonCode
                             FROM dbo.Card
@@ -48,7 +47,7 @@ namespace MVBToolsLibrary.Repository.Db
 
         public async Task Insert(MVBCardModel card)
         {
-            string connectionString = _dbSettings.Default;
+            string connectionString = _settings.Default;
 
             string query = @"IF NOT EXISTS
                             (SELECT CsId FROM dbo.Card WHERE CsId = @CsId)

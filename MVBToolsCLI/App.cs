@@ -1,4 +1,4 @@
-﻿using MVBToolsLibrary.Interfaces;
+﻿using MVBToolsLibrary;
 using MVBToolsLibrary.Repository.Api;
 using MVBToolsLibrary.Repository.Db;
 using System.CommandLine;

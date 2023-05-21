@@ -4,7 +4,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MVBToolsLibrary.Repository.Api;
 using MVBToolsLibrary.Repository.Db;
-using MVBToolsLibrary.Interfaces;
 using Microsoft.Extensions.Options;
 using MVBToolsLibrary;
 using MVBToolsLibrary.Scrapers;
@@ -35,7 +34,6 @@ namespace MVBToolsCLI
 
                         services.AddSingleton<IConfiguration>(configuration);
                         services.Configure<DbSettings>(configuration.GetSection("ConnectionStrings"));
-                        //services.AddScoped<IDbSettings>(c => c.GetService<IOptions<DbSettings>>().Value);
                         services.AddScoped<IEditionDbRepository<EditionModel>, EditionDbRepository>();
                         services.AddScoped<IEditionManager, EditionManager>();
                         services.AddScoped<ICardDbRepository<MVBCardModel>, CardDbRepository>();

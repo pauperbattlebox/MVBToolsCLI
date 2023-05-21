@@ -3,20 +3,21 @@ using System.Data;
 using Dapper;
 using MVBToolsLibrary.Models;
 using MVBToolsLibrary.Interfaces;
+using Microsoft.Extensions.Configuration;
 
 namespace MVBToolsLibrary.Repository.Db
 {
     public class PriceDbRepository : IPriceDbRepository
     {
-        private readonly IDbSettings _dbSettings;
+        private readonly string _connectionString;
 
-        public PriceDbRepository(IDbSettings dbSettings)
+        public PriceDbRepository(IConfiguration configuration)
         {
-            this._dbSettings = dbSettings;
+            _connectionString = configuration.GetConnectionString("Default");
         }
         public async Task UpdateCardsphere(int id, decimal price)
         {
-            var connectionString = _dbSettings.Default;
+            var connectionString = _connectionString;
 
             string query = @"IF NOT EXISTS
                             (SELECT CsId FROM dbo.Prices WHERE CsId = @CsId)
@@ -38,7 +39,7 @@ namespace MVBToolsLibrary.Repository.Db
 
         public async Task UpdateScryfall(string scryfallId, int csId, decimal price)
         {
-            var connectionString = _dbSettings.Default;
+            var connectionString = _connectionString;
 
             string query = @"IF NOT EXISTS
                             (SELECT CsId FROM dbo.Prices WHERE CsId = @CsId)
@@ -62,7 +63,7 @@ namespace MVBToolsLibrary.Repository.Db
 
         public async Task<DbCardModel> Get(int id)
         {
-            var connectionString = _dbSettings.Default;
+            var connectionString = _connectionString;
 
             string query = @"SELECT c.CsId, c.Name, 0 as splitter, p.CsPrice, p.ScryfallPrice
                             FROM dbo.Card as c
