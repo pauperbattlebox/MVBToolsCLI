@@ -17,7 +17,7 @@ namespace MVBToolsLibrary.Repository.Db
         }
         public async Task<IEnumerable<MVBCardModel>> GetAllById(string mtgJsonCode)
         {
-            string connectionString = _dbSettings.Default;            
+            string connectionString = _dbSettings.Default;
 
             string query = @"SELECT Name, CsId, MtgJsonCode
                             FROM dbo.Card
