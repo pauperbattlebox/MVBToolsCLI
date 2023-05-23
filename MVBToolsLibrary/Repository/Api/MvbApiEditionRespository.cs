@@ -1,9 +1,10 @@
 ﻿using MVBToolsLibrary.Models;
+using MVBToolsLibrary.Models.ProviderModels;
 using System.Text.Json;
 
 namespace MVBToolsLibrary.Repository.Api
 {
-    public class MvbApiEditionRespository : IMvbApiEditionRepository
+    public class MvbApiEditionRespository : IEditionRepository<MVBEditionModel>
     {
         private readonly IHttpClientFactory _httpClient;
                 

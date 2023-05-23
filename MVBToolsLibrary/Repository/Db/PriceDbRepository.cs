@@ -1,9 +1,9 @@
 ﻿using System.Data.SqlClient;
 using System.Data;
 using Dapper;
-using MVBToolsLibrary.Models;
 using Microsoft.Extensions.Options;
 using static Dapper.SqlMapper;
+using MVBToolsLibrary.Models.ProviderModels;
 
 namespace MVBToolsLibrary.Repository.Db
 {

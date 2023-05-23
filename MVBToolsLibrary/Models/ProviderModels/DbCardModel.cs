@@ -1,6 +1,4 @@
-﻿
-
-namespace MVBToolsLibrary.Models
+﻿namespace MVBToolsLibrary.Models.ProviderModels
 {
     public class DbCardModel
     {

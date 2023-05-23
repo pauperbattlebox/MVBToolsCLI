@@ -6,7 +6,7 @@ using Microsoft.Extensions.Options;
 
 namespace MVBToolsLibrary.Repository.Db
 {
-    public class EditionDbRepository : IEditionDbRepository<EditionModel>
+    public class EditionDbRepository : IEditionRepository<EditionModel>
     {        
         private DbSettings _settings;
         private readonly string _connectionString;

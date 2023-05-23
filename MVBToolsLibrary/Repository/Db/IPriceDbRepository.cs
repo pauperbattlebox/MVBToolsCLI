@@ -1,6 +1,4 @@
-﻿
-
-using MVBToolsLibrary.Models;
+﻿using MVBToolsLibrary.Models.ProviderModels;
 
 namespace MVBToolsLibrary.Repository.Db
 {

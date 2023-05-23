@@ -4,6 +4,7 @@ namespace MVBToolsLibrary.Models
 {
     public class EditionModel
     {
+        public int Id { get; set; }
         [JsonPropertyName("cs_id")]
         public int CaprsphereId { get; set; }
 

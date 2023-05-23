@@ -1,4 +1,4 @@
-﻿using MVBToolsLibrary.Models;
+﻿using MVBToolsLibrary.Models.ProviderModels;
 using MVBToolsLibrary.Repository.Api;
 using MVBToolsLibrary.Repository.Db;
 

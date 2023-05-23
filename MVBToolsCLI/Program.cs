@@ -6,6 +6,8 @@ using MVBToolsLibrary.Repository.Api;
 using MVBToolsLibrary.Repository.Db;
 using MVBToolsLibrary;
 using MVBToolsLibrary.Scrapers;
+using MVBToolsLibrary.Repository;
+using MVBToolsLibrary.Models.Provider_Models;
 
 namespace MVBToolsCLI
 {
@@ -32,14 +34,16 @@ namespace MVBToolsCLI
                             .Build();
 
                         services.Configure<DbSettings>(configuration.GetSection("ConnectionStrings"));
-                        services.AddScoped<IEditionDbRepository<EditionModel>, EditionDbRepository>();
+
+
+                        services.AddScoped<IEditionRepository<EditionModel>, EditionDbRepository>();
+                        services.AddScoped<IEditionRepository<MVBEditionModel>, MvbApiEditionRespository>();
                         services.AddScoped<IEditionManager, EditionManager>();
                         services.AddScoped<ICardDbRepository<MVBCardModel>, CardDbRepository>();
                         services.AddScoped<ICardManager, CardManager>();
                         services.AddScoped<IPriceDbRepository, PriceDbRepository>();
                         services.AddScoped<IPriceManager, PriceManager>();
                         services.AddScoped<IMvbApiCardRepository, MvbApiCardRepository>();
-                        services.AddScoped<IMvbApiEditionRepository, MvbApiEditionRespository>();
                         services.AddScoped<IMvbApiPriceRepository, MvbApiPriceRepository>();
                         services.AddScoped<IScryfallApiPriceRepository, ScryfallApiPriceRepository>();
                         services.AddSingleton<IChromeDriverSetup, ChromeDriverSetup>();

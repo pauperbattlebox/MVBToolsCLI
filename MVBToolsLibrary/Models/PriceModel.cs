@@ -8,6 +8,7 @@ namespace MVBToolsLibrary.Models
 {
     public class PriceModel
     {
+        public int Id { get; set; }
         public decimal CardspherePrice { get; set; }
         public decimal ScryfallPrice { get; set; }
     }
