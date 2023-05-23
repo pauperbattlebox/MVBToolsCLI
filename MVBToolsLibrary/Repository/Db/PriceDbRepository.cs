@@ -2,23 +2,23 @@
 using System.Data;
 using Dapper;
 using MVBToolsLibrary.Models;
-using MVBToolsLibrary.Interfaces;
-using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
+using static Dapper.SqlMapper;
 
 namespace MVBToolsLibrary.Repository.Db
 {
     public class PriceDbRepository : IPriceDbRepository
     {
+        private DbSettings _settings;
         private readonly string _connectionString;
 
-        public PriceDbRepository(IConfiguration configuration)
+        public PriceDbRepository(IOptions<DbSettings> settings)
         {
-            _connectionString = configuration.GetConnectionString("Default");
+            _settings = settings.Value;
+            _connectionString = _settings.Default;
         }
         public async Task UpdateCardsphere(int id, decimal price)
         {
-            var connectionString = _connectionString;
-
             string query = @"IF NOT EXISTS
                             (SELECT CsId FROM dbo.Prices WHERE CsId = @CsId)
                             BEGIN
@@ -31,7 +31,7 @@ namespace MVBToolsLibrary.Repository.Db
                             WHERE CsId = @CsId
                             END;";
 
-            using (IDbConnection connection = new SqlConnection(connectionString))
+            using (IDbConnection connection = new SqlConnection(_connectionString))
             {
                 connection.Execute(query, new { CsId = id, CsPrice = price });
             }            
@@ -39,8 +39,6 @@ namespace MVBToolsLibrary.Repository.Db
 
         public async Task UpdateScryfall(string scryfallId, int csId, decimal price)
         {
-            var connectionString = _connectionString;
-
             string query = @"IF NOT EXISTS
                             (SELECT CsId FROM dbo.Prices WHERE CsId = @CsId)
                             BEGIN
@@ -55,7 +53,7 @@ namespace MVBToolsLibrary.Repository.Db
                             END;";
 
 
-            using (IDbConnection connection = new SqlConnection(connectionString))
+            using (IDbConnection connection = new SqlConnection(_connectionString))
             {
                 connection.Execute(query, new { ScryfallPrice = price, CsId = csId, ScryfallId = scryfallId });
             }
@@ -63,14 +61,12 @@ namespace MVBToolsLibrary.Repository.Db
 
         public async Task<DbCardModel> Get(int id)
         {
-            var connectionString = _connectionString;
-
             string query = @"SELECT c.CsId, c.Name, 0 as splitter, p.CsPrice, p.ScryfallPrice
                             FROM dbo.Card as c
                             LEFT JOIN dbo.Prices AS p ON c.CsId = p.CsId
                             WHERE c.CsId = @CsId;";
 
-            using (IDbConnection connection = new SqlConnection(connectionString))
+            using (IDbConnection connection = new SqlConnection(_connectionString))
             {                
                  var rows = await connection.QueryFirstOrDefaultAsync<DbCardModel>(query, new { CsId = id });
                  return rows;

@@ -9,20 +9,20 @@ namespace MVBToolsLibrary.Repository.Db
     public class CardDbRepository : ICardDbRepository<MVBCardModel>
     {
         private DbSettings _settings;
+        private readonly string _connectionString;
 
         public CardDbRepository(IOptions<DbSettings> settings)
         {
             _settings = settings.Value;
+            _connectionString = _settings.Default;
         }
         public async Task<IEnumerable<MVBCardModel>> GetAllById(string mtgJsonCode)
         {
-            var connectionString = _settings.Default;
-
             string query = @"SELECT Name, CsId, MtgJsonCode
                             FROM dbo.Card
                             WHERE MtgJsonCode = @MtgJsonCode;";
 
-            using (IDbConnection connection = new SqlConnection(connectionString))
+            using (IDbConnection connection = new SqlConnection(_connectionString))
             {
                 var rows = await connection.QueryAsync<MVBCardModel>(query, new { MtgJsonCode = mtgJsonCode });
                 return rows;
@@ -31,14 +31,11 @@ namespace MVBToolsLibrary.Repository.Db
 
         public async Task<MVBCardModel> Get(int id)
         {
-
-            string connectionString = _settings.Default;
-
             string query = @"SELECT CsId, Name, MtgJsonCode
                             FROM dbo.Card
                             WHERE CsId = @CsId;";
 
-            using (IDbConnection connection = new SqlConnection(connectionString))
+            using (IDbConnection connection = new SqlConnection(_connectionString))
             {
                 var row = await connection.QueryFirstOrDefaultAsync<MVBCardModel>(query, new { CsId = id });
                 return row;
@@ -47,7 +44,6 @@ namespace MVBToolsLibrary.Repository.Db
 
         public async Task Insert(MVBCardModel card)
         {
-            string connectionString = _settings.Default;
 
             string query = @"IF NOT EXISTS
                             (SELECT CsId FROM dbo.Card WHERE CsId = @CsId)
@@ -56,7 +52,7 @@ namespace MVBToolsLibrary.Repository.Db
                             VALUES (@CsId, @Name, @MtgJsonId, @ScryfallId, @MtgJsonCode)
                             END;";
 
-            using (IDbConnection connection = new SqlConnection(connectionString))
+            using (IDbConnection connection = new SqlConnection(_connectionString))
             {
                 connection.Execute(query, new { card.CsId, card.Name, card.MtgJsonId, card.ScryfallId, card.MtgJsonCode });
             }

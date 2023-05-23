@@ -2,24 +2,23 @@
 using System.Data;
 using Dapper;
 using MVBToolsLibrary.Models;
-using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 
 namespace MVBToolsLibrary.Repository.Db
 {
     public class EditionDbRepository : IEditionDbRepository<EditionModel>
     {        
-        //private readonly IConfiguration _configuration;
+        private DbSettings _settings;
         private readonly string _connectionString;
 
-        public EditionDbRepository(IConfiguration configuration)
+        public EditionDbRepository(IOptions<DbSettings> settings)
         {
-            _connectionString = configuration.GetConnectionString("Default");
+            _settings = settings.Value;
+            _connectionString = _settings.Default;
         }        
                 
         public async Task<IEnumerable<EditionModel>> GetAll()
         {
-            //string connectionString = _configuration.GetConnectionString("Default");
-
             string query = @"SELECT * FROM dbo.Edition;";
 
             using (IDbConnection connection = new SqlConnection(_connectionString))
@@ -31,8 +30,6 @@ namespace MVBToolsLibrary.Repository.Db
 
         public async Task<EditionModel> Get(int id)
         {
-            //string connectionString= _configuration.GetConnectionString("Default");
-
             string query = @"SELECT CsId, Name
                             FROM dbo.Edition
                             WHERE CsId = @CsId;";
@@ -46,9 +43,6 @@ namespace MVBToolsLibrary.Repository.Db
 
         public async Task Insert(EditionModel edition)
         {
-
-            //string connectionString = _configuration.GetConnectionString("Default");
-
             string query = @"INSERT dbo.Edition (CsId, CsName, MtgJsonCode)
                             VALUES (@CsId, @CsName, @MtgJsonCode);";
 

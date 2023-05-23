@@ -4,7 +4,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MVBToolsLibrary.Repository.Api;
 using MVBToolsLibrary.Repository.Db;
-using Microsoft.Extensions.Options;
 using MVBToolsLibrary;
 using MVBToolsLibrary.Scrapers;
 
@@ -32,7 +31,6 @@ namespace MVBToolsCLI
                             .AddJsonFile("appsettings.json")
                             .Build();
 
-                        services.AddSingleton<IConfiguration>(configuration);
                         services.Configure<DbSettings>(configuration.GetSection("ConnectionStrings"));
                         services.AddScoped<IEditionDbRepository<EditionModel>, EditionDbRepository>();
                         services.AddScoped<IEditionManager, EditionManager>();
