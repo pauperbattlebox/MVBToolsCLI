@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace MVBToolsLibrary.Repository
 {
-    public interface IEditionRepository<T> where T : class
+    public interface IMvbApiEditionRepository
     {
-        Task<IEnumerable<T>> GetAll();
-        Task<T> Get(int id);
-        Task Insert(T entity);
+        Task<Stream> Get(int id);
+        Task<Stream> GetCardsByEdition(int editionId);
     }
 }

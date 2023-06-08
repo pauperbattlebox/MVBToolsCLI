@@ -11,7 +11,7 @@ namespace MVBToolsLibrary.Models.ProviderModels
         public string Name { get; set; }
 
         [JsonPropertyName("prices")]
-        public ScryfallPricesModel Prices { get; set; }
+        public ScryfallPriceModel Prices { get; set; }
 
         [JsonPropertyName("set")]
         public string ScryfallCode { get; set; }

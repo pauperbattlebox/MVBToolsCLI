@@ -2,7 +2,7 @@
 
 namespace MVBToolsLibrary.Models.ProviderModels
 {
-    public class MVBCardModel
+    public class MvbCardModel
     {
 
         [JsonPropertyName("cs_id")]
@@ -24,6 +24,6 @@ namespace MVBToolsLibrary.Models.ProviderModels
         public bool IsFoil { get; set; }
 
         [JsonPropertyName("prices")]
-        public MVBPricesModel Prices { get; set; }
+        public MvbPriceModel Prices { get; set; }
     }
 }

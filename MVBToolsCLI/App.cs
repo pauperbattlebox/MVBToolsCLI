@@ -52,7 +52,7 @@ namespace MVBToolsCLI
 
                 foreach(var row in rows)
                 {
-                    Console.WriteLine($"{row.CsName} - {row.MtgJsonCode} - {row.CsId}");
+                    Console.WriteLine($"{row.CardsphereName} - {row.MtgJsonCode} - {row.CaprsphereId}");
                 }
             });
 

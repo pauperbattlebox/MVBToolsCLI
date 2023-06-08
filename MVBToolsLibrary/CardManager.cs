@@ -1,6 +1,7 @@
-﻿using MVBToolsLibrary.Models;
-using MVBToolsLibrary.Repository.Api;
-using MVBToolsLibrary.Repository.Db;
+﻿
+using MVBToolsLibrary.Models.ProviderModels;
+using MVBToolsLibrary.Repository;
+using System.Text.Json;
 
 namespace MVBToolsLibrary
 {
@@ -8,19 +9,25 @@ namespace MVBToolsLibrary
     {
         private readonly ICardDbRepository<MVBCardModel> _cardDbRepository;
         private readonly IMvbApiEditionRepository _mvbApiEditionRepository;
+        private readonly IProviderRepository<int> _providerRepository;
 
         public CardManager(ICardDbRepository<MVBCardModel> cardDbRepository, IMvbApiEditionRepository mvbApiEditionRepository)
         {
             _cardDbRepository = cardDbRepository;
             _mvbApiEditionRepository= mvbApiEditionRepository;
+            _providerRepository = new MvbApiCardRepository();
         }
 
-        public async Task<MVBCardModel> GetCardFromDb(int id)
+        public async Task<MvbCardModel> GetCardFromDb(int id)
         {
-            return await _cardDbRepository.Get(id);
+            var response = await _providerRepository.Get(id);
+
+            var deserializedJson = await JsonSerializer.DeserializeAsync<MvbCardModel>(response);
+
+            return deserializedJson;
         }
 
-        public async Task<IEnumerable<MVBCardModel>> GetCardsByEditionCode(string mtgJsonCode)
+        public async Task<IEnumerable<MvbCardModel>> GetCardsByEditionCode(string mtgJsonCode)
         {
             return await _cardDbRepository.GetAllById(mtgJsonCode);
         }
@@ -29,7 +36,9 @@ namespace MVBToolsLibrary
         {
             var model = await _mvbApiEditionRepository.GetCardsByEdition(editionId);
 
-            var filteredCards = from card in model
+            var json = JsonSerializer.Deserialize<MvbCardModel>(model);
+
+            var filteredCards = from card in json
                                 where card.IsFoil == false && card.MtgJsonId != null
                                 select card;
 

@@ -4,11 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MVBToolsTests
+namespace MVBToolsLibrary.Mappers
 {
-    [TestClass]
-    public class CardManagerUnitTests
+    public static class CardMapping
     {
-                
-    }    
+    }
 }

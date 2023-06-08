@@ -1,26 +1,31 @@
 ﻿using MVBToolsLibrary.Models;
-using MVBToolsLibrary.Repository.Api;
-using MVBToolsLibrary.Repository.Db;
+using MVBToolsLibrary.Models.ProviderModels;
+using MVBToolsLibrary.Repository;
 using MVBToolsLibrary.Scrapers;
+using System.Text.Json;
 
 namespace MVBToolsLibrary
 {
     public class EditionManager : IEditionManager
     {
-        private readonly IEditionDbRepository<EditionModel> _dbRepository;
-        private readonly IMvbApiEditionRepository _mvbApiRepository;
+        
         private readonly IChromeDriverSetup _chromeDriverSetup;
+        private readonly IMvbApiEditionRepository _mvbApiEditionRepository;
 
-        public EditionManager(IEditionDbRepository<EditionModel> dbRepository, IMvbApiEditionRepository mvbApiRepository, IChromeDriverSetup chromeDriverSetup)
+        public EditionManager(IMvbApiEditionRepository mvbApiEditionRepository)
         {
-            _dbRepository = dbRepository;
-            _mvbApiRepository= mvbApiRepository;
+            _mvbApiEditionRepository = mvbApiEditionRepository;
+        }
+
+        public EditionManager(IChromeDriverSetup chromeDriverSetup)
+        {            
             _chromeDriverSetup = chromeDriverSetup;
         }
 
         public async Task<IEnumerable<EditionModel>> GetAllEditionsFromDb()
         {
             return await _dbRepository.GetAll();
+            
         }
 
         public async Task AddEditionToDb(int editionId)
@@ -30,9 +35,13 @@ namespace MVBToolsLibrary
             await _dbRepository.Insert(editionToAdd);
         }
 
-        public async Task<EditionModel> GetEditionFromApi(int editionId)
+        public async Task<MvbEditionModel> GetEditionFromApi(int editionId)
         {
-            return await _mvbApiRepository.Get(editionId);
+            var stream =  await _mvbApiEditionRepository.Get(editionId);
+
+            var output = JsonSerializer.Deserialize<MvbEditionModel>(stream);
+
+            return output;
         }
 
         public async Task<string> ScrapeEditionFromWebpage(int id)

@@ -1,17 +1,12 @@
-﻿using System.Text.Json.Serialization;
+﻿
 
 namespace MVBToolsLibrary.Models
 {
     public class EditionModel
     {
-        public int Id { get; set; }
-        [JsonPropertyName("cs_id")]
-        public int CaprsphereId { get; set; }
-
-        [JsonPropertyName("cs_name")]
-        public string CardsphereName { get; set; }
-
-        [JsonPropertyName("mtgjson_code")]
+        public int Id { get; set; }        
+        public int CaprsphereId { get; set; }        
+        public string CardsphereName { get; set; }        
         public string MtgJsonCode { get; set; }
     }
 }

@@ -4,10 +4,11 @@ using Dapper;
 using Microsoft.Extensions.Options;
 using static Dapper.SqlMapper;
 using MVBToolsLibrary.Models.ProviderModels;
+using MVBToolsLibrary.Models;
 
-namespace MVBToolsLibrary.Repository.Db
+namespace MVBToolsLibrary.Repository
 {
-    public class PriceDbRepository : IPriceDbRepository
+    public class PriceDbRepository : IObjectManagerRepository
     {
         private DbSettings _settings;
         private readonly string _connectionString;
@@ -34,7 +35,7 @@ namespace MVBToolsLibrary.Repository.Db
             using (IDbConnection connection = new SqlConnection(_connectionString))
             {
                 connection.Execute(query, new { CsId = id, CsPrice = price });
-            }            
+            }
         }
 
         public async Task UpdateScryfall(string scryfallId, int csId, decimal price)
@@ -59,7 +60,7 @@ namespace MVBToolsLibrary.Repository.Db
             }
         }
 
-        public async Task<DbCardModel> Get(int id)
+        public async Task Get(int id)
         {
             string query = @"SELECT c.CsId, c.Name, 0 as splitter, p.CsPrice, p.ScryfallPrice
                             FROM dbo.Card as c
@@ -67,9 +68,8 @@ namespace MVBToolsLibrary.Repository.Db
                             WHERE c.CsId = @CsId;";
 
             using (IDbConnection connection = new SqlConnection(_connectionString))
-            {                
-                 var rows = await connection.QueryFirstOrDefaultAsync<DbCardModel>(query, new { CsId = id });
-                 return rows;
+            {
+                var rows = await connection.QueryFirstOrDefaultAsync<CardModel>(query, new { CsId = id });
             }
         }
     }

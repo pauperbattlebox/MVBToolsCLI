@@ -1,22 +1,20 @@
 ﻿using MVBToolsLibrary.Models.ProviderModels;
-using MVBToolsLibrary.Repository.Api;
-using MVBToolsLibrary.Repository.Db;
+using MVBToolsLibrary.Repository;
+using System.Text.Json;
 
 namespace MVBToolsLibrary
 {
     public class PriceManager : IPriceManager
     {
-        private readonly IPriceDbRepository _priceDbRepository;
-        private readonly IMvbApiPriceRepository _mvbApiPriceRepository;
-        private readonly IScryfallApiPriceRepository _scryfallApiPriceRepository;
+        
+        private readonly IScryfallApiRepository _scryfallApiRepository;
+        private readonly IMvbApiCardRepository _mvbApiCardRepository;
 
-        public PriceManager(IPriceDbRepository priceDbRepository,
-                            IMvbApiPriceRepository mvbApiPriceRepository,
-                            IScryfallApiPriceRepository scryfallApiPriceRepository)
+        public PriceManager(IScryfallApiRepository scryfallApiRepository,
+                            IMvbApiCardRepository mvbApiCardRepository)
         {
-            _priceDbRepository = priceDbRepository;
-            _mvbApiPriceRepository = mvbApiPriceRepository;
-            _scryfallApiPriceRepository = scryfallApiPriceRepository;
+            _scryfallApiRepository = scryfallApiRepository;
+            _mvbApiCardRepository = mvbApiCardRepository;
         }
 
         public async Task<DbCardModel> GetPriceFromDb(int id)
@@ -26,17 +24,28 @@ namespace MVBToolsLibrary
 
         public async Task<decimal> GetPriceFromMvbApi(int id)
         {
-            return await _mvbApiPriceRepository.Get(id);
+            var response =  await _mvbApiCardRepository.Get(id);
+
+            var deserializedJson = await JsonSerializer.DeserializeAsync<MvbPriceModel>(response);
+
+            var price = deserializedJson.Price;
+
+            return price;
         }
 
         public async Task<decimal> GetPriceFromScryfallApi(string id)
         {
-            return await _scryfallApiPriceRepository.Get(id);
+            var response = await _scryfallApiRepository.Get(id);
+
+            var deserializedJson = await JsonSerializer.DeserializeAsync<ScryfallPriceModel>(response);
+
+            var price = Decimal.Parse(deserializedJson.Price);
+
+            return price;
         }
 
         public async Task UpsertCardPriceFromMvbApi(int id)
         {
-
             var price =  await _mvbApiPriceRepository.Get(id);
 
             await _priceDbRepository.UpdateCardsphere(id, price);
@@ -44,7 +53,7 @@ namespace MVBToolsLibrary
 
         public async Task UpsertCardPriceFromScryfallApi(string scryfallId, int cardsphereId)
         {
-            var price = await _scryfallApiPriceRepository.Get(scryfallId);
+            var price = await GetPriceFromScryfallApi(scryfallId);
 
             await _priceDbRepository.UpdateScryfall(scryfallId, cardsphereId, price);
         }
