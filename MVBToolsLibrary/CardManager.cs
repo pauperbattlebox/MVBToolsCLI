@@ -1,4 +1,5 @@
 ﻿using MVBToolsLibrary.Models;
+using MVBToolsLibrary.Models.ProviderModels;
 using MVBToolsLibrary.Repository.Api;
 using MVBToolsLibrary.Repository.Db;
 
@@ -6,21 +7,21 @@ namespace MVBToolsLibrary
 {
     public class CardManager : ICardManager
     {
-        private readonly ICardDbRepository<MVBCardModel> _cardDbRepository;
+        private readonly ICardDbRepository<MvbCardModel> _cardDbRepository;
         private readonly IMvbApiEditionRepository _mvbApiEditionRepository;
 
-        public CardManager(ICardDbRepository<MVBCardModel> cardDbRepository, IMvbApiEditionRepository mvbApiEditionRepository)
+        public CardManager(ICardDbRepository<MvbCardModel> cardDbRepository, IMvbApiEditionRepository mvbApiEditionRepository)
         {
             _cardDbRepository = cardDbRepository;
             _mvbApiEditionRepository= mvbApiEditionRepository;
         }
 
-        public async Task<MVBCardModel> GetCardFromDb(int id)
+        public async Task<MvbCardModel> GetCardFromDb(int id)
         {
             return await _cardDbRepository.Get(id);
         }
 
-        public async Task<IEnumerable<MVBCardModel>> GetCardsByEditionCode(string mtgJsonCode)
+        public async Task<IEnumerable<MvbCardModel>> GetCardsByEditionCode(string mtgJsonCode)
         {
             return await _cardDbRepository.GetAllById(mtgJsonCode);
         }

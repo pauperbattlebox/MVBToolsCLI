@@ -6,7 +6,7 @@ using Microsoft.Extensions.Options;
 
 namespace MVBToolsLibrary.Repository.Db
 {
-    public class CardDbRepository : ICardDbRepository<MVBCardModel>
+    public class CardDbRepository : ICardDbRepository<CardModel>
     {
         private DbSettings _settings;
         private readonly string _connectionString;
@@ -16,7 +16,7 @@ namespace MVBToolsLibrary.Repository.Db
             _settings = settings.Value;
             _connectionString = _settings.Default;
         }
-        public async Task<IEnumerable<MVBCardModel>> GetAllById(string mtgJsonCode)
+        public async Task<IEnumerable<CardModel>> GetAllById(string mtgJsonCode)
         {
             string query = @"SELECT Name, CsId, MtgJsonCode
                             FROM dbo.Card
@@ -24,12 +24,12 @@ namespace MVBToolsLibrary.Repository.Db
 
             using (IDbConnection connection = new SqlConnection(_connectionString))
             {
-                var rows = await connection.QueryAsync<MVBCardModel>(query, new { MtgJsonCode = mtgJsonCode });
+                var rows = await connection.QueryAsync<CardModel>(query, new { MtgJsonCode = mtgJsonCode });
                 return rows;
             }
         }
 
-        public async Task<MVBCardModel> Get(int id)
+        public async Task<CardModel> Get(int id)
         {
             string query = @"SELECT CsId, Name, MtgJsonCode
                             FROM dbo.Card
@@ -37,12 +37,12 @@ namespace MVBToolsLibrary.Repository.Db
 
             using (IDbConnection connection = new SqlConnection(_connectionString))
             {
-                var row = await connection.QueryFirstOrDefaultAsync<MVBCardModel>(query, new { CsId = id });
+                var row = await connection.QueryFirstOrDefaultAsync<CardModel>(query, new { CsId = id });
                 return row;
             }            
         }
 
-        public async Task Insert(MVBCardModel card)
+        public async Task Insert(CardModel card)
         {
 
             string query = @"IF NOT EXISTS
@@ -54,7 +54,7 @@ namespace MVBToolsLibrary.Repository.Db
 
             using (IDbConnection connection = new SqlConnection(_connectionString))
             {
-                connection.Execute(query, new { card.CsId, card.Name, card.MtgJsonId, card.ScryfallId, card.MtgJsonCode });
+                connection.Execute(query, new { card.CardshereId, card.Name, card.MtgJsonId, card.ScryfallId, card.MtgJsonCode });
             }
         }
     }

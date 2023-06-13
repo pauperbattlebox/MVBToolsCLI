@@ -59,7 +59,7 @@ namespace MVBToolsLibrary.Repository.Db
             }
         }
 
-        public async Task<DbCardModel> Get(int id)
+        public async Task<CardModel> Get(int id)
         {
             string query = @"SELECT c.CsId, c.Name, 0 as splitter, p.CsPrice, p.ScryfallPrice
                             FROM dbo.Card as c
@@ -68,7 +68,7 @@ namespace MVBToolsLibrary.Repository.Db
 
             using (IDbConnection connection = new SqlConnection(_connectionString))
             {                
-                 var rows = await connection.QueryFirstOrDefaultAsync<DbCardModel>(query, new { CsId = id });
+                 var rows = await connection.QueryFirstOrDefaultAsync<CardModel>(query, new { CsId = id });
                  return rows;
             }
         }

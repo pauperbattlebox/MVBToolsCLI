@@ -1,5 +1,5 @@
 ﻿using Bogus;
-using MVBToolsLibrary.Models;
+using MVBToolsLibrary.Models.ProviderModels;
 using MVBToolsTests.Integration_Tests.Mock_Api_Servers;
 using RestSharp;
 using System;
@@ -50,9 +50,9 @@ namespace MVBToolsTests.Integration_Tests
             return cardModel;
         }
 
-        private ScryfallPricesModel GenerateFakeScryfallPriceModel()
+        private ScryfallPriceModel GenerateFakeScryfallPriceModel()
         {
-            var fakePriceModel = new Faker<ScryfallPricesModel>()
+            var fakePriceModel = new Faker<ScryfallPriceModel>()
                 .RuleFor(x => x.Price, f => f.Random.Decimal().ToString());
 
             var priceModel = fakePriceModel.Generate();

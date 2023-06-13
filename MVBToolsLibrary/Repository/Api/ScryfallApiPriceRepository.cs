@@ -1,4 +1,4 @@
-﻿using MVBToolsLibrary.Models;
+﻿using MVBToolsLibrary.Models.ProviderModels;
 using System.Text.Json;
 
 namespace MVBToolsLibrary.Repository.Api

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using WireMock.Server;
 using WireMock.RequestBuilders;
 using WireMock.ResponseBuilders;
-using MVBToolsLibrary.Models;
+using MVBToolsLibrary.Models.ProviderModels;
 
 namespace MVBToolsTests.Integration_Tests.Mock_Api_Servers
 {

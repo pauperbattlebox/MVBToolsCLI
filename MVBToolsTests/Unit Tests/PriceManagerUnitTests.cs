@@ -1,7 +1,7 @@
 ﻿using Bogus;
 using Moq;
 using MVBToolsLibrary;
-using MVBToolsLibrary.Models;
+using MVBToolsLibrary.Models.ProviderModels;
 using MVBToolsLibrary.Repository.Api;
 using MVBToolsLibrary.Repository.Db;
 using System.Diagnostics;
@@ -17,7 +17,7 @@ namespace MVBToolsTests
             var fakerCard = new Faker<MVBCardModel>()
                 .RuleFor(x => x.CsId, f => f.Random.Int(5));
 
-            var fakerPrice = new Faker<MVBPricesModel>()
+            var fakerPrice = new Faker<MvbPriceModel>()
                 .RuleFor(x => x.Price, f => f.Random.Decimal());
 
             var card = fakerCard.Generate();

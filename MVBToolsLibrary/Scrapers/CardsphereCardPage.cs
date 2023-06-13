@@ -1,4 +1,4 @@
-﻿using MVBToolsLibrary.Models;
+﻿using MVBToolsLibrary.Models.ProviderModels;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 
@@ -48,7 +48,7 @@ namespace MVBToolsLibrary.Scrapers
 
                 cardModel.CsId = Int32.Parse(item.FindElement(By.ClassName("cardpeek")).GetAttribute("href").Split("/cards/")[1]);
 
-                MVBPricesModel pricesModel = new MVBPricesModel();
+                MvbPriceModel pricesModel = new MvbPriceModel();
 
                 var price = item.FindElement(By.CssSelector(".card-price")).Text.Replace("$", "");
 

@@ -19,7 +19,7 @@ namespace MVBToolsLibrary
             _scryfallApiPriceRepository = scryfallApiPriceRepository;
         }
 
-        public async Task<DbCardModel> GetPriceFromDb(int id)
+        public async Task<CardModel> GetPriceFromDb(int id)
         {
             return await _priceDbRepository.Get(id);
         }

@@ -8,7 +8,7 @@ namespace MVBToolsLibrary.Repository.Db
     {
         Task UpdateCardsphere(int id, decimal price);
         Task UpdateScryfall(string scryfallId, int csId, decimal price);
-        Task<DbCardModel> Get(int id);
+        Task<CardModel> Get(int id);
 
     }
 }

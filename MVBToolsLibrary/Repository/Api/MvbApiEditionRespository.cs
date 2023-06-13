@@ -1,4 +1,5 @@
 ﻿using MVBToolsLibrary.Models;
+using MVBToolsLibrary.Models.ProviderModels;
 using System.Text.Json;
 
 namespace MVBToolsLibrary.Repository.Api
@@ -25,7 +26,7 @@ namespace MVBToolsLibrary.Repository.Api
             return output;
         }
 
-        public async Task<IEnumerable<MVBCardModel>> GetCardsByEdition(int editionId)
+        public async Task<IEnumerable<MvbCardModel>> GetCardsByEdition(int editionId)
         {
             var url = $"{Routes.MvbEditions.GETBYCSID}/{editionId}";
 
@@ -33,7 +34,7 @@ namespace MVBToolsLibrary.Repository.Api
 
             var text = await response.Content.ReadAsStringAsync();
                         
-            var output = JsonSerializer.Deserialize<EditionCardsModel>(text);
+            var output = JsonSerializer.Deserialize<MvbCardModel>(text);
 
             return output.Cards;
         }

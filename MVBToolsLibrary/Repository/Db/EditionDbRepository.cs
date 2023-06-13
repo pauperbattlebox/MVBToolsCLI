@@ -48,7 +48,7 @@ namespace MVBToolsLibrary.Repository.Db
 
             using (IDbConnection connection = new SqlConnection(_connectionString))
             {
-                connection.Execute(query, new { edition.CsId, edition.CsName, edition.MtgJsonCode });
+                connection.Execute(query, new { edition.CardsphereId, edition.CardsphereName, edition.MtgJsonCode });
             }
         }
     }

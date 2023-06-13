@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace MVBToolsLibrary.Models
+namespace MVBToolsLibrary.Models.ProviderModels
 {
     public class ScryfallCardModel
     {
@@ -11,7 +11,7 @@ namespace MVBToolsLibrary.Models
         public string Name { get; set; }
 
         [JsonPropertyName("prices")]
-        public ScryfallPricesModel Prices { get; set; }
+        public ScryfallPriceModel Prices { get; set; }
 
         [JsonPropertyName("set")]
         public string ScryfallCode { get; set; }

@@ -1,5 +1,6 @@
 ﻿
 using MVBToolsLibrary.Models;
+using MVBToolsLibrary.Models.ProviderModels;
 using System.Text.Json;
 
 namespace MVBToolsLibrary.Repository.Api
@@ -13,7 +14,7 @@ namespace MVBToolsLibrary.Repository.Api
             _httpClient = httpClient;
         }
 
-        public async Task<MVBCardModel> GetCard(int id, Func<int, string, string> buildUrl)
+        public async Task<MvbCardModel> GetCard(int id, Func<int, string, string> buildUrl)
         {
             var uri = new Uri(buildUrl(id, "cardById"));
 
@@ -21,7 +22,7 @@ namespace MVBToolsLibrary.Repository.Api
 
             var text = await response.Content.ReadAsStringAsync();
 
-            var output = JsonSerializer.Deserialize<MVBCardModel>(text);
+            var output = JsonSerializer.Deserialize<MvbCardModel>(text);
 
             return output;
         }        
