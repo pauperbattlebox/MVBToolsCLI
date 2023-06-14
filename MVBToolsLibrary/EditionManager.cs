@@ -46,7 +46,7 @@ namespace MVBToolsLibrary
             return title;
         }
 
-        public List<MVBCardModel> ScrapeCardsAndPrices(int id)
+        public List<CardModel> ScrapeCardsAndPrices(int id)
         {
             CardsphereCardPage cardPage = new CardsphereCardPage(id, _chromeDriverSetup);
 

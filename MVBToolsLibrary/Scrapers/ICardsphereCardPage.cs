@@ -8,7 +8,7 @@ namespace MVBToolsLibrary.Scrapers
         string BaseUrl { get; }
         int Id { get; set; }
 
-        List<MVBCardModel> GetCardsAndPrices();
+        List<CardModel> GetCardsAndPrices();
         string GetEditionTitle();
         ChromeDriver ScrapePage();
     }

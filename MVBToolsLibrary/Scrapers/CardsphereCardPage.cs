@@ -1,4 +1,5 @@
-﻿using MVBToolsLibrary.Models.ProviderModels;
+﻿using MVBToolsLibrary.Models;
+using MVBToolsLibrary.Models.ProviderModels;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 
@@ -34,19 +35,19 @@ namespace MVBToolsLibrary.Scrapers
             return title;
         }
 
-        public List<MVBCardModel> GetCardsAndPrices()
+        public List<CardModel> GetCardsAndPrices()
         {
             var priceList = Driver.FindElements(By.CssSelector(".cards .cs-row"));
 
-            List<MVBCardModel> cardsList = new List<MVBCardModel>();
+            List<CardModel> cardsList = new List<CardModel>();
 
             foreach (var item in priceList)
             {
-                MVBCardModel cardModel = new MVBCardModel();
+                CardModel cardModel = new CardModel();
 
                 cardModel.Name = item.FindElement(By.ClassName("cardpeek")).Text;
 
-                cardModel.CsId = Int32.Parse(item.FindElement(By.ClassName("cardpeek")).GetAttribute("href").Split("/cards/")[1]);
+                cardModel.CardshereId = Int32.Parse(item.FindElement(By.ClassName("cardpeek")).GetAttribute("href").Split("/cards/")[1]);
 
                 MvbPriceModel pricesModel = new MvbPriceModel();
 
@@ -63,7 +64,7 @@ namespace MVBToolsLibrary.Scrapers
                     pricesModel.Price = output;
                 };
 
-                cardModel.Prices = pricesModel;
+                cardModel.CardspherePrice = pricesModel;
 
                 cardsList.Add(cardModel);
             }
