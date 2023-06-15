@@ -1,8 +1,8 @@
 ﻿CREATE TABLE [dbo].[Prices]
 (
 	[Id] INT NOT NULL PRIMARY KEY IDENTITY, 
-    [CsId] INT NOT NULL UNIQUE, 
-    [CsPrice] FLOAT NULL, 
+    [CardsphereId] INT NOT NULL UNIQUE, 
+    [CardspherePrice] FLOAT NULL, 
     [ScryfallPrice] FLOAT NULL, 
     [CardKingdomPrice] FLOAT NULL
 )

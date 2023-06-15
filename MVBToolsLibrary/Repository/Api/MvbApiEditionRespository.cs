@@ -13,30 +13,26 @@ namespace MVBToolsLibrary.Repository.Api
             _httpClient = httpClient;
         }
 
-        public async Task<EditionModel> Get(int id)
+        public async Task<Stream> Get(int id)
         {
             var url = $"{Routes.MvbEditions.GET}/{id}";
 
-            var response = await _httpClient.CreateClient().GetAsync(url);
+            var response = _httpClient.CreateClient().GetAsync(url).Result;
 
-            var text = await response.Content.ReadAsStringAsync();
-
-            var output = JsonSerializer.Deserialize<EditionModel>(text);
+            var output = await response.Content.ReadAsStreamAsync();
 
             return output;
         }
 
-        public async Task<IEnumerable<MvbCardModel>> GetCardsByEdition(int editionId)
+        public async Task<Stream> GetCardsByEdition(int editionId)
         {
             var url = $"{Routes.MvbEditions.GETBYCSID}/{editionId}";
 
-            var response = _httpClient.CreateClient().GetAsync(url).Result;
+            var response = await _httpClient.CreateClient().GetAsync(url);
 
-            var text = await response.Content.ReadAsStringAsync();
-                        
-            var output = JsonSerializer.Deserialize<MvbCardModel>(text);
+            var output = await response.Content.ReadAsStreamAsync();
 
-            return output.Cards;
+            return output;
         }
     }
 }

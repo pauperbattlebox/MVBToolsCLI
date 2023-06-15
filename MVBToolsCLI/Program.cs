@@ -34,7 +34,7 @@ namespace MVBToolsCLI
                         services.Configure<DbSettings>(configuration.GetSection("ConnectionStrings"));
                         services.AddScoped<IEditionDbRepository<EditionModel>, EditionDbRepository>();
                         services.AddScoped<IEditionManager, EditionManager>();
-                        services.AddScoped<ICardDbRepository<MVBCardModel>, CardDbRepository>();
+                        services.AddScoped<ICardDbRepository<CardModel>, CardDbRepository>();
                         services.AddScoped<ICardManager, CardManager>();
                         services.AddScoped<IPriceDbRepository, PriceDbRepository>();
                         services.AddScoped<IPriceManager, PriceManager>();

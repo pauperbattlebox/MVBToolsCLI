@@ -1,4 +1,5 @@
-﻿using MVBToolsLibrary.Models;
+﻿using MVBToolsLibrary.Mappers;
+using MVBToolsLibrary.Models;
 using MVBToolsLibrary.Models.ProviderModels;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
@@ -49,7 +50,7 @@ namespace MVBToolsLibrary.Scrapers
 
                 cardModel.CardshereId = Int32.Parse(item.FindElement(By.ClassName("cardpeek")).GetAttribute("href").Split("/cards/")[1]);
 
-                MvbPriceModel pricesModel = new MvbPriceModel();
+                MvbPriceModel priceModel = new MvbPriceModel();
 
                 var price = item.FindElement(By.CssSelector(".card-price")).Text.Replace("$", "");
 
@@ -57,14 +58,14 @@ namespace MVBToolsLibrary.Scrapers
 
                 if (Decimal.TryParse(price, out output))
                 {
-                    pricesModel.Price = output;
+                    priceModel.Price = output;
                 }
                 else
                 {
-                    pricesModel.Price = output;
+                    priceModel.Price = output;
                 };
 
-                cardModel.CardspherePrice = pricesModel;
+                cardModel.CardspherePrice = priceModel.Price;
 
                 cardsList.Add(cardModel);
             }

@@ -5,8 +5,8 @@ namespace MVBToolsLibrary
 {
     public interface ICardManager
     {
-        Task<MvbCardModel> GetCardFromDb(int id);
-        Task<IEnumerable<MvbCardModel>> GetCardsByEditionCode(string mtgJsonCode);
+        Task<CardModel> GetCardFromDb(int id);
+        Task<IEnumerable<CardModel>> GetCardsByEditionCode(string mtgJsonCode);
         Task AddCardsToDbByEditionCode(int editionId);
     }
 }

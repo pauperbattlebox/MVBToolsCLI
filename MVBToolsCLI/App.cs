@@ -52,7 +52,7 @@ namespace MVBToolsCLI
 
                 foreach(var row in rows)
                 {
-                    Console.WriteLine($"{row.CsName} - {row.MtgJsonCode} - {row.CsId}");
+                    Console.WriteLine($"{row.CardsphereName} - {row.MtgJsonCode} - {row.CardsphereId}");
                 }
             });
 
@@ -92,22 +92,22 @@ namespace MVBToolsCLI
 
 
             //Scrape webpage for cards list and prices.
-            var scrapePricesCommand = new Command("scrapePrices", "Scrape Cardsphere webapge by edition Id for cards and their prices.")
-            {
-                editionIdArgument
-            };
+            //var scrapePricesCommand = new Command("scrapePrices", "Scrape Cardsphere webapge by edition Id for cards and their prices.")
+            //{
+            //    editionIdArgument
+            //};
 
-            scrapePricesCommand.SetHandler((editionId) =>
-            {
-                var result = _editionManager.ScrapeCardsAndPrices(editionId);
+            //scrapePricesCommand.SetHandler((editionId) =>
+            //{
+            //    var result = _editionManager.ScrapeCardsAndPrices(editionId);
 
-                foreach (var card in result)
-                {
-                    Console.WriteLine($"{card.CsId} - {card.Name} - {card.Prices.Price}");
-                }
-            }, editionIdArgument);
+            //    foreach (var card in result)
+            //    {
+            //        Console.WriteLine($"{card.CardshereId} - {card.Name} - {card.Price}");
+            //    }
+            //}, editionIdArgument);
 
-            rootCommand.AddCommand(scrapePricesCommand);
+            //rootCommand.AddCommand(scrapePricesCommand);
 
 
             //Get card from db            
@@ -139,7 +139,7 @@ namespace MVBToolsCLI
 
                 foreach( var row in rows)
                 {
-                    Console.WriteLine($"{row.Name} - { row.MtgJsonCode} - {row.CsId}");
+                    Console.WriteLine($"{row.Name} - { row.MtgJsonCode} - {row.CardshereId}");
                 }
             }, editionMtgJsonCodeArgument);
 
@@ -172,7 +172,7 @@ namespace MVBToolsCLI
                 var dbPrices = _priceManager.GetPriceFromDb(csId).Result;
                 var currentCsPrice = _priceManager.GetPriceFromMvbApi(csId).Result;
 
-                Console.WriteLine($"DB prices: {dbPrices.Name} - Carsphere: {dbPrices.CsPrice} - Scryfall: {dbPrices.ScryfallPrice}");
+                Console.WriteLine($"DB prices: {dbPrices.Name} - Carsphere: {dbPrices.CardspherePrice} - Scryfall: {dbPrices.ScryfallPrice}");
                 Console.WriteLine($"Current API price: {currentCsPrice}");
                 
             }, csCardIdArgument);
@@ -209,7 +209,7 @@ namespace MVBToolsCLI
 
                 var card = _priceManager.GetPriceFromDb(csId).Result;
 
-                Console.WriteLine($"Cardsphere Price: {card.CsPrice} - Scryfall Price: {card.ScryfallPrice}");                
+                Console.WriteLine($"Cardsphere Price: {card.CardspherePrice} - Scryfall Price: {card.ScryfallPrice}");                
                 
             }, csCardIdArgument, scryfallCardIdArgument);
 

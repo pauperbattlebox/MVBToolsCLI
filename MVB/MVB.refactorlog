@@ -21,4 +21,39 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="MtgJsonCode" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="441f3011-ee57-40c3-9d5b-ff842cd8730f" ChangeDateTime="06/15/2023 01:04:44">
+    <Property Name="ElementName" Value="[dbo].[Edition].[CsId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Edition]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="CardsphereId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="a6f2f736-57fe-47f2-956e-d9b239729a59" ChangeDateTime="06/15/2023 01:04:50">
+    <Property Name="ElementName" Value="[dbo].[Edition].[CsName]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Edition]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="CardsphereName" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="8102deb5-0db0-4239-9fb7-54908e2ffdbf" ChangeDateTime="06/15/2023 01:05:07">
+    <Property Name="ElementName" Value="[dbo].[Prices].[CsId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Prices]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="CardsphereId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="11f7b84e-56fc-4fdd-8bc7-fc8d04a78bc4" ChangeDateTime="06/15/2023 01:05:13">
+    <Property Name="ElementName" Value="[dbo].[Prices].[CsPrice]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Prices]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="CardspherePrice" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="ebc28783-6f13-4ee2-bab8-8ebbde928577" ChangeDateTime="06/15/2023 01:05:23">
+    <Property Name="ElementName" Value="[dbo].[Card].[CsId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Card]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="CardsphereId" />
+  </Operation>
 </Operations>

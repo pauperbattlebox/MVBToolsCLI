@@ -1,7 +1,11 @@
-﻿using MVBToolsLibrary.Models;
+﻿using MVBToolsLibrary.Mappers;
+using MVBToolsLibrary.Models;
+using MVBToolsLibrary.Models.ProviderModels;
 using MVBToolsLibrary.Repository.Api;
 using MVBToolsLibrary.Repository.Db;
 using MVBToolsLibrary.Scrapers;
+using System.Text.Json;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace MVBToolsLibrary
 {
@@ -25,12 +29,16 @@ namespace MVBToolsLibrary
 
         public async Task AddEditionToDb(int editionId)
         {
-            var editionToAdd = GetEditionFromApi(editionId).Result;
+            var editionToAdd = await GetEditionFromApi(editionId);
 
-            await _dbRepository.Insert(editionToAdd);
+            var output = JsonSerializer.DeserializeAsync<MvbEditionModel>(editionToAdd).Result;
+
+            var convertedEditionModel = ToEditionModel.FromMvbEditionModel(output);
+
+            await _dbRepository.Insert(convertedEditionModel);
         }
 
-        public async Task<EditionModel> GetEditionFromApi(int editionId)
+        public async Task<Stream> GetEditionFromApi(int editionId)
         {
             return await _mvbApiRepository.Get(editionId);
         }
