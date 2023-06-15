@@ -30,21 +30,21 @@ namespace MVBToolsLibrary.Repository.Db
 
         public async Task<EditionModel> Get(int id)
         {
-            string query = @"SELECT CsId, Name
+            string query = @"SELECT CardsphereId, Name
                             FROM dbo.Edition
-                            WHERE CsId = @CsId;";
+                            WHERE CardsphereId = @CardsphereId;";
 
             using (IDbConnection connection = new SqlConnection(_connectionString))
             {
-                var rows = await connection.QueryFirstOrDefaultAsync<EditionModel>(query, new { CsId = id });
+                var rows = await connection.QueryFirstOrDefaultAsync<EditionModel>(query, new { CardsphereId = id });
                 return rows;
             }            
         }
 
         public async Task Insert(EditionModel edition)
         {
-            string query = @"INSERT dbo.Edition (CsId, CsName, MtgJsonCode)
-                            VALUES (@CsId, @CsName, @MtgJsonCode);";
+            string query = @"INSERT dbo.Edition (CardsphereId, CardsphereName, MtgJsonCode)
+                            VALUES (@CardsphereId, @CardsphereName, @MtgJsonCode);";
 
             using (IDbConnection connection = new SqlConnection(_connectionString))
             {
