@@ -7,8 +7,7 @@ using System.Threading.Tasks;
 namespace MVBToolsLibrary.Models
 {
     public class CardModel
-    {
-        public int Id { get; set; }
+    {        
         public string Name { get; set; }
         public int CardsphereId { get; set; }
         public string MtgJsonId { get; set; }
