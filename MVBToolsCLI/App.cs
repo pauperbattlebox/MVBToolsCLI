@@ -139,7 +139,7 @@ namespace MVBToolsCLI
 
                 foreach( var row in rows)
                 {
-                    Console.WriteLine($"{row.Name} - { row.MtgJsonCode} - {row.CardshereId}");
+                    Console.WriteLine($"{row.Name} - { row.MtgJsonCode} - {row.CardsphereId}");
                 }
             }, editionMtgJsonCodeArgument);
 

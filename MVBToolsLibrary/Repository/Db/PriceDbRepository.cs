@@ -61,14 +61,14 @@ namespace MVBToolsLibrary.Repository.Db
 
         public async Task<CardModel> Get(int id)
         {
-            string query = @"SELECT c.CsId, c.Name, 0 as splitter, p.CsPrice, p.ScryfallPrice
+            string query = @"SELECT c.CardsphereId, c.Name, 0 as splitter, p.CardspherePrice, p.ScryfallPrice
                             FROM dbo.Card as c
-                            LEFT JOIN dbo.Prices AS p ON c.CsId = p.CsId
-                            WHERE c.CsId = @CsId;";
+                            LEFT JOIN dbo.Prices AS p ON c.CardsphereId = p.CardsphereId
+                            WHERE c.CardsphereId = @CardsphereId;";
 
             using (IDbConnection connection = new SqlConnection(_connectionString))
             {                
-                 var rows = await connection.QueryFirstOrDefaultAsync<CardModel>(query, new { CsId = id });
+                 var rows = await connection.QueryFirstOrDefaultAsync<CardModel>(query, new { CardsphereId = id });
                  return rows;
             }
         }

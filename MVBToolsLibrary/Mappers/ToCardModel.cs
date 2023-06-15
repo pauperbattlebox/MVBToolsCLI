@@ -9,7 +9,7 @@ namespace MVBToolsLibrary.Mappers
         {
             CardModel cardModel = new CardModel();
 
-            cardModel.CardshereId = mvbCardModel.CsId;
+            cardModel.CardsphereId = mvbCardModel.CsId;
             cardModel.Name = mvbCardModel.Name;
             cardModel.MtgJsonId = mvbCardModel.MtgJsonId;
             cardModel.ScryfallId = mvbCardModel.ScryfallId;

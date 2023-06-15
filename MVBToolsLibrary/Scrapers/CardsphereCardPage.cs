@@ -48,7 +48,7 @@ namespace MVBToolsLibrary.Scrapers
 
                 cardModel.Name = item.FindElement(By.ClassName("cardpeek")).Text;
 
-                cardModel.CardshereId = Int32.Parse(item.FindElement(By.ClassName("cardpeek")).GetAttribute("href").Split("/cards/")[1]);
+                cardModel.CardsphereId = Int32.Parse(item.FindElement(By.ClassName("cardpeek")).GetAttribute("href").Split("/cards/")[1]);
 
                 MvbPriceModel priceModel = new MvbPriceModel();
 

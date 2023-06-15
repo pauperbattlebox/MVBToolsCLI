@@ -18,7 +18,7 @@ namespace MVBToolsLibrary.Repository.Db
         }
         public async Task<IEnumerable<CardModel>> GetAllById(string mtgJsonCode)
         {
-            string query = @"SELECT Name, CsId, MtgJsonCode
+            string query = @"SELECT Name, CardsphereId, MtgJsonCode
                             FROM dbo.Card
                             WHERE MtgJsonCode = @MtgJsonCode;";
 
@@ -31,13 +31,13 @@ namespace MVBToolsLibrary.Repository.Db
 
         public async Task<CardModel> Get(int id)
         {
-            string query = @"SELECT CsId, Name, MtgJsonCode
+            string query = @"SELECT CardsphereId, Name, MtgJsonCode
                             FROM dbo.Card
-                            WHERE CsId = @CsId;";
+                            WHERE CardsphereId = @CardsphereId;";
 
             using (IDbConnection connection = new SqlConnection(_connectionString))
             {
-                var row = await connection.QueryFirstOrDefaultAsync<CardModel>(query, new { CsId = id });
+                var row = await connection.QueryFirstOrDefaultAsync<CardModel>(query, new { CardsphereId = id });
                 return row;
             }            
         }
@@ -54,7 +54,7 @@ namespace MVBToolsLibrary.Repository.Db
 
             using (IDbConnection connection = new SqlConnection(_connectionString))
             {
-                connection.Execute(query, new { card.CardshereId, card.Name, card.MtgJsonId, card.ScryfallId, card.MtgJsonCode });
+                connection.Execute(query, new { card.CardsphereId, card.Name, card.MtgJsonId, card.ScryfallId, card.MtgJsonCode });
             }
         }
     }

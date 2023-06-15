@@ -10,7 +10,7 @@ namespace MVBToolsLibrary.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public int CardshereId { get; set; }
+        public int CardsphereId { get; set; }
         public string MtgJsonId { get; set; }
         public string ScryfallId { get; set; }
         public string MtgJsonCode { get; set; }
