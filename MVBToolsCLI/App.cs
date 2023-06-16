@@ -92,22 +92,22 @@ namespace MVBToolsCLI
 
 
             //Scrape webpage for cards list and prices.
-            //var scrapePricesCommand = new Command("scrapePrices", "Scrape Cardsphere webapge by edition Id for cards and their prices.")
-            //{
-            //    editionIdArgument
-            //};
+            var scrapePricesCommand = new Command("scrapePrices", "Scrape Cardsphere webapge by edition Id for cards and their prices.")
+            {
+                editionIdArgument
+            };
 
-            //scrapePricesCommand.SetHandler((editionId) =>
-            //{
-            //    var result = _editionManager.ScrapeCardsAndPrices(editionId);
+            scrapePricesCommand.SetHandler((editionId) =>
+            {
+                var result = _editionManager.ScrapeCardsAndPrices(editionId);
 
-            //    foreach (var card in result)
-            //    {
-            //        Console.WriteLine($"{card.CardshereId} - {card.Name} - {card.Price}");
-            //    }
-            //}, editionIdArgument);
+                foreach (var card in result)
+                {
+                    Console.WriteLine($"{card.CardsphereId} - {card.Name} - {card.CardspherePrice}");
+                }
+            }, editionIdArgument);
 
-            //rootCommand.AddCommand(scrapePricesCommand);
+            rootCommand.AddCommand(scrapePricesCommand);
 
 
             //Get card from db            

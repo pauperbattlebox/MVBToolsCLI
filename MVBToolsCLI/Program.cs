@@ -6,6 +6,8 @@ using MVBToolsLibrary.Repository.Api;
 using MVBToolsLibrary.Repository.Db;
 using MVBToolsLibrary;
 using MVBToolsLibrary.Scrapers;
+using MVBToolsLibrary.Repository;
+using MVBToolsLibrary.Factories;
 
 namespace MVBToolsCLI
 {
@@ -42,6 +44,7 @@ namespace MVBToolsCLI
                         services.AddScoped<IMvbApiEditionRepository, MvbApiEditionRespository>();
                         services.AddScoped<IMvbApiPriceRepository, MvbApiPriceRepository>();
                         services.AddScoped<IScryfallApiPriceRepository, ScryfallApiPriceRepository>();
+                        services.AddScoped<IDatabaseRepository, DatabaseRepository>();
                         services.AddSingleton<IChromeDriverSetup, ChromeDriverSetup>();
                         services.AddSingleton<App>();
                         services.AddOptions();
